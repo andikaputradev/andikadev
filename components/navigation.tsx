@@ -18,20 +18,8 @@ const navigationItems: NavigationItem[] = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/projects', label: 'Projects' },
-  { 
-    href: '/services', 
-    label: 'Services',
-    children: [
-      { href: '/services/nextjs-development', label: 'Next.js Development' },
-      { href: '/services/ai-development', label: 'AI Development' },
-      { href: '/services/wordpress', label: 'WordPress Development' },
-      { href: '/services/vibe-code-friend', label: 'Cursor / AI Workflows' },
-      { href: '/services/php-development', label: 'PHP Development' },
-    ]
-  },
   { href: '/blog', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
-  { href: 'https://www.upwork.com/freelancers/~0117c4a4c888d9e9fe', label: 'Hire Me' },
 ]
 
 export function Navigation() {

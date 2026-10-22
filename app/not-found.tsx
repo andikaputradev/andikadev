@@ -153,9 +153,6 @@ export default function NotFound() {
         <div className="mt-16 text-center">
           <h3 className="text-lg font-semibold mb-4 text-wp-navy dark:text-foreground">Popular Pages</h3>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/services" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
-              Services
-            </Link>
             <Link href="/projects" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
               Projects
             </Link>
@@ -164,6 +161,9 @@ export default function NotFound() {
             </Link>
             <Link href="/blog" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
               Blog
+            </Link>
+            <Link href="/contact" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
+              Contact
             </Link>
           </div>
         </div>

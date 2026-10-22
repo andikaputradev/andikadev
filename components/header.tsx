@@ -20,20 +20,6 @@ interface NavigationItem {
 const navigationItems: NavigationItem[] = [
   { href: '/about', label: 'About' },
   { href: '/projects', label: 'Projects' },
-  { 
-    href: '/services', 
-    label: 'Services',
-    children: [
-      { href: '/services/nextjs-development', label: 'Next.js Development' },
-      { href: '/services/ai-development', label: 'AI Development' },
-      { href: '/services/saas-development', label: 'SaaS Development' },
-      { href: '/services/seo', label: 'Technical SEO' },
-      { href: '/services/wordpress', label: 'WordPress Development' },
-      { href: '/services/vibe-code-friend', label: 'Cursor / AI Workflows' },
-      { href: '/services/php-development', label: 'PHP Development' },
-    ]
-  },
-  { href: '/guides/cursor', label: 'Guides' },
   { href: '/blog', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
 ]

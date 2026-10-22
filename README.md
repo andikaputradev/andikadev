@@ -1,223 +1,106 @@
-# 🚀 Made by Aris - Professional Portfolio & Services
+# andikadev.com
 
-A modern, high-performance portfolio and services website built with Next.js 15 and the App Router. This website showcases professional skills, services, and projects with a focus on web development expertise in Next.js, PHP, and WordPress.
+Repositori resmi untuk situs web personal dan portofolio https://andikadev.com bagi **Wahyu Andika Putra** (merek: **Andika Putra Dev**).
 
-![Made by Aris](https://madebyaris.com/og-image.png)
-
-## ✨ Key Features
-
-### 🎨 Modern Design & User Experience
-- Responsive design optimized for all devices
-- Dark/Light mode with system preference detection
-- Smooth page transitions and animations
-- Accessible UI components with keyboard navigation
-
-### 🌐 Service Pages
-- **Next.js Development Services**
-  - Next.js SEO Optimization
-  - Vercel Deployment
-  - Agency Services (Indonesia)
-  - Next.js Indonesia Localization
-- **PHP Development Services**
-  - Custom Applications
-  - API Development
-  - Database Solutions
-  - Modernization
-- **WordPress Services**
-  - Theme Development
-  - Plugin Development
-  - Headless Development
-  - Optimization
-
-### ⚡ Performance Optimizations
-- Next.js 15 with App Router and Turbopack
-- Static Site Generation with revalidation
-- Image optimization with next/image
-- Bundle size optimization
-- CSS optimization with Tailwind
-
-### 🔍 SEO Features
-- Structured data for rich search results
-- Optimized metadata for each page
-- OpenGraph images for social sharing
-- Sitemap generation
-- Robots.txt configuration
-
-### 🌍 Internationalization
-- Multi-language support (English and Indonesian)
-- Localized content for Indonesian market
-- SEO optimization for local search
-
-## 🛠️ Tech Stack
-
-- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [Tailwind Animate](https://github.com/jamiebuilds/tailwindcss-animate)
-- **UI Components**: [Radix UI](https://www.radix-ui.com/) + [Shadcn UI](https://ui.shadcn.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Form Handling**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
-- **Email**: [Resend](https://resend.com/)
-- **Analytics**: [Vercel Analytics](https://vercel.com/analytics) + [Speed Insights](https://vercel.com/docs/speed-insights)
-- **Deployment**: [Vercel](https://vercel.com/)
-
-## 📋 Getting Started
-
-### Prerequisites
-- [Node.js](https://nodejs.org/) v20+
-- [pnpm](https://pnpm.io/) v9.15.3+
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/madebyaris/madebyaris.com.git
-   cd madebyaris.com
-   ```
-
-2. Install dependencies:
-   ```bash
-   pnpm install
-   ```
-
-3. Set up environment variables:
-   Create a `.env.local` file based on `.env.example`:
-   ```
-   # WordPress API
-   NEXT_PUBLIC_WP_API_URL="your-wordpress-api-url"
-   
-   # Email (Resend)
-   RESEND_API_KEY="your-resend-api-key"
-   
-   # Revalidation
-   REVALIDATION_SECRET="your-secret-token"
-   ```
-
-4. Start the development server:
-   ```bash
-   pnpm dev
-   ```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 📦 Available Scripts
-
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server with Turbopack |
-| `pnpm build` | Create production build |
-| `pnpm start` | Start production server |
-| `pnpm start:standalone` | Start standalone server (for production with `output: standalone`) |
-| `pnpm lint` | Run ESLint |
-| `pnpm analyze` | Analyze bundle size |
-
-## 🏗️ Project Structure
-
-```
-madebyaris.com/
-├── app/                  # App Router pages and layouts
-│   ├── about/            # About page
-│   ├── api/              # API routes
-│   ├── blog/             # Blog section
-│   ├── contact/          # Contact page
-│   ├── privacy-policy/   # Privacy policy page
-│   ├── projects/         # Projects showcase
-│   ├── services/         # Service pages
-│   │   ├── nextjs-development/  # Next.js services
-│   │   ├── php-development/     # PHP services
-│   │   └── wordpress/           # WordPress services
-│   ├── terms-of-service/ # Terms of service page
-│   ├── globals.css       # Global styles
-│   ├── layout.tsx        # Root layout
-│   └── page.tsx          # Home page
-├── components/           # Reusable components
-├── lib/                  # Utilities and API clients
-├── public/               # Static assets
-└── types/                # TypeScript type definitions
-```
-
-## 🔄 Content Revalidation
-
-This project uses Next.js 15's revalidation features to keep content fresh while maintaining high performance:
-
-### Static Generation with Revalidation
-
-Pages are statically generated at build time and automatically revalidated after a specified time period. This approach provides:
-
-- Fast initial page loads
-- SEO benefits of static content
-- Automatic content updates without full rebuilds
-
-### On-Demand Revalidation
-
-The `/api/revalidate` endpoint allows for on-demand revalidation of specific content when triggered by webhooks or other events.
-
-Example usage:
-```bash
-curl -X POST "https://madebyaris.com/api/revalidate?secret=your-secret-token&tag=blog-posts"
-```
-
-## 🚀 Deployment
-
-### Vercel Deployment (Recommended)
-
-The easiest way to deploy this website is using [Vercel](https://vercel.com):
-
-1. Push your code to a GitHub repository
-2. Import the project in Vercel
-3. Set the required environment variables
-4. Deploy
-
-### Standalone Deployment
-
-This project uses Next.js's `output: standalone` configuration for optimized production deployments:
-
-1. Build the application:
-   ```bash
-   pnpm build
-   ```
-
-2. Run the standalone server:
-   ```bash
-   pnpm start:standalone
-   ```
-
-### Docker Deployment
-
-```dockerfile
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY . .
-RUN npm install -g pnpm && pnpm install && pnpm build
-
-FROM node:20-alpine
-WORKDIR /app
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
-EXPOSE 3000
-CMD ["node", "server.js"]
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📬 Contact
-
-Aris Setiawan - [arissetia.m@gmail.com](mailto:arissetia.m@gmail.com)
-
-Project Link: [https://github.com/madebyaris/madebyaris.com](https://github.com/madebyaris/madebyaris.com)
+Situs ini dibangun menggunakan Next.js 16 (App Router), React 19, Tailwind CSS v4, dan TypeScript.
 
 ---
 
-Built with ❤️ by [Aris Setiawan](https://madebyaris.com)
+## Deskripsi Proyek
+
+Situs andikadev.com berfungsi sebagai platform representasi profil profesional, portofolio hasil karya, publikasi artikel teknis, serta sarana kontak langsung untuk layanan:
+- Pembuatan website modern
+- Pembuatan aplikasi mobile
+- Jasa upload aplikasi ke Google Play Store
+- Pengujian keamanan siber defensif (berizin tertulis)
+- Pengembangan Web3 dan blockchain
+
+---
+
+## Struktur Direktori
+
+```text
+.
+├── .cursor/               # Aturan Cursor IDE dan panduan rekayasa
+├── app/                   # Rute halaman Next.js App Router
+│   ├── about/             # Halaman profil dan tentang pengembang
+│   ├── blog/              # Indeks artikel blog dan halaman detail
+│   ├── contact/           # Formulir kontak dan informasi komunikasi
+│   ├── projects/          # Halaman portofolio dan proyek
+│   ├── layout.tsx         # Root layout aplikasi
+│   ├── page.tsx           # Halaman utama (beranda)
+│   └── sitemap.ts         # Pembangkit sitemap dinamis
+├── components/            # Komponen antarmuka pengguna (UI)
+│   ├── seo/               # Komponen metadata dan JSON-LD structured data
+│   └── ui/                # Komponen dasar (tombol, kartu, animasi)
+├── docs/                  # Dokumentasi proyek dan kebenaran data resmi
+│   ├── data-gap.md        # Catatan kesenjangan data yang perlu konfirmasi
+│   ├── design-system.md   # Panduan token desain
+│   └── fakta-resmi.md     # Sumber tunggal fakta profil dan kontak
+├── lib/                   # Fungsi utilitas, SEO, konfigurasi, dan API
+│   ├── seo/               # Helper metadata, Open Graph, dan schema graph
+│   └── wordpress.ts       # Integrasi pemanggilan data artikel blog
+├── public/                # Aset statis publik
+│   ├── brand/             # Berkas aset sumber logo dan foto profil
+│   └── foto-profil.webp   # Aset gambar profil hasil optimasi
+└── scripts/               # Skrip pengecekan dan utilitas build
+```
+
+---
+
+## Variabel Lingkungan (Environment Variables)
+
+Salin berkas `.env.example` menjadi `.env.local`:
+
+```bash
+cp .env.example .env.local
+```
+
+Isi variabel lingkungan berikut di dalam `.env.local`:
+
+| Variabel | Keterangan | Wajib / Opsional |
+|---|---|---|
+| `NEXT_PUBLIC_WP_API_URL` | Endpoint REST API WordPress untuk artikel blog | Wajib saat build |
+| `NEXT_PUBLIC_SITE_URL` | URL domain produksi (default: https://andikadev.com) | Opsional |
+| `RESEND_API_KEY` | Kunci API Resend untuk pengiriman email formulir kontak | Opsional di lokal |
+| `GITHUB_TOKEN` | Token akses GitHub untuk batasan rate limit lebih tinggi | Opsional |
+
+---
+
+## Skrip yang Tersedia
+
+Proyek ini menggunakan **pnpm 9.15.3** sebagai manajer paket.
+
+| Perintah | Deskripsi |
+|---|---|
+| `pnpm dev` | Menjalankan server pengembangan lokal (port 3000 dengan Turbopack) |
+| `pnpm build` | Membangun aplikasi untuk produksi (Next.js build dan inline critical CSS) |
+| `pnpm start` | Menjalankan server produksi hasil kompilasi |
+| `pnpm lint` | Menjalankan pemeriksaan kode menggunakan ESLint |
+| `pnpm copy:check` | Memeriksa kepatuhan salinan teks terhadap aturan anti-slop bahasa Indonesia |
+| `pnpm seo:check` | Memvalidasi konfigurasi SEO dan metadata |
+
+---
+
+## Panduan Deploy ke Vercel
+
+1. Hubungkan repositori GitHub `andikaputradev/andikadev` ke dashboard Vercel.
+2. Pada konfigurasi proyek Vercel:
+   - Framework Preset: **Next.js**
+   - Root Directory: `./`
+   - Node.js Version: **20.x** atau **22.x**
+   - Package Manager: **pnpm** (Vercel otomatis mendeteksi dari `packageManager` di `package.json`)
+3. Masukkan Environment Variables di Vercel:
+   - `NEXT_PUBLIC_WP_API_URL`: URL REST API WordPress aktif
+   - `NEXT_PUBLIC_SITE_URL`: `https://andikadev.com`
+   - `RESEND_API_KEY`: Kunci API pengiriman email (jika formulir kontak diaktifkan)
+4. Jalankan deployment. Vercel akan mengeksekusi `pnpm build` dan mempublikasikan situs ke Edge Network.
+
+---
+
+## Aturan Pengembangan
+
+Setiap pengembang maupun agen kecerdasan buatan wajib mematuhi aturan pada berkas:
+- `.cursor/rules/andikadev-project.mdc` (aturan utama proyek, selalu aktif)
+- `.cursor/rules/engineering.mdc` (standar penulisan TypeScript dan Next.js)
+- `docs/fakta-resmi.md` (sumber tunggal fakta profil dan layanan)

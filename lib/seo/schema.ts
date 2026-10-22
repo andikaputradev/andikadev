@@ -34,7 +34,7 @@ export function buildSiteGraph() {
       caption: authorProfile.name,
     },
     jobTitle: authorProfile.jobTitle,
-    description: `${authorProfile.yearsExperience}+ years building web products. ${authorProfile.roles.join('. ')}. Based in ${authorProfile.city}, ${authorProfile.country}, working with teams worldwide.`,
+    description: `${authorProfile.jobTitle}. Berbasis di ${authorProfile.city}, ${authorProfile.country}.`,
     email: `mailto:${siteConfig.email}`,
     worksFor: ref(schemaIds.organization),
     address: {

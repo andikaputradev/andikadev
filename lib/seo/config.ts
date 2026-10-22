@@ -1,71 +1,48 @@
-export const productionUrl = 'https://madebyaris.com' as const
+export const productionUrl = 'https://andikadev.com' as const
 
 export const siteConfig = {
-  name: 'Made by Aris',
-  shortName: 'MadeByAris',
+  name: 'Andika Putra Dev',
+  shortName: 'AndikaDev',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? productionUrl,
   description:
-    'Aris Setiawan builds Next.js, WordPress, and AI products for teams worldwide and mentors developers on Cursor workflows. 13+ years. First Cursor Ambassador in Indonesia.',
-  author: 'Aris Setiawan',
-  titleSuffix: ' | Aris Setiawan',
-  locale: 'en_US',
+    'Wahyu Andika Putra menyediakan layanan pembuatan website, pembuatan aplikasi, jasa upload aplikasi ke Play Store, keamanan siber defensif, dan Web3.',
+  author: 'Wahyu Andika Putra',
+  titleSuffix: ' | Wahyu Andika Putra',
+  locale: 'id_ID',
   logo: '/logo.png',
   ogImage: '/og.png',
-  authorImage: '/aris.png',
-  email: 'arissetia.m@gmail.com',
+  authorImage: '/foto-profil.webp',
+  email: 'wahyuandikaputra.co.id@gmail.com',
   sameAs: [
-    'https://github.com/madebyaris',
-    'https://www.linkedin.com/in/arissetia',
-    'https://www.upwork.com/freelancers/~0117c4a4c888d9e9fe',
-    'https://x.com/arisberikut',
+    'https://github.com/andikaputradev',
+    'https://linkedin.com/in/wahyu-andika-putra',
+    'https://x.com/andikaputradev',
   ],
-  twitterHandle: '@arisberikut',
+  twitterHandle: '@andikaputradev',
 } as const
 
-// Facts about the author that appear in schema, llms.txt, and copy. Keep them
-// in one place so every surface AI engines read tells the same story.
+// Fakta resmi tentang profil yang tampil pada schema dan metadata.
 export const authorProfile = {
-  name: 'Aris Setiawan',
-  jobTitle: 'Full-Stack Developer (Next.js, WordPress, AI)',
-  yearsExperience: 13,
-  city: 'Sidoarjo',
-  region: 'East Java',
+  name: 'Wahyu Andika Putra',
+  jobTitle: 'Pengembang Web, Aplikasi, dan Praktisi Keamanan Siber Defensif',
+  city: 'Wonosobo / Semarang',
+  region: 'Jawa Tengah',
   country: 'Indonesia',
   countryCode: 'ID',
-  languages: ['English', 'Indonesian'],
-  roles: [
-    'First Cursor Ambassador in Indonesia',
-    'SpaceXAI Ambassador (Indonesia)',
-    'MiniMax Dev Community Expert',
-  ],
-  programs: [
-    { name: 'Cursor Ambassador Program', host: 'Cursor', hostUrl: 'https://cursor.com', page: '/cursor-ambassador' },
-    { name: 'SpaceXAI Ambassador Program', host: 'SpaceXAI', page: '/spacexai-ambassador' },
-    { name: 'MiniMax Dev Community Expert', host: 'MiniMax', hostUrl: 'https://www.minimax.io', page: '/minimax-ambassador' },
-  ],
-  // Past employers and companies from the /about timeline.
-  pastOrganizations: [
-    { name: 'SAB Digital Marketing Agency' },
-    { name: 'Raja Kreatif Asia' },
-    { name: 'Hongkiat.com', url: 'https://www.hongkiat.com' },
-    { name: 'PT. DheZign Online Solution' },
-    { name: 'SEREWare' },
-    { name: 'PT. Elkabumi Caraka Daya' },
-  ],
+  languages: ['Indonesian', 'English'],
+  roles: [] as string[],
+  programs: [] as Array<{ name: string; host?: string; hostUrl?: string; page: string }>,
+  pastOrganizations: [] as Array<{ name: string; url?: string }>,
   knowsAbout: [
+    'Pembuatan Website',
+    'Pembuatan Aplikasi',
+    'Jasa Upload Play Store',
+    'Keamanan Siber Defensif',
+    'Web3',
+    'Blockchain',
     'Next.js',
     'React',
     'TypeScript',
-    'Headless WordPress',
-    'WordPress plugin and theme development',
-    'PHP',
-    'AI integration',
-    'AI agents',
-    'Cursor',
-    'AI-assisted software development',
-    'Technical SEO',
-    'Vercel',
-    'Web performance',
   ],
 } as const
 
@@ -75,8 +52,6 @@ export function absoluteUrl(path: string): string {
   return `${base}${path.startsWith('/') ? path : `/${path}`}`
 }
 
-// Schema @ids always use the production host so every page, preview, and
-// crawler resolves the same entities.
 export function productionAbsoluteUrl(path: string): string {
   if (!path || path === '/') return productionUrl
   return `${productionUrl}${path.startsWith('/') ? path : `/${path}`}`

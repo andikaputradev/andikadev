@@ -11,9 +11,12 @@ import { AuthorImage } from '@/components/author-image'
 import { RelatedPostCard } from '@/components/related-post-card'
 import { getPost, getPosts, type ProcessedPost } from '@/lib/wordpress'
 import { authorProfile, buildBlogPostGraph, buildBlogPostMetadata, isIndonesianSlug, siteConfig } from '@/lib/seo'
-import { blogCategoryCopy, blogCategoryPath, hubForCategory, primaryCategory, topicHubs } from '@/lib/topics'
 import { JsonLd } from '@/components/seo/json-ld'
 import { contactHref } from '@/lib/contact-services'
+
+function primaryCategory(categories?: ProcessedPost['categories']) {
+  return categories && categories.length > 0 ? categories[0] : undefined
+}
 
 export const revalidate = 604800 // 7 days; webhook refreshes a post on publish
 
@@ -189,8 +192,6 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
   }
 
   const category = primaryCategory(post.categories)
-  const categoryCopy = category ? blogCategoryCopy(category.slug) : undefined
-  const hub = hubForCategory(category?.slug)
   const relatedPosts = await getRelatedPosts(post, category?.id)
 
   const content = renderContent(post)
@@ -200,9 +201,7 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
   const plainTitle = post.title.rendered.replace(/<[^>]*>/g, '')
   const isIndonesian = isIndonesianSlug(post.slug)
   const wasUpdated = post.modified.slice(0, 10) > post.date.slice(0, 10)
-  const archivedCategories = post.categories.filter((c) => blogCategoryCopy(c.slug))
   const plainContent = content.replace(/<[^>]*>/g, ' ')
-  const mentionedHubs = topicHubs.filter((h) => h !== hub && new RegExp(`\\b${h.name}\\b`).test(plainContent))
 
   const articleStructuredData = buildBlogPostGraph({
     slug: post.slug,
@@ -216,9 +215,7 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
     keywords: post.tags.map((tag) => tag.name),
     wordCount: plainContent.split(/\s+/).filter(Boolean).length,
     readingMinutes: readingTime,
-    category: categoryCopy && category ? { name: category.name, path: blogCategoryPath(category.slug) } : undefined,
-    about: hub ? [hub.entity] : undefined,
-    mentions: mentionedHubs.map((h) => h.entity),
+    category: category ? { name: category.name, path: '/blog' } : undefined,
   })
 
   return (
@@ -236,11 +233,11 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
             <li>
               <Link href="/blog" className="hover:text-orange-500 transition-colors">Blog</Link>
             </li>
-            {categoryCopy && category && (
+            {category && (
               <>
                 <li aria-hidden="true" className="px-2">/</li>
                 <li>
-                  <Link href={blogCategoryPath(category.slug)} className="hover:text-orange-500 transition-colors">
+                  <Link href="/blog" className="hover:text-orange-500 transition-colors">
                     {category.name}
                   </Link>
                 </li>
@@ -280,22 +277,6 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
                 {readingTime} min read
               </span>
             </div>
-
-            {hub && (
-              <Link
-                href={hub.path}
-                lang="en"
-                className="mt-6 flex items-center gap-3 rounded-2xl bg-white/80 p-4 shadow-sm hover:shadow-md transition-all group"
-              >
-                <span className="p-2 bg-orange-50 rounded-xl">
-                  <Compass className="h-4 w-4 text-orange-500" />
-                </span>
-                <span className="text-sm text-zinc-600">
-                  Part of the <span className="font-medium text-zinc-900">{hub.name} guide</span>: a reading order, rules you can copy, and a cost estimate.
-                </span>
-                <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-zinc-400 group-hover:text-orange-500 group-hover:translate-x-0.5 transition-all" />
-              </Link>
-            )}
           </header>
 
           {featuredImageUrl && (
@@ -306,35 +287,16 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
 
           <WordPressContent content={content} estimatedReadTime={readingTime} />
 
-          {archivedCategories.length > 0 && (
-            <div className="mt-12 pt-8 border-t border-zinc-200 flex flex-wrap items-center gap-2" lang="en">
-              <span className="text-sm text-zinc-500 mr-1">More on</span>
-              {archivedCategories.map((c) => (
-                <Link
-                  key={c.id}
-                  href={blogCategoryPath(c.slug)}
-                  className="px-3 py-1.5 bg-zinc-100 rounded-full text-xs font-medium text-zinc-600 hover:bg-orange-50 hover:text-orange-600 transition-colors"
-                >
-                  {c.name}
-                </Link>
-              ))}
-            </div>
-          )}
-
           <aside className="mt-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 md:p-8 bg-white/80 rounded-2xl shadow-sm" lang="en">
             <AuthorImage src={siteConfig.authorImage} alt={authorProfile.name} width={80} height={80} />
             <div className="flex-1 text-center sm:text-left">
               <p className="font-semibold text-lg text-zinc-900 mb-1">{authorProfile.name}</p>
               <p className="text-sm text-zinc-600 leading-relaxed mb-4">
-                {authorProfile.jobTitle} with {authorProfile.yearsExperience}+ years of client work, based in{' '}
-                {authorProfile.city}, {authorProfile.country}. {authorProfile.roles.join('. ')}.
+                {authorProfile.jobTitle}, berbasis di {authorProfile.city}, {authorProfile.country}.
               </p>
               <div className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-2 text-sm">
                 <Link href="/about" className="font-medium text-zinc-900 hover:text-orange-500 transition-colors">
-                  About me
-                </Link>
-                <Link href="/cursor-ambassador" className="font-medium text-zinc-900 hover:text-orange-500 transition-colors">
-                  Cursor Ambassador
+                  Tentang saya
                 </Link>
                 {authorLinks.map((link) => (
                   <a
@@ -352,49 +314,29 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
           </aside>
 
           <div className="mt-8 rounded-2xl bg-zinc-900 p-6 md:p-8 text-white" lang="en">
-            {hub ? (
-              <>
-                <h2 className="text-xl md:text-2xl font-medium tracking-tight mb-2">
-                  Want your team shipping with Cursor like this?
-                </h2>
-                <p className="text-sm text-zinc-400 mb-5 max-w-xl">
-                  I set up project rules and a review habit on one of your real repos, then help the rest of the team adopt it. English or Indonesian.
-                </p>
-                <Link
-                  href={contactHref('cursor-mentoring')}
-                  className="inline-flex items-center rounded-full bg-white px-5 py-2.5 text-sm font-medium text-zinc-900 hover:bg-zinc-100 transition-colors"
-                >
-                  Get Cursor mentoring for your team
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </>
-            ) : (
-              <>
-                <h2 className="text-xl md:text-2xl font-medium tracking-tight mb-2">
-                  Need this built instead of read about?
-                </h2>
-                <p className="text-sm text-zinc-400 mb-5 max-w-xl">
-                  Send me your project. I reply within 24 hours and tell you plainly whether I’m the right fit.
-                </p>
-                <Link
-                  href={contactHref('nextjs')}
-                  className="inline-flex items-center rounded-full bg-white px-5 py-2.5 text-sm font-medium text-zinc-900 hover:bg-zinc-100 transition-colors"
-                >
-                  Send me your project
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </>
-            )}
+            <h2 className="text-xl md:text-2xl font-medium tracking-tight mb-2">
+              Ingin mendiskusikan implementasi untuk proyek Anda?
+            </h2>
+            <p className="text-sm text-zinc-400 mb-5 max-w-xl">
+              Sampaikan kebutuhan sistem Anda. Saya membaca dan merespons setiap permintaan dalam waktu 24 jam.
+            </p>
+            <Link
+              href={contactHref('other')}
+              className="inline-flex items-center rounded-full bg-white px-5 py-2.5 text-sm font-medium text-zinc-900 hover:bg-zinc-100 transition-colors"
+            >
+              Hubungi saya untuk diskusi proyek
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </div>
 
           <div className="mt-8">
             <Link
-              href={categoryCopy && category ? blogCategoryPath(category.slug) : '/blog'}
+              href="/blog"
               className="inline-flex items-center text-sm font-medium text-zinc-500 hover:text-orange-500 transition-colors"
               lang="en"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
-              {categoryCopy && category ? `All ${category.name} posts` : 'Back to the blog'}
+              Kembali ke blog
             </Link>
           </div>
         </article>

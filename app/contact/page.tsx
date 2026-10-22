@@ -1,33 +1,28 @@
 import type { Metadata } from 'next'
-import { Mail, MapPin, Clock, ArrowRight, Send, MessageSquare, ArrowUpRight } from 'lucide-react'
+import { Mail, MapPin, Clock, Send, MessageSquare, ArrowUpRight, Phone } from 'lucide-react'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { ContactForm } from '@/components/contact-form'
 import { GithubIcon } from '@/components/icons/github'
 import { LinkedinIcon } from '@/components/icons/linkedin'
-import { UpworkIcon } from '@/components/icons/upwork'
 import { JsonLd } from '@/components/seo/json-ld'
 import { buildPageGraph, buildPageMetadata } from '@/lib/seo'
 
-const pageTitle = 'Start a Next.js, AI or WordPress Project'
+const pageTitle = 'Hubungi Wahyu Andika Putra'
 const pageDescription =
-  'Send your project to Aris Setiawan: Next.js, headless WordPress, AI features, or Cursor mentoring. Reply within 24 hours. English or Indonesian, remote worldwide.'
+  'Kirimkan kebutuhan proyek Anda: pembuatan website, aplikasi mobile, upload Play Store, keamanan siber defensif, atau Web3.'
 
 export const metadata: Metadata = buildPageMetadata({
   title: pageTitle,
   description: pageDescription,
   path: '/contact',
   keywords: [
-    'Contact Developer',
-    'Hire Next.js Developer',
-    'Hire WordPress Developer',
-    'Hire AI Developer',
-    'Cursor Mentoring',
-    'Remote Developer',
-    'Full Stack Developer',
-    'Next.js Development',
-    'WordPress Development',
-    'AI Product Development',
+    'Kontak Pengembang',
+    'Jasa Pembuatan Website',
+    'Jasa Pembuatan Aplikasi',
+    'Jasa Upload Play Store',
+    'Keamanan Siber Defensif',
+    'Web3 Developer',
   ],
 })
 
@@ -57,19 +52,19 @@ export default function ContactPage() {
           }}
         >
           <MessageSquare className="w-4 h-4 text-orange-500" />
-          <span className="text-xs font-semibold tracking-wider uppercase text-zinc-600">Start a project</span>
+          <span className="text-xs font-semibold tracking-wider uppercase text-zinc-600">Konsultasi proyek</span>
         </div>
 
         {/* Title */}
         <h1 className="leading-[0.95] lg:text-[4rem] text-4xl font-medium text-zinc-900 tracking-tighter mb-6">
-          Tell me what
-          {' '}<span className="block gradient-text font-light">you&apos;re building</span>
+          Sampaikan rencana
+          {' '}<span className="block gradient-text font-light">proyek yang ingin Anda bangun</span>
         </h1>
 
         {/* Description */}
         <p className="text-base md:text-lg text-zinc-500 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
-          Send a few lines about what you need. I read every request myself and reply within 24 hours
-          with questions or a plain answer on whether I&apos;m the right fit. English or Indonesian.
+          Tuliskan gambaran ringkas mengenai kebutuhan Anda. Saya membaca setiap pesan secara langsung
+          dan memberikan tanggapan lugas mengenai solusi teknis terbaik.
         </p>
 
         {/* CTA */}
@@ -77,7 +72,7 @@ export default function ContactPage() {
           href="#contact-form"
           className="btn-primary hover:scale-[1.02] transition-all inline-flex group shadow-zinc-900/10 hover:shadow-2xl hover:shadow-zinc-900/20 hover:-translate-y-0.5 text-sm font-medium text-zinc-900 rounded-full py-3 px-6 gap-3 items-center"
         >
-          <span className="text-sm font-medium tracking-tight">Start my project request</span>
+          <span className="text-sm font-medium tracking-tight">Mulai formulir konsultasi</span>
           <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
         </Link>
       </section>
@@ -95,8 +90,8 @@ export default function ContactPage() {
                 <Send className="w-5 h-5 text-zinc-600" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-zinc-900">Tell me about your project</h2>
-                <p className="text-sm text-zinc-500">Takes about two minutes. I reply within 24 hours.</p>
+                <h2 className="text-xl font-semibold text-zinc-900">Formulir kebutuhan proyek</h2>
+                <p className="text-sm text-zinc-500">Isi pesan singkat Anda. Saya akan merespons dalam waktu 24 jam.</p>
               </div>
             </div>
             <Suspense fallback={<div className="h-[420px] rounded-lg border bg-card" />}>
@@ -109,7 +104,7 @@ export default function ContactPage() {
         <div className="space-y-6">
           {/* Contact Details Card */}
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm">
-            <h3 className="font-semibold text-zinc-900 mb-6">Other ways to reach me</h3>
+            <h3 className="font-semibold text-zinc-900 mb-6">Kontak langsung</h3>
             
             <div className="space-y-5">
               <div className="flex items-start gap-4">
@@ -119,10 +114,26 @@ export default function ContactPage() {
                 <div>
                   <p className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Email</p>
                   <Link 
-                    href="mailto:arissetia.m@gmail.com" 
+                    href="mailto:wahyuandikaputra.co.id@gmail.com" 
+                    className="text-sm text-zinc-900 hover:text-orange-500 transition-colors font-medium break-all"
+                  >
+                    wahyuandikaputra.co.id@gmail.com
+                  </Link>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="p-2 bg-zinc-100 rounded-lg shrink-0">
+                  <Phone className="w-4 h-4 text-zinc-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-zinc-400 uppercase tracking-wider mb-1">WhatsApp</p>
+                  <Link 
+                    href="https://wa.me/6287730139582" 
+                    target="_blank"
                     className="text-sm text-zinc-900 hover:text-orange-500 transition-colors font-medium"
                   >
-                    arissetia.m@gmail.com
+                    +62 877-3013-9582
                   </Link>
                 </div>
               </div>
@@ -132,8 +143,8 @@ export default function ContactPage() {
                   <MapPin className="w-4 h-4 text-zinc-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Location</p>
-                  <p className="text-sm text-zinc-900 font-medium">Sidoarjo, Indonesia</p>
+                  <p className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Lokasi</p>
+                  <p className="text-sm text-zinc-900 font-medium">Wonosobo / Semarang, Jawa Tengah, Indonesia</p>
                 </div>
               </div>
               
@@ -142,8 +153,8 @@ export default function ContactPage() {
                   <Clock className="w-4 h-4 text-zinc-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Availability</p>
-                  <p className="text-sm text-zinc-900 font-medium">Mon - Sat, 9:00 - 17:00 WIB</p>
+                  <p className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Jam operasional</p>
+                  <p className="text-sm text-zinc-900 font-medium">Senin sampai Sabtu, 09.00 sampai 17.00 WIB</p>
                 </div>
               </div>
             </div>
@@ -151,10 +162,10 @@ export default function ContactPage() {
 
           {/* Professional Profiles Card */}
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm">
-            <h3 className="font-semibold text-zinc-900 mb-4">Check my background first</h3>
+            <h3 className="font-semibold text-zinc-900 mb-4">Profil profesional</h3>
             <div className="flex flex-col gap-2">
               <Link 
-                href="https://www.linkedin.com/in/arissetia/" 
+                href="https://linkedin.com/in/wahyu-andika-putra" 
                 target="_blank"
                 className="flex items-center gap-3 p-3 rounded-xl bg-zinc-50 hover:bg-blue-50 transition-colors group"
               >
@@ -163,22 +174,13 @@ export default function ContactPage() {
                 <ArrowUpRight className="w-4 h-4 text-zinc-400 ml-auto group-hover:text-blue-600" />
               </Link>
               <Link 
-                href="https://github.com/madebyaris" 
+                href="https://github.com/andikaputradev" 
                 target="_blank"
                 className="flex items-center gap-3 p-3 rounded-xl bg-zinc-50 hover:bg-zinc-100 transition-colors group"
               >
                 <GithubIcon className="w-5 h-5 text-zinc-500 group-hover:text-zinc-900" />
                 <span className="text-sm font-medium text-zinc-700 group-hover:text-zinc-900">GitHub</span>
                 <ArrowUpRight className="w-4 h-4 text-zinc-400 ml-auto group-hover:text-zinc-900" />
-              </Link>
-              <Link 
-                href="https://www.upwork.com/freelancers/~0117c4a4c888d9e9fe" 
-                target="_blank"
-                className="flex items-center gap-3 p-3 rounded-xl bg-zinc-50 hover:bg-green-50 transition-colors group"
-              >
-                <UpworkIcon className="w-5 h-5 text-zinc-500 group-hover:text-green-600" />
-                <span className="text-sm font-medium text-zinc-700 group-hover:text-green-600">Upwork</span>
-                <ArrowUpRight className="w-4 h-4 text-zinc-400 ml-auto group-hover:text-green-600" />
               </Link>
             </div>
           </div>
@@ -187,14 +189,13 @@ export default function ContactPage() {
           <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-              <span className="text-xs font-semibold text-orange-600 uppercase tracking-wider">What happens next</span>
+              <span className="text-xs font-semibold text-orange-600 uppercase tracking-wider">Langkah selanjutnya</span>
             </div>
             <ol className="text-sm text-zinc-600 leading-relaxed space-y-2 list-decimal pl-4">
-              <li>I read your request and reply within 24 hours.</li>
-              <li>If it fits, we book a short scoping call.</li>
-              <li>You get a written plan with milestones before any code.</li>
+              <li>Saya membaca ringkasan kebutuhan Anda dan merespons dalam 24 jam.</li>
+              <li>Kita menyelaraskan cakupan teknis serta ekspektasi hasil kerja.</li>
+              <li>Rencana pengerjaan disepakati sebelum tahap implementasi kode dimulai.</li>
             </ol>
-            <p className="text-xs text-zinc-500 mt-3">Urgent? Say so in your message.</p>
           </div>
         </div>
       </section>
@@ -206,37 +207,34 @@ export default function ContactPage() {
       <section className="mb-16">
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-medium text-zinc-900 tracking-tighter mb-3">
-            How I can <span className="gradient-text">help</span>
+            Layanan yang <span className="gradient-text">tersedia</span>
           </h2>
           <p className="text-sm text-zinc-500 max-w-lg mx-auto font-medium">
-            Not sure what to ask for? Start with the closest one.
+            Pilih jenis layanan yang paling sesuai dengan kebutuhan sistem Anda.
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
             {
-              title: "Build a Next.js or AI product",
-              description: "New apps, WordPress-to-Next.js migrations, AI features, and APIs, built on the App Router with TypeScript.",
-              icon: "🚀",
-              href: "/services/nextjs-development"
+              title: "Pembuatan website",
+              description: "Aplikasi web modern dengan performa cepat, SEO solid, dan kode terstruktur.",
+              icon: "🌐",
             },
             {
-              title: "Fix or rebuild a WordPress site",
-              description: "Custom themes, plugins, speed fixes, or a headless Next.js front end that keeps your editors in wp-admin.",
-              icon: "🛠️",
-              href: "/services/wordpress"
+              title: "Aplikasi mobile dan upload Play Store",
+              description: "Pengembangan aplikasi Android dan iOS serta pendampingan rilis resmi ke Google Play Store.",
+              icon: "📱",
             },
             {
-              title: "Train your team on Cursor",
-              description: "Project rules and a review habit on one real repo, so AI-written code stops breaking your PRs.",
-              icon: "⚡",
-              href: "/services/vibe-code-friend"
+              title: "Keamanan siber defensif dan Web3",
+              description: "Audit keamanan berizin resmi serta integrasi kontrak pintar blockchain yang aman.",
+              icon: "🛡️",
             }
           ].map((service, index) => (
             <Link
               key={index}
-              href={service.href}
+              href="#contact-form"
               className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow group block"
             >
               <div className="text-3xl mb-4">{service.icon}</div>
@@ -252,8 +250,7 @@ export default function ContactPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="overflow-hidden min-h-[350px] shadow-zinc-900/30 bg-zinc-900 rounded-[2rem] relative shadow-2xl mb-8">
-        {/* Grid Pattern */}
+      <section className="overflow-hidden min-h-[300px] shadow-zinc-900/30 bg-zinc-900 rounded-[2rem] relative shadow-2xl mb-8">
         <div 
           className="absolute inset-0 opacity-10" 
           style={{
@@ -262,12 +259,12 @@ export default function ContactPage() {
           }}
         />
 
-        <div className="flex flex-col items-center justify-center text-center p-8 md:p-12 lg:p-16 min-h-[350px] relative">
+        <div className="flex flex-col items-center justify-center text-center p-8 md:p-12 lg:p-16 min-h-[300px] relative">
           <h2 className="md:text-4xl lg:text-5xl leading-tight text-3xl font-normal text-white tracking-tight mb-6 max-w-2xl">
-            Have a site, a repo, or just an idea?
+            Siap mendiskusikan kebutuhan digital Anda?
           </h2>
           <p className="text-zinc-400 mb-8 max-w-lg font-medium">
-            Send whatever you have. A URL and two sentences is enough for me to tell you what it would take.
+            Kirimkan pesan Anda sekarang. Saya siap membantu merealisasikan produk web dan aplikasi Anda.
           </p>
 
           <div className="flex flex-wrap justify-center gap-3">
@@ -275,15 +272,8 @@ export default function ContactPage() {
               href="#contact-form"
               className="group flex items-center gap-3 bg-white hover:bg-zinc-100 transition-all text-zinc-900 text-sm font-medium rounded-full px-6 py-3 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
-              <span>Start my project request</span>
+              <span>Isi formulir kontak</span>
               <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link 
-              href="/services"
-              className="group flex items-center gap-3 bg-white/10 hover:bg-white/20 transition-all text-white text-sm font-medium rounded-full px-6 py-3"
-            >
-              <span>Compare services first</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>

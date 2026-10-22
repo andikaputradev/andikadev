@@ -46,7 +46,7 @@ interface GitHubApiRepo {
   private: boolean
 }
 
-const GITHUB_USERNAME = process.env.GITHUB_USERNAME || 'madebyaris'
+const GITHUB_USERNAME = process.env.GITHUB_USERNAME || 'andikaputradev'
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
 /**
@@ -134,7 +134,7 @@ export function repoToCaseStudy(repo: GitHubRepo, index: number): CaseStudy {
     ctaText: 'View Repository',
     link: repo.homepageUrl || repo.repoUrl,
     authors: [
-      { avatar: '/aris.png' },
+      { avatar: '/foto-profil.webp' },
     ],
   }
 }

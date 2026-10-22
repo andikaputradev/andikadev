@@ -1,0 +1,55 @@
+---
+description: Standar rekayasa perangkat lunak dan arsitektur kode Next.js
+globs: **/*.ts,**/*.tsx
+alwaysApply: false
+---
+
+# Standar Rekayasa Kode (Engineering Rules)
+
+Pedoman teknis untuk pengembangan kode di repositori ini, mencakup TypeScript, Next.js App Router, React Server Components, dan optimasi performa.
+
+## 1. Gaya Kode dan Struktur
+
+- Tulis kode TypeScript yang ringkas, teknis, dan deklaratif.
+- Utamakan pola fungsional dan modularisasi dibanding duplikasi kode. Hindari penggunaan class.
+- Gunakan penamaan variabel yang deskriptif dengan kata kerja bantu (contoh: `isLoading`, `hasError`).
+- Struktur berkas komponen yang konsisten:
+  1. Komponen utama yang diekspor
+  2. Subkomponen pendukung
+  3. Fungsi pembantu (helpers)
+  4. Konten statis
+  5. Tipe dan antarmuka (interfaces)
+
+## 2. Konvensi Penamaan
+
+- Gunakan huruf kecil dengan tanda minus (kebab-case) untuk penamaan direktori (contoh: `components/auth-wizard`).
+- Utamakan named exports untuk komponen.
+
+## 3. Penggunaan TypeScript
+
+- Wajib menggunakan TypeScript untuk seluruh kode aplikasi.
+- Utamakan `interface` dibanding `type` untuk definisi objek dan props.
+- Hindari enum, gunakan map atau union literal string sebagai gantinya.
+- Pastikan seluruh props komponen memiliki tipe data yang eksplisit.
+
+## 4. Pola Next.js dan React
+
+- Utamakan React Server Components (RSC):
+  - Minimalkan penggunaan `'use client'`, `useEffect`, dan `useState`.
+  - Gunakan `'use client'` hanya untuk interaktivitas pengguna atau akses Web API.
+  - Hindari `'use client'` untuk pemanggilan data (data fetching).
+- Bungkus Client Components di dalam `Suspense` dengan fallback yang memadai.
+- Gunakan pemuatan dinamis (`next/dynamic`) untuk komponen berat non-kritis.
+- Manajemen URL search parameters wajib menggunakan pustaka `nuqs`.
+
+## 5. Server Actions
+
+- Gunakan pustaka `next-safe-action` untuk seluruh server actions.
+- Terapkan validasi input skema menggunakan `zod`.
+- Tangani error secara konsisten dan gunakan tipe balikan yang terstandarisasi.
+
+## 6. Antarmuka dan Performa
+
+- Bangun komponen responsif dengan Tailwind CSS menggunakan pendekatan mobile-first.
+- Optimasi Core Web Vitals (LCP, CLS, INP).
+- Optimasi aset gambar: gunakan format WebP, tentukan dimensi (width dan height), dan terapkan lazy loading.

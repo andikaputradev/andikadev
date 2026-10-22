@@ -1,7 +1,7 @@
 # Fakta Resmi
 
 - Nama: Wahyu Andika Putra
-- Merek (asumsi, perlu konfirmasi pemilik): AndikaDev
+- Merek: Andika Putra Dev (dikonfirmasi pemilik)
 - Situs: https://andikadev.com
 - WhatsApp: +6287730139582 (tautan: https://wa.me/6287730139582)
 - Email: wahyuandikaputra.co.id@gmail.com
