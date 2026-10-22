@@ -1,4 +1,4 @@
-// Flags AI-writing tells in user-facing copy. See .cursor/rules/site-copy.mdc.
+// Flags AI-writing tells in user-facing copy. See .cursor/rules/andikadev-project.mdc.
 // Usage: node scripts/check-copy.mjs [paths...]   (defaults to app/ and components/)
 import { readdir, readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
@@ -8,13 +8,17 @@ const BANNED = [
   'innovative', 'world-class', 'unlock', 'elevate', 'empower', 'supercharge', 'blazing',
   'next-level', 'utilize', 'peak performance', 'delve', 'game-changer', 'best-in-class',
   'state-of-the-art', 'synergy', 'holistic',
+  // Padanan bahasa Indonesia untuk klaim kosong dan kata berlebihan
+  'solusi terbaik', 'terdepan', 'inovatif', 'canggih', 'mumpuni',
+  'profesional dan terpercaya', 'terpercaya', 'kelas dunia', 'revolusioner',
+  'tanpa batas', 'mutakhir', 'sempurna',
 ]
 
 const CHECKS = [
-  { name: 'dash', test: (text) => /[—–]/.test(text) },
-  { name: 'not-x-but-y', test: (text) => /(,|—|–)\s*not\s+(just\s+)?[a-z]/i.test(text) || /\bnot (just|only|merely)\b/i.test(text) || /\bbukan (sekadar|hanya)?\s*\w+/i.test(text) },
+  { name: 'dash', test: (text) => /[\u2014\u2013]/.test(text) },
+  { name: 'not-x-but-y', test: (text) => /(,|[\u2014\u2013])\s*not\s+(just\s+)?[a-z]/i.test(text) || /\bnot (just|only|merely)\b/i.test(text) || /\bbukan\s+.*?\s+melainkan\b/i.test(text) || /\bbukan (sekadar|hanya)?\s*\w+/i.test(text) },
   { name: 'banned word', test: (text) => BANNED.some((word) => new RegExp(`\\b${word}\\b`, 'i').test(text)) },
-  { name: 'weak CTA', test: (text) => /^(get in touch|learn more|click here|submit|get started|contact me)$/i.test(text.trim()) },
+  { name: 'weak CTA', test: (text) => /^(get in touch|learn more|click here|submit|get started|contact me|hubungi kami|hubungi saya|pelajari lebih lanjut|klik di sini|mulai sekarang)$/i.test(text.trim()) },
 ]
 
 // Copy is JSX text or a quoted string that reads like prose (has a space and a letter).

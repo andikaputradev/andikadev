@@ -1,0 +1,69 @@
+---
+description: Aturan utama pengembangan proyek andikadev.com
+alwaysApply: true
+---
+
+# Aturan Proyek andikadev.com
+
+Aturan ini wajib dipatuhi oleh semua agen kecerdasan buatan dan pengembang yang bekerja pada repositori ini.
+
+## 1. Batasan Desain dan Kode
+
+- Desain tidak berubah: Dilarang mengubah `app/globals.css`, token warna, tipografi, spasi, layout komponen, maupun animasi yang sudah ada.
+- Bagian yang diizinkan untuk diubah hanya: teks konten, data, props komponen, rute (routes), metadata, dan aset (gambar/ikon).
+
+## 2. Kebenaran Fakta dan Sumber Data
+
+- Fakta hanya bersumber dari `docs/fakta-resmi.md`.
+- Dilarang keras mengarang atau mengasumsikan klien, testimoni, angka statistik, tahun pengalaman, sertifikasi, penghargaan, daftar harga, atau studi kasus.
+- Jika sebuah komponen atau bagian halaman membutuhkan data yang tidak tersedia di `docs/fakta-resmi.md`, hapus bagian tersebut dari halaman dan catat kebutuhannya di `docs/data-gap.md`.
+
+## 3. Gaya Bahasa dan Penulisan (Voice)
+
+- Seluruh salinan menggunakan bahasa Indonesia yang baik, lugas, dan alami.
+- Sudut pandang orang pertama tunggal ("saya"), berbicara langsung kepada satu pembaca.
+- Jujur, realistis mengenai batasan layanan teknis, dan menghindari gaya bahasa agensi korporat yang berlebihan.
+
+## 4. Larangan Simbol Tanda Hubung (Em Dash dan En Dash)
+
+- Dilarang memakai simbol em dash dan en dash di mana pun: teks, kode, komentar, metadata, JSON-LD, maupun dokumentasi.
+- Untuk menyatakan rentang angka, waktu, atau nilai, gunakan kata "sampai".
+- Untuk pemisahan klausa atau kalimat, gunakan tanda koma, titik dua, titik, atau tanda kurung.
+
+## 5. Salinan Situs dan Aturan Anti-Slop (Site Copy)
+
+Aturan pada `.cursor/rules/site-copy.mdc` tetap berlaku penuh dalam bahasa Indonesia:
+- Tanpa kontras buatan berpola "bukan X melainkan Y" ("not X but Y", "bukan sekadar...", "bukan tim besar...") kecuali pembaca memang memercayai premis X.
+- Tanpa kata-kata berlebihan (hype words) atau klaim kosong tanpa bukti.
+- Tombol aksi (CTA) harus menyebutkan langkah konkret berikutnya dan hasil yang didapatkan pembaca, bukan kata generik seperti "Pelajari Lebih Lanjut" atau "Hubungi Kami".
+- Gunakan format huruf kapital hanya di awal kalimat judul (sentence case) untuk judul, badge, chip, dan tombol, bukan Title Case Untuk Setiap Kata.
+- Patuhi daftar kata terlarang yang dipindai oleh `scripts/check-copy.mjs` (seperti klaim kosong: "solusi terbaik", "terdepan", "inovatif", "canggih", "mumpuni", "profesional dan terpercaya").
+
+## 6. Batasan Layanan Keamanan Siber dan Web3
+
+- Layanan keamanan siber dan Web3 hanya disajikan dalam koridor defensif, etis, legal, dan berizin tertulis dari pemilik sistem terkait.
+- Dilarang menawarkan aktivitas peretasan (hacking), pengujian tanpa izin, teknik bypass, pencurian data, eksploitasi celah, atau jaminan mutlak seperti "anti bobol".
+- Dilarang memberikan nasihat finansial, rekomendasi investasi, atau janji keuntungan finansial terkait Web3 dan blockchain.
+
+## 7. Panduan Next.js 16
+
+- Sebelum menulis kode Next.js, wajib membaca panduan resmi pada direktori `node_modules/next/dist/docs/` sesuai instruksi di `AGENTS.md`.
+- Dilarang mengandalkan asumsi atau ingatan lama mengenai API Next.js versi ini.
+
+## 8. Kebersihan Kode
+
+- Tidak boleh menulis komentar di dalam kode kecuali benar-benar penting dan krusial.
+- Dilarang meninggalkan teks sementara (placeholder) atau penanda tugas yang belum selesai (seperti TODO, FIXME, catatan sementara) di dalam kode maupun konten.
+
+## 9. Verifikasi dan Pelaporan Jujur
+
+- Setiap tahap pekerjaan harus diakhiri dengan menjalankan:
+  1. `pnpm lint`
+  2. `pnpm build`
+  3. `pnpm copy:check`
+- Laporkan secara transparan dan jujur apa saja perintah yang dijalankan beserta hasilnya, serta apa yang tidak dijalankan.
+- Dilarang mengklaim sesuatu telah diuji apabila tidak benar-benar dijalankan.
+
+## 10. Manajemen Git dan Commit
+
+- Terapkan prinsip satu tahap pekerjaan untuk satu commit menggunakan standar Conventional Commits (misalnya: `feat: ...`, `fix: ...`, `docs: ...`, `chore: ...`).
