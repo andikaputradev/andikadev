@@ -8,10 +8,14 @@ Berkas ini mencatat kebutuhan data, asumsi operasional, atau informasi yang belu
 - Proyek resmi: 13 proyek (Akademi Crypto, Atlas Super Club, Tub Daniswara, PLD Learn, Fake GPS, Media Pembelajaran Jarkom, Modern Javanese Digital Wedding Platform, ChainSec Auditor, Atlas Library, FlowVault, PhantomDrop, AXA Social House, Wedding Invitation Platform) telah diberikan oleh pemilik dan dicatat di `docs/fakta-resmi.md`.
 - Stack teknologi: 6 rumpun teknologi (Protocol dan sistem, Smart contract dan Web3, Rekayasa keamanan, Infrastruktur, Lapisan aplikasi, Riset dan analitik) telah dicatat di `docs/fakta-resmi.md`.
 
-## Asumsi Operasional Saat Ini
+## Asumsi Operasional dan Klaim yang Memerlukan Verifikasi Pemilik
 
 - **[Asumsi] Cakupan pelanggan seluruh Indonesia**: Posisi geografis resmi pengembang adalah Wonosobo dan Semarang, Jawa Tengah. Penyebutan kemampuan melayani klien dari seluruh wilayah Indonesia berstatus `[Asumsi]` sampai dikonfirmasi langsung oleh pemilik secara tertulis.
 - **[Asumsi] Empat langkah cara kerja**: Empat tahapan kerja yang ditampilkan di beranda (1. Konsultasi kebutuhan, 2. Penawaran dan ruang lingkup, 3. Pengerjaan bertahap dengan tinjauan, 4. Serah terima dan dukungan) dirumuskan berdasarkan praktik rekayasa perangkat lunak umum. Pemilik perlu meninjau dan mengonfirmasi apakah alur ini sudah mencerminkan alur kerja operasional yang sebenarnya.
+- **[Klaim Verifikasi] H1 Jasa upload aplikasi ke Play Store tanpa closed testing 14 hari**: H1 varian A ini wajib diverifikasi oleh pemilik mengenai metode teknis pelaksanaan (misalnya apakah memanfaatkan akun konsol organisasi, akun sebelum regulasi November 2023, atau mekanisme pengujian terkelola) agar tetap mematuhi Google Play Developer Policy.
+- **[Klaim Verifikasi] Metodologi tinjauan keamanan siber berbasis OWASP ASVS**: Pemilik perlu memverifikasi kesiapan checklist instrumen dan batasan level verifikasi ASVS (Level 1, 2, atau 3) yang dapat disediakan untuk klien.
+- **[Klaim Verifikasi] Pengujian smart contract Web3 (Fuzz dan Invariant testing)**: Pemilik perlu memverifikasi kakas yang digunakan dalam alur kerja (misalnya Foundry, Slither, Echidna) saat menerima pesanan klien.
+- **[Formulasi Netral Stack Teknologi Halaman Layanan]**: Seluruh halaman layanan menggunakan frasa netral ("teknologi dipilih sesuai kebutuhan proyek") dan tidak menyebut stack teknologi di luar yang tercantum di `docs/fakta-resmi.md`.
 
 ## Catatan Kebutuhan Data Tambahan
 
