@@ -1,84 +1,110 @@
 'use server'
 
 import { Resend } from 'resend'
-import { rateLimit } from '@/lib/rate-limit'
-import { contactServiceLabel } from '@/lib/contact-services'
+import {
+  contactFormSchema,
+  contactServiceLabel,
+  sanitizeHeaderValue,
+  type ContactFormData,
+} from '@/lib/contact-services'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+export interface ContactActionResult {
+  success?: boolean
+  error?: string
+  fieldErrors?: Partial<Record<keyof ContactFormData, string[]>>
+}
 
-export async function sendContactEmail(formData: FormData) {
+export async function sendContactEmail(formData: FormData): Promise<ContactActionResult> {
   try {
-    // Rate limiting
-    const limiter = rateLimit({
-      interval: 60000, // 1 minute in milliseconds
-      uniqueTokenPerInterval: 500
-    })
-    
-    try {
-      await limiter.check(5, 'CONTACT_FORM') // 5 requests per minute
-    } catch {
+    const rawData = {
+      name: formData.get('name')?.toString() ?? '',
+      email: formData.get('email')?.toString() ?? '',
+      message: formData.get('message')?.toString() ?? '',
+      service: formData.get('service')?.toString() ?? '',
+      website_trap: formData.get('website_trap')?.toString() ?? '',
+    }
+
+    const validationResult = contactFormSchema.safeParse(rawData)
+    if (!validationResult.success) {
+      const fieldErrors = validationResult.error.flatten().fieldErrors
+      const firstErrorMessage =
+        validationResult.error.issues[0]?.message || 'Data formulir tidak valid.'
       return {
-        error: 'Rate limit exceeded. Please try again later.'
+        error: firstErrorMessage,
+        fieldErrors,
       }
     }
 
-    const name = formData.get('name')
-    const email = formData.get('email')
-    const message = formData.get('message')
-    const serviceLabel = contactServiceLabel(formData.get('service')?.toString()) ?? 'Not specified'
+    const { name, email, message, service, website_trap } = validationResult.data
 
-    // Validate required fields
-    if (!name || !email || !message) {
+    // Perlindungan honeypot: jika input tersembunyi terisi oleh bot, hentikan pengiriman tanpa memunculkan error ke bot (silent drop)
+    if (website_trap && website_trap.trim().length > 0) {
+      return { success: true }
+    }
+
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
       return {
-        error: 'Name, email, and message are required.'
+        error:
+          'Layanan pengiriman formulir belum dikonfigurasi dengan Resend API. Silakan hubungi saya langsung lewat WhatsApp atau email.',
       }
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email.toString())) {
+    const emailFrom = process.env.EMAIL_FROM
+    if (!emailFrom || !emailFrom.trim()) {
       return {
-        error: 'Please provide a valid email address.'
+        error:
+          'Alamat pengirim email sistem (EMAIL_FROM) belum disetel di lingkungan. Silakan hubungi saya langsung lewat WhatsApp atau email.',
       }
     }
 
-    // Parse and format email recipients
-    const recipients = process.env.EMAIL_TO?.split(',').map(recipient => {
-      // Remove any leading/trailing whitespace
-      recipient = recipient.trim()
-      // Check if the email is in the format: "Name <email@example.com>"
-      const match = recipient.match(/^(?:([^<]*?)\s*)?<(.+@[^>]+)>$/)
-      // If it matches the format, return just the email part, otherwise return the whole string
-      return match ? match[2].trim() : recipient
-    }).filter(Boolean) // Remove any empty entries
+    const emailToEnv = process.env.EMAIL_TO || 'wahyuandikaputra.co.id@gmail.com'
+    const recipients = emailToEnv
+      .split(',')
+      .map((r) => r.trim())
+      .filter(Boolean)
 
-    if (!recipients?.length) {
-      throw new Error('No valid recipient email addresses configured')
+    if (recipients.length === 0) {
+      return {
+        error:
+          'Alamat penerima email belum dikonfigurasi. Silakan hubungi saya langsung lewat WhatsApp.',
+      }
     }
 
+    const serviceLabel = contactServiceLabel(service) || 'Kebutuhan Umum'
+    const cleanName = sanitizeHeaderValue(name)
+    const cleanService = sanitizeHeaderValue(serviceLabel)
+
+    // Subjek email dibersihkan dari CR dan LF untuk mencegah header injection
+    const subject = `Konsultasi Proyek: ${cleanService} dari ${cleanName}`
+
+    const resend = new Resend(apiKey)
     const result = await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'Contact Form <onboarding@resend.dev>',
+      from: emailFrom,
       to: recipients,
-      subject: `New project: ${serviceLabel} from ${name}`,
-      text: `Service: ${serviceLabel}\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
-      replyTo: email.toString()
+      replyTo: email,
+      subject,
+      text: `Kebutuhan Layanan: ${serviceLabel}\nNama Pengirim: ${name}\nAlamat Email: ${email}\n\nPesan Kebutuhan:\n${message}\n`,
     })
 
-    if (!result?.data?.id) {
-      console.error('Resend API Response:', result)
-      throw new Error('Failed to send email: No confirmation ID received')
+    if (result.error) {
+      // Catat galat API tanpa mencatat data pribadi pemohon (nama/email/pesan)
+      console.error('Resend delivery error:', result.error.message)
+      return {
+        error:
+          'Gagal mengirim pesan melalui penyedia email. Silakan coba kembali beberapa saat lagi atau hubungi via WhatsApp.',
+      }
     }
 
     return { success: true }
-  } catch (error) {
-    console.error('Error sending email:', error)
-    console.error('Environment variables:', {
-      hasApiKey: !!process.env.RESEND_API_KEY,
-      hasEmailTo: !!process.env.EMAIL_TO,
-      emailToValue: process.env.EMAIL_TO
-    })
+  } catch (err) {
+    // Catat galat teknis tanpa mencatat data pribadi pemohon
+    console.error(
+      'Pengecualian teknis pada server action formulir kontak:',
+      err instanceof Error ? err.message : 'Unknown error'
+    )
     return {
-      error: 'Failed to send email. Please try again later.'
+      error: 'Terjadi kendala sistem saat memproses formulir. Silakan coba kembali atau hubungi via WhatsApp.',
     }
   }
 }

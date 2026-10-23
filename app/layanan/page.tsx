@@ -5,7 +5,7 @@ import { PageHero } from '@/components/page/hero'
 import { CtaBand } from '@/components/page/cta-band'
 import { JsonLd } from '@/components/seo/json-ld'
 import { buildPageGraph, buildPageMetadata } from '@/lib/seo'
-import { contactHref } from '@/lib/contact-services'
+import { contactHref, buildWhatsAppUrl } from '@/lib/contact-services'
 
 export const revalidate = 86400
 
@@ -113,7 +113,7 @@ export default function ServicesPage() {
         title="Ingin berkonsultasi mengenai kebutuhan proyek Anda?"
         body="Sampaikan gambaran sistem yang ingin dibangun. Saya akan memberikan tanggapan teknis secara lugas."
         primary={{
-          href: 'https://wa.me/6287730139582?text=Halo%20Wahyu%20Andika%20Putra%2C%20saya%20ingin%20berkonsultasi%20mengenai%20kebutuhan%20proyek.',
+          href: buildWhatsAppUrl(),
           label: 'Konsultasi lewat WhatsApp',
         }}
         secondary={{

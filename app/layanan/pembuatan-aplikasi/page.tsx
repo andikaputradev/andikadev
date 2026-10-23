@@ -5,7 +5,7 @@ import { CtaBand } from '@/components/page/cta-band'
 import { Faq } from '@/components/page/faq'
 import { JsonLd } from '@/components/seo/json-ld'
 import { buildPageGraph, buildPageMetadata, type FaqItem } from '@/lib/seo'
-import { contactHref } from '@/lib/contact-services'
+import { contactHref, buildWhatsAppUrl } from '@/lib/contact-services'
 
 export const revalidate = 86400
 
@@ -144,8 +144,9 @@ const boundaries = [
 ]
 
 export default function AppDevelopmentServicePage() {
-  const whatsappUrl =
-    'https://wa.me/6287730139582?text=Halo%20Wahyu%20Andika%20Putra%2C%20saya%20ingin%20berkonsultasi%20mengenai%20jasa%20pembuatan%20aplikasi.'
+  const whatsappUrl = buildWhatsAppUrl(
+    'Halo Wahyu Andika Putra, saya ingin berkonsultasi mengenai jasa pembuatan aplikasi.'
+  )
 
   return (
     <>

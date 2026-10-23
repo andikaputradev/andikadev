@@ -7,7 +7,7 @@ import type { Metadata } from 'next'
 import { buildPageGraph, buildPageMetadata, type FaqItem } from '@/lib/seo'
 import { JsonLd } from '@/components/seo/json-ld'
 import { HomeContent } from '@/components/home-content'
-import { contactHref } from '@/lib/contact-services'
+import { contactHref, buildWhatsAppUrl } from '@/lib/contact-services'
 
 export const revalidate = 86400
 
@@ -189,7 +189,7 @@ export default function HomePage() {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 mb-4">
             <a
-              href="https://wa.me/6287730139582?text=Halo%20Wahyu%20Andika%20Putra%2C%20saya%20ingin%20berkonsultasi%20mengenai%20kebutuhan%20proyek."
+              href={buildWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary hover:scale-[1.02] transition-all flex group shadow-zinc-900/10 hover:shadow-2xl hover:shadow-zinc-900/20 hover:-translate-y-0.5 text-sm font-medium text-zinc-900 rounded-full py-3 px-6 gap-3 items-center justify-between"
@@ -437,7 +437,7 @@ export default function HomePage() {
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <a
-                href="https://wa.me/6287730139582?text=Halo%20Wahyu%20Andika%20Putra%2C%20saya%20ingin%20berkonsultasi%20mengenai%20kebutuhan%20proyek."
+                href={buildWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 bg-white hover:bg-zinc-100 transition-all text-zinc-900 text-sm font-medium rounded-full px-6 py-3 w-fit shadow-lg hover:shadow-xl hover:-translate-y-0.5"
