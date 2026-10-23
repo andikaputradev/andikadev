@@ -16,12 +16,25 @@ interface BlogContentProps {
 }
 
 type LanguageFilter = 'all' | 'en' | 'id';
-type CategoryFilter = 'all' | 'nextjs' | 'cursor' | 'ai' | 'wordpress';
 
 export function BlogContent({ initialPosts, currentPage, totalPages }: BlogContentProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLang, setSelectedLang] = useState<LanguageFilter>('all');
-  const [selectedCat, setSelectedCat] = useState<CategoryFilter>('all');
+  const [selectedCat, setSelectedCat] = useState<string>('all');
+
+  const availableCategories = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const post of initialPosts) {
+      if (Array.isArray(post.categories)) {
+        for (const cat of post.categories as unknown as Category[]) {
+          if (cat && typeof cat === 'object' && cat.slug && cat.name) {
+            map.set(cat.slug.toLowerCase(), cat.name);
+          }
+        }
+      }
+    }
+    return Array.from(map.entries()).map(([id, label]) => ({ id, label }));
+  }, [initialPosts]);
 
   const filteredPosts = useMemo(() => {
     return initialPosts.filter((post) => {
@@ -73,28 +86,35 @@ export function BlogContent({ initialPosts, currentPage, totalPages }: BlogConte
         {/* Filter Pills */}
         <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
           {/* Category Tabs */}
-          <div className="flex flex-wrap items-center gap-1.5">
-            {[
-              { id: 'all' as CategoryFilter, label: 'All topics' },
-              { id: 'nextjs' as CategoryFilter, label: 'Next.js' },
-              { id: 'cursor' as CategoryFilter, label: 'Cursor' },
-              { id: 'ai' as CategoryFilter, label: 'AI development' },
-              { id: 'wordpress' as CategoryFilter, label: 'WordPress' },
-            ].map((cat) => (
+          {availableCategories.length > 0 && (
+            <div className="flex flex-wrap items-center gap-1.5">
               <button
-                key={cat.id}
                 type="button"
-                onClick={() => setSelectedCat(cat.id)}
+                onClick={() => setSelectedCat('all')}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  selectedCat === cat.id
+                  selectedCat === 'all'
                     ? 'bg-zinc-900 text-white shadow-sm'
                     : 'bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900'
                 }`}
               >
-                {cat.label}
+                All topics
               </button>
-            ))}
-          </div>
+              {availableCategories.map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setSelectedCat(cat.id)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                    selectedCat === cat.id
+                      ? 'bg-zinc-900 text-white shadow-sm'
+                      : 'bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Language Toggle */}
           <div className="flex items-center p-0.5 rounded-full bg-zinc-100 border border-zinc-200 text-xs">

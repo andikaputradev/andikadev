@@ -3,13 +3,9 @@ import { contactHref } from '@/lib/contact-services'
 import { ArrowUpRight } from 'lucide-react'
 import { LiveClock } from './live-clock'
 
-const navigationLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
-]
+interface FooterProps {
+  hasBlog?: boolean
+}
 
 const servicesList = [
   { name: 'Pembuatan Website', href: '/contact' },
@@ -30,7 +26,15 @@ const legalLinks = [
   { name: 'Terms of Service', href: '/terms-of-service' },
 ]
 
-export function Footer() {
+export function Footer({ hasBlog = false }: FooterProps) {
+  const navigationLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Projects', href: '/projects' },
+    ...(hasBlog ? [{ name: 'Blog', href: '/blog' }] : []),
+    { name: 'Contact', href: '/contact' },
+  ]
+
   return (
     <footer className="z-10 w-full relative px-6 md:px-10 xl:px-12 pb-8">
       {/* Separator */}

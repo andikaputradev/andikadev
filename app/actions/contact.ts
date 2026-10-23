@@ -57,7 +57,7 @@ export async function sendContactEmail(formData: FormData) {
     }
 
     const result = await resend.emails.send({
-      from: 'Contact Form <onboarding@resend.dev>',
+      from: process.env.EMAIL_FROM || 'Contact Form <onboarding@resend.dev>',
       to: recipients,
       subject: `New project: ${serviceLabel} from ${name}`,
       text: `Service: ${serviceLabel}\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,

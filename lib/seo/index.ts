@@ -20,7 +20,6 @@ export {
   TITLE_MAX,
   DESCRIPTION_MAX,
   type PageMetaInput,
-  type WordPressSeoFields,
 } from './metadata'
 export {
   pickRankMathTitle,

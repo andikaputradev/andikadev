@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { JsonLd } from '@/components/seo/json-ld'
 import { contactHref } from '@/lib/contact-services'
 import { buildPageGraph, buildPageMetadata } from '@/lib/seo'
-import { BLOG_POSTS_PER_PAGE, getPostsPaginated } from '@/lib/wordpress'
+import { BLOG_POSTS_PER_PAGE, getPostsPaginated } from '@/lib/blog'
 
 export const revalidate = 604800 // 7 days; webhook refreshes the index on publish
 

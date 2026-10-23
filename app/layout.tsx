@@ -8,6 +8,8 @@ import { productionUrl, siteConfig } from "@/lib/seo/config";
 import { buildSiteGraph } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 import { cn } from "@/lib/utils";
+import { hasPublishedBlogPosts } from "@/lib/blog";
+import "@/lib/env";
 import "./globals.css";
 
 // Inter font - matching reference design
@@ -31,7 +33,7 @@ if (process.env.YANDEX_VERIFICATION_CODE) verificationOther['yandex-verification
 
 export const metadata: Metadata = {
   title: {
-    default: "Hire a Next.js & AI Developer | Aris Setiawan",
+    default: `${siteConfig.name} | Pengembang Web dan Aplikasi`,
     template: `%s${siteConfig.titleSuffix}`
   },
   description: siteConfig.description,
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: siteConfig.locale,
     url: productionUrl,
-    title: "Hire a Next.js & AI Developer | Aris Setiawan",
+    title: `${siteConfig.name} | Pengembang Web dan Aplikasi`,
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
@@ -59,13 +61,13 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "Aris Setiawan - Next.js, AI & WordPress Developer",
+        alt: `${siteConfig.author} (Pengembang Web dan Aplikasi)`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hire a Next.js & AI Developer | Aris Setiawan",
+    title: `${siteConfig.name} | Pengembang Web dan Aplikasi`,
     description: siteConfig.description,
     creator: siteConfig.twitterHandle,
     images: [siteConfig.ogImage],
@@ -88,13 +90,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const hasBlog = await hasPublishedBlogPosts();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <body 
         suppressHydrationWarning
         className={cn(
@@ -131,11 +135,11 @@ export default function RootLayout({
               <div className="h-full w-px bg-zinc-950/5"></div>
             </div>
 
-            <Header />
+            <Header hasBlog={hasBlog} />
             <div className="flex-1 relative z-10 px-6 md:px-10 xl:px-12 pb-8">
               {children}
             </div>
-            <Footer />
+            <Footer hasBlog={hasBlog} />
           </main>
         </div>
 

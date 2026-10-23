@@ -13,10 +13,15 @@ interface ProcessedPost extends Omit<Post, 'categories' | 'tags'> {
   tags: Tag[];
 }
 
-interface HomeContentProps {
-  type: 'projects' | 'posts'
-  initialData: Project[] | ProcessedPost[]
-}
+type HomeContentProps =
+  | {
+      type: 'projects'
+      initialData: Project[]
+    }
+  | {
+      type: 'posts'
+      initialData: ProcessedPost[] | Post[]
+    }
 
 function EmptyState({ type }: { type: 'projects' | 'posts' }) {
   return (

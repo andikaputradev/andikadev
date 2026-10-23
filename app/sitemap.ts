@@ -1,13 +1,12 @@
 import type { MetadataRoute } from 'next'
-import { getPostsForSitemap } from '@/lib/wordpress'
+import { getPostsForSitemap } from '@/lib/blog'
 import { productionUrl } from '@/lib/seo/config'
 
-export const revalidate = 604800 // 7 days; webhook calls revalidatePath('/sitemap.xml')
+export const revalidate = 604800
 
-const mainRoutes = [
+const coreRoutes = [
   { path: '', priority: 1.0, changeFreq: 'monthly' },
   { path: 'about', priority: 0.8, changeFreq: 'monthly' },
-  { path: 'blog', priority: 0.8, changeFreq: 'weekly' },
   { path: 'projects', priority: 0.8, changeFreq: 'weekly' },
   { path: 'contact', priority: 0.8, changeFreq: 'monthly' },
 ]
@@ -28,17 +27,23 @@ function createSitemapEntry(baseUrl: string, route: { path: string; priority: nu
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = productionUrl
 
-  const staticRoutes = [
-    ...mainRoutes,
-    ...legalRoutes,
-  ].map((route) => createSitemapEntry(baseUrl, route))
-
   try {
     const posts = await getPostsForSitemap()
+    const hasPosts = posts.length > 0
+
+    const dynamicMainRoutes = [
+      ...coreRoutes,
+      ...(hasPosts ? [{ path: 'blog', priority: 0.8, changeFreq: 'weekly' }] : []),
+    ]
+
+    const staticRoutes = [
+      ...dynamicMainRoutes,
+      ...legalRoutes,
+    ].map((route) => createSitemapEntry(baseUrl, route))
 
     const postRoutes = posts.map((post) => ({
       url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.modified || post.date),
+      lastModified: new Date(post.modified),
       changeFrequency: 'weekly' as const,
       priority: 0.6,
     }))
@@ -47,6 +52,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return allRoutes.sort((a, b) => (b.priority || 0) - (a.priority || 0))
   } catch (error) {
     console.error('Failed to generate sitemap:', error)
-    return staticRoutes
+    return [...coreRoutes, ...legalRoutes].map((route) => createSitemapEntry(baseUrl, route))
   }
 }

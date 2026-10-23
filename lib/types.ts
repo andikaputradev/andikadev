@@ -36,7 +36,7 @@ export interface Tag {
 }
 
 export interface Post {
-  id: number
+  id: number | string
   date: string
   modified: string
   slug: string
@@ -48,14 +48,14 @@ export interface Post {
   }
   content: {
     rendered: string
-    protected: boolean
+    protected?: boolean
   }
   excerpt: {
     rendered: string
-    protected: boolean
+    protected?: boolean
   }
-  author: number
-  featured_media: number
+  author?: number | { id: number; name: string }
+  featured_media?: number
   categories: Category[] | number[]
   tags: Tag[] | number[]
   _embedded?: {
@@ -72,11 +72,11 @@ export interface Post {
     }>
     'wp:featuredmedia'?: Array<{
       id: number
-      date: string
-      slug: string
-      type: string
-      link: string
-      title: {
+      date?: string
+      slug?: string
+      type?: string
+      link?: string
+      title?: {
         rendered: string
       }
       source_url: string

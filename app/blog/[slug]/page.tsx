@@ -1,15 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, ArrowRight, BookOpen, Calendar, Clock, Compass, RefreshCw } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, Clock, RefreshCw } from 'lucide-react'
 import { TableOfContents } from '@/components/table-of-contents'
 import { SmoothScroll } from '@/components/smooth-scroll'
-import { WordPressContent } from '@/components/wordpress-content'
-import { convertBlocks, enhanceRenderedHTML } from 'wp-block-to-html/core'
+import { BlogPostContent } from '@/components/blog-post-content'
 import { FeaturedImage } from '@/components/featured-image'
 import { AuthorImage } from '@/components/author-image'
 import { RelatedPostCard } from '@/components/related-post-card'
-import { getPost, getPosts, type ProcessedPost } from '@/lib/wordpress'
+import { getPost, getPosts, type ProcessedPost } from '@/lib/blog'
 import { authorProfile, buildBlogPostGraph, buildBlogPostMetadata, isIndonesianSlug, siteConfig } from '@/lib/seo'
 import { JsonLd } from '@/components/seo/json-ld'
 import { contactHref } from '@/lib/contact-services'
@@ -18,7 +17,7 @@ function primaryCategory(categories?: ProcessedPost['categories']) {
   return categories && categories.length > 0 ? categories[0] : undefined
 }
 
-export const revalidate = 604800 // 7 days; webhook refreshes a post on publish
+export const revalidate = 604800
 
 const RELATED_POSTS = 3
 
@@ -34,8 +33,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     const post = await getPost(slug)
     if (!post) {
       return {
-        title: 'Post Not Found',
-        description: 'The requested blog post could not be found.',
+        title: 'Artikel tidak ditemukan',
+        description: 'Artikel blog yang Anda cari tidak ditemukan.',
       }
     }
 
@@ -44,25 +43,25 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   } catch {
     return {
       title: 'Error',
-      description: 'There was an error loading the blog post.',
+      description: 'Terjadi kesalahan saat memuat artikel blog.',
     }
   }
 }
 
 export async function generateStaticParams() {
   try {
-    const posts = await getPosts({ per_page: 20 })
+    const posts = await getPosts({ per_page: 50 })
     return posts.map((post) => ({
       slug: post.slug,
-    }));
+    }))
   } catch (error) {
-    console.error('Error generating static params:', error);
-    return [];
+    console.error('Error generating static params:', error)
+    return []
   }
 }
 
 function formatDate(dateString: string) {
-  return new Date(dateString).toLocaleDateString('en-US', {
+  return new Date(dateString).toLocaleDateString('id-ID', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -70,95 +69,70 @@ function formatDate(dateString: string) {
 }
 
 function getReadingTime(content: string) {
-  const wordsPerMinute = 200;
-  const text = content.replace(/<[^>]*>/g, '');
-  const wordCount = text.split(/\s+/).length;
-  return Math.ceil(wordCount / wordsPerMinute);
+  const wordsPerMinute = 200
+  const text = content.replace(/<[^>]*>/g, '')
+  const wordCount = text.split(/\s+/).length
+  return Math.ceil(wordCount / wordsPerMinute)
 }
 
 interface Heading {
-  level: number;
-  text: string;
-  id: string;
+  level: number
+  text: string
+  id: string
 }
 
 function extractHeadings(content: string): Heading[] {
-  const headingRegex = /<h([2-3])[^>]*>(.*?)<\/h\1>/g;
-  const headings: Heading[] = [];
-  const seenIds = new Set<string>();
-  let match;
-  
+  const headingRegex = /<h([2-3])[^>]*>(.*?)<\/h\1>/g
+  const headings: Heading[] = []
+  const seenIds = new Set<string>()
+  let match
+
   try {
     while ((match = headingRegex.exec(content)) !== null) {
-      const level = parseInt(match[1]);
-      const text = match[2].replace(/<[^>]*>/g, '');
-      // Create a consistent ID that will match what we use in addIdsToHeadings
-      const id = text.toLowerCase().replace(/[^\w]+/g, '-');
+      const level = parseInt(match[1])
+      const text = match[2].replace(/<[^>]*>/g, '')
+      const id = text.toLowerCase().replace(/[^\w]+/g, '-')
 
-      // One TOC item per unique anchor — duplicate H2 text shares an id.
-      if (seenIds.has(id)) continue;
-      seenIds.add(id);
-      
+      if (seenIds.has(id)) continue
+      seenIds.add(id)
+
       headings.push({
         level,
         text,
         id,
-      });
+      })
     }
   } catch (error) {
-    console.error('Error extracting headings:', error);
+    console.error('Error extracting headings:', error)
   }
-  
-  return headings;
+
+  return headings
 }
 
 function addIdsToHeadings(content: string) {
   try {
-    // The page template owns the only <h1>; headings from WordPress start at <h2>.
     const demoted = content.replace(/<(\/?)h1(\s|>)/gi, '<$1h2$2')
     return demoted.replace(
       /<h([2-3])([^>]*)>(.*?)<\/h\1>/g,
       (match, level, attrs, text) => {
-        const plainText = text.replace(/<[^>]*>/g, '');
-        const id = plainText.toLowerCase().replace(/[^\w]+/g, '-');
-        
+        const plainText = text.replace(/<[^>]*>/g, '')
+        const id = plainText.toLowerCase().replace(/[^\w]+/g, '-')
+
         if (attrs.includes('id=')) {
-          return match;
+          return match
         }
-        
-        return `<h${level}${attrs} id="${id}">${text}</h${level}>`;
-      }
-    );
+
+        return `<h${level}${attrs} id="${id}">${text}</h${level}>`
+      },
+    )
   } catch (error) {
-    console.error('Error adding IDs to headings:', error);
-    return content;
+    console.error('Error adding IDs to headings:', error)
+    return content
   }
 }
 
 function renderContent(post: ProcessedPost): string {
-  try {
-    const conversionOptions = {
-      cssFramework: 'tailwind',
-      contentHandling: 'hybrid',
-      ssrOptions: {
-        enabled: true,
-        lazyLoadMedia: true,
-        preconnect: true,
-        criticalPathOnly: true,
-        removeDuplicateStyles: true,
-      },
-    } as const
-
-    // If the WP API exposes parsed blocks, convert them; otherwise enhance rendered HTML.
-    const html =
-      Array.isArray(post.blocks) && post.blocks.length > 0
-        ? (convertBlocks({ blocks: post.blocks, rendered: post.content?.rendered }, conversionOptions as never) as string)
-        : enhanceRenderedHTML(post.content.rendered, conversionOptions as never)
-    return addIdsToHeadings(html)
-  } catch (error) {
-    console.error('Error processing content:', error);
-    return addIdsToHeadings(post.content.rendered)
-  }
+  return addIdsToHeadings(post.content.rendered)
 }
 
 async function getRelatedPosts(post: ProcessedPost, categoryId: number | undefined): Promise<ProcessedPost[]> {
@@ -196,7 +170,7 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
 
   const content = renderContent(post)
   const headings = extractHeadings(content)
-  const readingTime = getReadingTime(content)
+  const readingTime = post.readingTime ?? getReadingTime(content)
   const featuredImageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url
   const plainTitle = post.title.rendered.replace(/<[^>]*>/g, '')
   const isIndonesian = isIndonesianSlug(post.slug)
@@ -227,7 +201,7 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
         <nav className="mb-8 text-sm text-zinc-500" aria-label="Breadcrumb">
           <ol className="flex items-center flex-wrap gap-1">
             <li>
-              <Link href="/" className="hover:text-orange-500 transition-colors">Home</Link>
+              <Link href="/" className="hover:text-orange-500 transition-colors">Beranda</Link>
             </li>
             <li aria-hidden="true" className="px-2">/</li>
             <li>
@@ -257,7 +231,7 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
 
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-zinc-500">
               <span>
-                By{' '}
+                Oleh{' '}
                 <Link href="/about" className="font-medium text-zinc-900 hover:text-orange-500 transition-colors">
                   {authorProfile.name}
                 </Link>
@@ -269,12 +243,12 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
               {wasUpdated && (
                 <span className="flex items-center gap-1.5">
                   <RefreshCw className="h-4 w-4" />
-                  Updated <time dateTime={post.modified}>{formatDate(post.modified)}</time>
+                  Diperbarui <time dateTime={post.modified}>{formatDate(post.modified)}</time>
                 </span>
               )}
               <span className="flex items-center gap-1.5">
                 <Clock className="h-4 w-4" />
-                {readingTime} min read
+                {readingTime} menit baca
               </span>
             </div>
           </header>
@@ -285,9 +259,9 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
 
           {headings.length > 0 && <TableOfContents headings={headings} />}
 
-          <WordPressContent content={content} estimatedReadTime={readingTime} />
+          <BlogPostContent content={content} estimatedReadTime={readingTime} />
 
-          <aside className="mt-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 md:p-8 bg-white/80 rounded-2xl shadow-sm" lang="en">
+          <aside className="mt-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 md:p-8 bg-white/80 rounded-2xl shadow-sm">
             <AuthorImage src={siteConfig.authorImage} alt={authorProfile.name} width={80} height={80} />
             <div className="flex-1 text-center sm:text-left">
               <p className="font-semibold text-lg text-zinc-900 mb-1">{authorProfile.name}</p>
@@ -313,7 +287,7 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
             </div>
           </aside>
 
-          <div className="mt-8 rounded-2xl bg-zinc-900 p-6 md:p-8 text-white" lang="en">
+          <div className="mt-8 rounded-2xl bg-zinc-900 p-6 md:p-8 text-white">
             <h2 className="text-xl md:text-2xl font-medium tracking-tight mb-2">
               Ingin mendiskusikan implementasi untuk proyek Anda?
             </h2>
@@ -333,7 +307,6 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
             <Link
               href="/blog"
               className="inline-flex items-center text-sm font-medium text-zinc-500 hover:text-orange-500 transition-colors"
-              lang="en"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Kembali ke blog
@@ -343,10 +316,10 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
       </div>
 
       {relatedPosts.length > 0 && (
-        <section className="mt-12 mb-8" lang="en">
+        <section className="mt-12 mb-8">
           <h2 className="text-2xl md:text-3xl font-medium text-zinc-900 tracking-tighter mb-8 flex items-center gap-3">
             <BookOpen className="h-5 w-5 text-orange-500" />
-            {category ? `More on ${category.name}` : 'Keep reading'}
+            {category ? `Artikel seputar ${category.name}` : 'Artikel lainnya'}
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
             {relatedPosts.map((relatedPost) => (

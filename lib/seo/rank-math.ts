@@ -2,9 +2,9 @@ import { decodeHtmlEntities, stripHtml } from './utils'
 
 const RANK_MATH_TEMPLATE = /%[a-z0-9_-]+%/i
 
-/** Rank Math suffixes we add again in fitTitle; strip so they are never doubled. */
+/** Suffix merek yang ditambahkan di fitTitle; hapus agar tidak ganda. */
 const BRAND_SUFFIX =
-  /\s*(?:[|·]|(?:\s[-–—]\s))(?:\s*)?(?:MADEBYARIS|MadeByAris|Made by Aris|Aris Setiawan)\s*$/i
+  /\s*(?:[|·]|(?:\s-\s))(?:\s*)?(?:Andika Putra Dev|AndikaDev|Wahyu Andika Putra)\s*$/i
 
 export function hasRankMathTemplateTokens(value: string): boolean {
   return RANK_MATH_TEMPLATE.test(value)
@@ -24,7 +24,7 @@ function stripEmbeddedBrandSuffix(title: string): string {
 
 /**
  * Returns a usable Rank Math SEO string, or undefined when empty, template-only, or missing.
- * Unresolved Rank Math placeholders (e.g. %title%, %sep%) fall back to WordPress defaults.
+ * Unresolved Rank Math placeholders (e.g. %title%, %sep%) fall back to default metadata.
  */
 export function resolveRankMathSeoValue(raw: string | undefined | null): string | undefined {
   if (raw == null) return undefined
@@ -66,7 +66,7 @@ export function pickRankMathDescription(input: BlogRankMathInput): string | unde
   )
 }
 
-/** Rank Math chain plus WordPress excerpt (today's live fallback when Rank Math fields are empty). */
+/** Rantai Rank Math ditambah excerpt fallback ketika field Rank Math kosong. */
 export function pickBlogMetaDescription(
   input: BlogRankMathInput,
   excerptRendered: string,

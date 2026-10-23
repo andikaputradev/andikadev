@@ -1,7 +1,7 @@
 import { buildLlmsTxt } from '@/lib/seo'
-import { getPostsForLlms } from '@/lib/wordpress'
+import { getPostsForLlms } from '@/lib/blog'
 
-export const revalidate = 604800 // 7 days; webhook revalidates on publish
+export const revalidate = 604800
 
 export async function GET() {
   const posts = await getPostsForLlms()

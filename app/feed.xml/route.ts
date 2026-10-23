@@ -1,12 +1,10 @@
 import { authorProfile, decodeHtmlEntities, isIndonesianSlug, productionAbsoluteUrl, siteConfig, stripHtml } from '@/lib/seo'
-import { getPostsWithContent } from '@/lib/wordpress'
+import { getPostsWithContent } from '@/lib/blog'
 
-export const revalidate = 604800 // 7 days; webhook revalidates on publish
+export const revalidate = 604800
 
 const FEED_ITEMS = 30
 
-// WordPress content can carry control characters (a pasted NUL, for one) that
-// XML 1.0 forbids even inside CDATA, and a single one breaks the whole feed.
 const INVALID_XML_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g
 
 function xml(text: string): string {
@@ -39,7 +37,7 @@ export async function GET() {
         `      <guid isPermaLink="true">${url}</guid>`,
         `      <pubDate>${new Date(post.date).toUTCString()}</pubDate>`,
         `      <dc:creator>${xml(authorProfile.name)}</dc:creator>`,
-        `      <dc:language>${isIndonesianSlug(post.slug) ? 'id' : 'en'}</dc:language>`,
+        `      <dc:language>${isIndonesianSlug(post.slug) ? 'id' : 'id'}</dc:language>`,
         `      <description>${xml(description)}</description>`,
         `      <content:encoded>${cdata(post.content)}</content:encoded>`,
         '    </item>',
@@ -53,7 +51,7 @@ export async function GET() {
     <title>${xml(siteConfig.name)}</title>
     <link>${productionAbsoluteUrl('/blog')}</link>
     <description>${xml(siteConfig.description)}</description>
-    <language>en</language>
+    <language>id</language>
     <lastBuildDate>${lastBuild.toUTCString()}</lastBuildDate>
     <atom:link href="${feedUrl}" rel="self" type="application/rss+xml" />
 ${items}

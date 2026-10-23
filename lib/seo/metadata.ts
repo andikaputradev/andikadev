@@ -7,7 +7,7 @@ import { languageAlternates } from './translations'
 export const TITLE_MAX = 60
 export const DESCRIPTION_MAX = 160
 
-const BRAND_SUFFIX = /\s*[|·–—-]\s*(MadeByAris|Made by Aris|Aris Setiawan)\s*$/i
+const BRAND_SUFFIX = /\s*[|·-]\s*(Andika Putra Dev|AndikaDev|Wahyu Andika Putra)\s*$/i
 
 function clean(text: string): string {
   return decodeHtmlEntities(stripHtml(text)).replace(/\s+/g, ' ').trim()
@@ -23,12 +23,12 @@ function cutAtWord(text: string, max: number): string {
   if (text.length <= max) return text
   const cut = text.slice(0, max + 1)
   const lastSpace = cut.lastIndexOf(' ')
-  return (lastSpace > max * 0.6 ? cut.slice(0, lastSpace) : text.slice(0, max)).replace(/[\s,;:–—|-]+$/, '')
+  return (lastSpace > max * 0.6 ? cut.slice(0, lastSpace) : text.slice(0, max)).replace(/[\s,;:|-]+$/, '')
 }
 
 /**
  * Titles that fit Google's ~60 character display with one brand suffix.
- * Long titles keep their strongest clause (text before ":", "—", "(" or "|")
+ * Long titles keep their strongest clause (text before ":", "(", or "|")
  * instead of being cut mid-thought with an ellipsis.
  */
 export function fitTitle(rawTitle: string, options: { brand?: boolean } = {}): string {
@@ -37,7 +37,7 @@ export function fitTitle(rawTitle: string, options: { brand?: boolean } = {}): s
   if (options.brand !== false && withBrand.length <= TITLE_MAX) return withBrand
   if (title.length <= TITLE_MAX) return title
 
-  const clause = title.split(/\s*(?::|—|–|\(|\|)\s*/)[0]
+  const clause = title.split(/\s*(?::|\(|\/|\|)\s*/)[0]
   if (clause.length >= 25 && clause.length <= TITLE_MAX) {
     return options.brand !== false && `${clause}${siteConfig.titleSuffix}`.length <= TITLE_MAX
       ? `${clause}${siteConfig.titleSuffix}`
@@ -119,11 +119,6 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
           },
         },
   }
-}
-
-export interface WordPressSeoFields {
-  title?: string
-  description?: string
 }
 
 export function isIndonesianSlug(slug: string): boolean {

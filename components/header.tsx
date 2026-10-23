@@ -17,20 +17,24 @@ interface NavigationItem {
   external?: boolean
 }
 
-const navigationItems: NavigationItem[] = [
-  { href: '/about', label: 'About' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
-]
+interface HeaderProps {
+  hasBlog?: boolean
+}
 
-export function Header() {
+export function Header({ hasBlog = false }: HeaderProps) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
   const [mounted, setMounted] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const hoverTimeout = useRef<NodeJS.Timeout | null>(null)
+
+  const navigationItems: NavigationItem[] = [
+    { href: '/about', label: 'About' },
+    { href: '/projects', label: 'Projects' },
+    ...(hasBlog ? [{ href: '/blog', label: 'Blog' }] : []),
+    { href: '/contact', label: 'Contact' },
+  ]
 
   const handleDropdownEnter = (href: string | null) => {
     if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
@@ -76,7 +80,7 @@ export function Header() {
           <div className="flex text-white bg-linear-to-b from-black/60 to-black/20 w-8 h-8 rounded-full items-center justify-center">
             <Layers className="w-4 h-4" />
           </div>
-          <span className="text-lg font-medium tracking-tight">MADE<span className="text-zinc-400">BYARIS</span></span>
+          <span className="text-lg font-medium tracking-tight">ANDIKA<span className="text-zinc-400">DEV</span></span>
         </div>
       </header>
     )
@@ -100,7 +104,7 @@ export function Header() {
         >
           <Layers className="w-4 h-4" />
         </div>
-        <span className="text-lg font-medium tracking-tight">MADE<span className="text-zinc-400">BYARIS</span></span>
+        <span className="text-lg font-medium tracking-tight">ANDIKA<span className="text-zinc-400">DEV</span></span>
       </Link>
 
       {/* Desktop Navigation */}
@@ -166,10 +170,10 @@ export function Header() {
       </nav>
 
       <Link 
-        href={contactHref('nextjs')}
+        href={contactHref('website')}
         className="hidden md:flex btn-primary items-center gap-2 group text-sm font-medium text-zinc-900 tracking-tight rounded-full py-3 px-6 transition-all hover:-translate-y-0.5"
       >
-        <span className="text-sm font-medium tracking-tight">Hire me</span>
+        <span className="text-sm font-medium tracking-tight">Mulai diskusi proyek</span>
         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
       </Link>
 

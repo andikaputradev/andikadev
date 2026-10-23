@@ -141,22 +141,13 @@ export default function MobileMenu({
                 ))}
 
                 <Link
-                  href={contactHref('nextjs')}
+                  href={contactHref('website')}
                   onClick={onClose}
                   className="mt-8 btn-primary rounded-full py-4 px-10 text-base font-semibold flex items-center gap-3 text-zinc-900"
                 >
-                  Hire me
+                  Mulai diskusi proyek
                   <ArrowRight className="w-5 h-5" />
                 </Link>
-                <a
-                  href="https://www.upwork.com/freelancers/~0117c4a4c888d9e9fe"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={onClose}
-                  className="mt-4 text-sm text-zinc-500 hover:text-zinc-900 transition-colors"
-                >
-                  Or hire me on Upwork
-                </a>
               </nav>
             </div>
           </motion.div>

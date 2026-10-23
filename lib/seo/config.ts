@@ -2,12 +2,12 @@ export const productionUrl = 'https://andikadev.com' as const
 
 export const siteConfig = {
   name: 'Andika Putra Dev',
-  shortName: 'AndikaDev',
+  shortName: 'Andika Putra Dev',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? productionUrl,
   description:
-    'Wahyu Andika Putra menyediakan layanan pembuatan website, pembuatan aplikasi, jasa upload aplikasi ke Play Store, keamanan siber defensif, dan Web3.',
+    'Wahyu Andika Putra menyediakan layanan pembuatan website, pembuatan aplikasi, jasa upload aplikasi ke Play Store, keamanan siber defensif, serta Web3 dan blockchain.',
   author: 'Wahyu Andika Putra',
-  titleSuffix: ' | Wahyu Andika Putra',
+  titleSuffix: ' | Andika Putra Dev',
   locale: 'id_ID',
   logo: '/logo.png',
   ogImage: '/og.png',
@@ -24,25 +24,21 @@ export const siteConfig = {
 // Fakta resmi tentang profil yang tampil pada schema dan metadata.
 export const authorProfile = {
   name: 'Wahyu Andika Putra',
-  jobTitle: 'Pengembang Web, Aplikasi, dan Praktisi Keamanan Siber Defensif',
+  jobTitle: 'Pengembang web dan aplikasi',
   city: 'Wonosobo / Semarang',
   region: 'Jawa Tengah',
   country: 'Indonesia',
   countryCode: 'ID',
-  languages: ['Indonesian', 'English'],
+  languages: ['Indonesia'],
   roles: [] as string[],
   programs: [] as Array<{ name: string; host?: string; hostUrl?: string; page: string }>,
   pastOrganizations: [] as Array<{ name: string; url?: string }>,
   knowsAbout: [
-    'Pembuatan Website',
-    'Pembuatan Aplikasi',
-    'Jasa Upload Play Store',
-    'Keamanan Siber Defensif',
-    'Web3',
-    'Blockchain',
-    'Next.js',
-    'React',
-    'TypeScript',
+    'Pembuatan website',
+    'Pembuatan aplikasi',
+    'Jasa upload aplikasi ke Play Store',
+    'Keamanan siber defensif',
+    'Web3 dan blockchain',
   ],
 } as const
 

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Suspense } from 'react'
-import { getPosts } from '@/lib/wordpress'
+import { getPosts } from '@/lib/blog'
 import { ArrowRight, ArrowUpRight, Code2, Globe, ShieldCheck, Smartphone, Award } from 'lucide-react'
 import type { Metadata } from 'next'
 import { buildPageGraph, buildPageMetadata, type FaqItem } from '@/lib/seo'

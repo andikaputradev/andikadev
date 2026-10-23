@@ -40,7 +40,7 @@ export function ContactForm() {
     <form ref={formRef} action={handleSubmit} className="space-y-4 rounded-lg border bg-card p-6">
       <div className="space-y-2">
         <label htmlFor="service" className={labelClass}>
-          What do you need?
+          Kebutuhan layanan
         </label>
         <select
           id="service"
@@ -51,7 +51,7 @@ export function ContactForm() {
           className={`${fieldClass} h-10`}
         >
           <option value="" disabled>
-            Pick the closest one
+            Pilih layanan yang paling sesuai
           </option>
           {contactServices.map((service) => (
             <option key={service.id} value={service.id}>
@@ -64,14 +64,14 @@ export function ContactForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <label htmlFor="name" className={labelClass}>
-            Name
+            Nama lengkap
           </label>
           <input id="name" name="name" type="text" required autoComplete="name" className={`${fieldClass} h-10`} />
         </div>
 
         <div className="space-y-2">
           <label htmlFor="email" className={labelClass}>
-            Work email
+            Alamat email
           </label>
           <input id="email" name="email" type="email" required autoComplete="email" className={`${fieldClass} h-10`} />
         </div>
@@ -79,13 +79,13 @@ export function ContactForm() {
 
       <div className="space-y-2">
         <label htmlFor="message" className={labelClass}>
-          Project details
+          Detail kebutuhan
         </label>
         <textarea
           id="message"
           name="message"
           required
-          placeholder="What you're building, your current site or repo (if any), and when you need it."
+          placeholder="Jelaskan kebutuhan aplikasi, website, sistem yang ingin dibangun, atau target waktu penyelesaian."
           className={`${fieldClass} min-h-[140px]`}
         />
       </div>
@@ -94,7 +94,7 @@ export function ContactForm() {
 
       {success && (
         <div className="text-sm text-green-600">
-          Got it. I&apos;ll reply within 24 hours with questions or next steps.
+          Pesan berhasil terkirim. Saya akan merespons dalam waktu 24 jam dengan langkah teknis berikutnya.
         </div>
       )}
 
@@ -103,10 +103,10 @@ export function ContactForm() {
         disabled={isPending}
         className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
       >
-        {isPending ? 'Sending...' : 'Send my project'}
+        {isPending ? 'Mengirim pesan...' : 'Kirim pesan'}
       </button>
       <p className="text-xs text-zinc-500">
-        No sales call required. I&apos;ll tell you plainly if I&apos;m not the right fit.
+        Saya memberikan evaluasi teknis yang jujur dan langsung mengenai kesesuaian solusi.
       </p>
     </form>
   )

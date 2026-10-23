@@ -13,11 +13,11 @@ export default function NotFound() {
   return (
     <SectionWrapper variant="default" padding="large">
       <div className="relative min-h-[80vh] flex flex-col items-center justify-center px-4 py-24 overflow-hidden">
-        {/* Background decorations with WordPress VIP colors */}
+        {/* Background decorations */}
         <div className="absolute inset-0 bg-gradient-to-br from-wp-navy/5 via-transparent to-wp-blue/5 dark:from-wp-navy/10 dark:to-wp-blue/10"></div>
         <div className="absolute inset-0 bg-gradient-to-tr from-wp-gold/5 via-transparent to-wp-sage/5 dark:from-wp-gold/10 dark:to-wp-sage/10"></div>
         
-        {/* Animated glitch effect for 404 with WordPress VIP colors */}
+        {/* Animated glitch effect for 404 */}
         <div className="relative mb-12">
           <h1 className="text-[150px] md:text-[200px] font-bold text-wp-navy/10 dark:text-wp-blue/10 select-none">404</h1>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -75,7 +75,7 @@ export default function NotFound() {
           </Button>
         </div>
         
-        {/* Enhanced code snippet with WordPress VIP styling */}
+        {/* Enhanced code snippet styling */}
         <EnhancedCard variant="glass" className="w-full max-w-md">
           <div className="bg-wp-navy/95 dark:bg-wp-navy/90 rounded-lg p-6 font-mono text-xs text-wp-sage shadow-lg backdrop-blur-sm">
             <div className="flex items-center gap-2 mb-4">
