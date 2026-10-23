@@ -400,7 +400,7 @@ export default function HomePage() {
         </div>
 
         {/* FAQ */}
-        <div className="max-w-3xl w-full mt-6" aria-labelledby="home-faq">
+        <section className="max-w-3xl w-full mt-6" aria-labelledby="home-faq">
           <h2 id="home-faq" className="text-2xl md:text-3xl font-medium text-zinc-900 tracking-tighter mb-6">
             Pertanyaan seputar kerja sama
           </h2>
@@ -415,7 +415,7 @@ export default function HomePage() {
               </details>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Main CTA Card */}
         <div className="overflow-hidden min-h-[380px] shadow-zinc-900/30 bg-zinc-900 rounded-[2rem] relative shadow-2xl mt-4">

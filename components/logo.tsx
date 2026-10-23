@@ -15,7 +15,7 @@ export function Logo({ className }: { className?: string }) {
         <Layers className="w-4 h-4" />
       </div>
       <span className="text-lg font-medium tracking-tight">
-        MADE<span className="text-zinc-400">BYARIS</span>
+        ANDIKA<span className="text-zinc-400">DEV</span>
       </span>
     </Link>
   )

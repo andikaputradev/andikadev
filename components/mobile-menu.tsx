@@ -5,6 +5,7 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { X, ChevronDown, ArrowRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { buildWhatsAppUrl } from "@/lib/contact-services"
 
 interface NavigationItem {
   href: string
@@ -144,7 +145,7 @@ export default function MobileMenu({
                 ))}
 
                 <a
-                  href="https://wa.me/6287730139582?text=Halo%20Wahyu%20Andika%20Putra%2C%20saya%20ingin%20berkonsultasi%20mengenai%20kebutuhan%20proyek."
+                  href={buildWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={onClose}

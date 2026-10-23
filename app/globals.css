@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -329,14 +331,6 @@ body {
   color: transparent;
 }
 
-.gradient-text-minimax {
-  /* MiniMax red gradient (matched to provided reference image) */
-  background-image: linear-gradient(to right, #fe604a 0%, #f6433d 45%, #dc0f12 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
 /* ========================================
    PROSE STYLING
    ======================================== */
@@ -556,6 +550,156 @@ body {
   --input: 240 6% 90%;
   --ring: 24 95% 53%;
   --radius: 0.5rem;
+}
+
+/* ========================================
+   CSS VARIABLES - DARK THEME
+   ======================================== */
+
+.dark {
+  --background: 240 10% 4%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 7%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 7%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 24 95% 53%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4% 16%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 4% 16%;
+  --muted-foreground: 240 5% 65%;
+  --accent: 240 4% 16%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 4% 18%;
+  --input: 240 4% 18%;
+  --ring: 24 95% 53%;
+}
+
+/* Dukungan otomatis preferensi sistem sebelum hidrasi */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 7%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 7%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 240 4% 16%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 4% 18%;
+    --input: 240 4% 18%;
+    --ring: 24 95% 53%;
+  }
+}
+
+/* ========================================
+   DARK MODE COMPONENT HARMONIZATION
+   ======================================== */
+
+.dark .glass-panel {
+  background: rgba(18, 18, 22, 0.92);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .glass-nav {
+  background: rgba(24, 24, 27, 0.65);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 2px 3px -1px rgba(0, 0, 0, 0.5), 0px 0px 0px 1px rgba(255, 255, 255, 0.05);
+}
+
+.dark .glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .bento-grid {
+  background-color: rgb(39, 39, 42);
+  box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.05), 0px 1px 1px -0.5px rgba(0, 0, 0, 0.2);
+}
+
+.dark .bento-card {
+  background-color: rgb(24, 24, 27);
+}
+
+.dark .bento-card:hover {
+  background-color: rgb(32, 32, 36);
+}
+
+.dark .text-zinc-900 {
+  color: rgb(244, 244, 245);
+}
+
+.dark .text-zinc-700 {
+  color: rgb(228, 228, 231);
+}
+
+.dark .text-zinc-600 {
+  color: rgb(212, 212, 216);
+}
+
+.dark .text-zinc-500 {
+  color: rgb(161, 161, 170);
+}
+
+.dark .bg-white {
+  background-color: rgb(24, 24, 27);
+}
+
+.dark .bg-white\/80 {
+  background-color: rgba(24, 24, 27, 0.85);
+}
+
+.dark .bg-white\/60 {
+  background-color: rgba(24, 24, 27, 0.65);
+}
+
+.dark .bg-zinc-50 {
+  background-color: rgb(32, 32, 36);
+}
+
+.dark .bg-zinc-100 {
+  background-color: rgb(39, 39, 42);
+}
+
+.dark .border-zinc-200\/60,
+.dark .border-zinc-200 {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .btn-secondary {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.06));
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dark .btn-secondary:hover {
+  background-color: rgb(39, 39, 42);
+  color: rgb(255, 255, 255);
+}
+
+.dark .gradient-text {
+  background-image: linear-gradient(to bottom, #f4f4f5, #a1a1aa);
+}
+
+.dark .prose strong,
+.dark .prose b {
+  color: rgb(244, 244, 245);
+}
+
+.dark .prose blockquote {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(39, 39, 42, 0.4) 100%);
+  color: rgb(228, 228, 231);
 }
 
 body {

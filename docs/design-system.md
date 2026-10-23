@@ -1,4 +1,4 @@
-# madebyaris.com design system
+# andikadev.com design system
 
 This describes what the live site renders. Source of truth: `app/globals.css`, `app/layout.tsx`, and the shared components in `components/page/`. If this file and the code disagree, the code wins. Fix this file.
 

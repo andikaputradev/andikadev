@@ -6,6 +6,8 @@ import { useState, useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
 import { Menu, ChevronDown, ArrowRight, Layers } from "lucide-react"
 import dynamic from "next/dynamic"
+import { ThemeToggle } from "@/components/theme-toggle"
+import { buildWhatsAppUrl } from "@/lib/contact-services"
 
 const MobileMenu = dynamic(() => import("./mobile-menu"), { ssr: false })
 
@@ -179,25 +181,31 @@ export function Header({ hasBlog = false }: HeaderProps) {
         ))}
       </nav>
 
-      <a 
-        href="https://wa.me/6287730139582?text=Halo%20Wahyu%20Andika%20Putra%2C%20saya%20ingin%20berkonsultasi%20mengenai%20kebutuhan%20proyek."
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hidden md:flex btn-primary items-center gap-2 group text-sm font-medium text-zinc-900 tracking-tight rounded-full py-3 px-6 transition-all hover:-translate-y-0.5"
-      >
-        <span className="text-sm font-medium tracking-tight">Konsultasi lewat WhatsApp</span>
-        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-      </a>
+      <div className="hidden md:flex items-center gap-3">
+        <ThemeToggle />
+        <a 
+          href={buildWhatsAppUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary flex items-center gap-2 group text-sm font-medium text-zinc-900 tracking-tight rounded-full py-3 px-6 transition-all hover:-translate-y-0.5"
+        >
+          <span className="text-sm font-medium tracking-tight">Konsultasi lewat WhatsApp</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </a>
+      </div>
 
-      {/* Mobile Menu Button */}
-      <button
-        className="md:hidden p-2 hover:bg-zinc-100 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
-        aria-expanded={isOpen}
-      >
-        <Menu className="h-6 w-6 text-zinc-900" />
-      </button>
+      {/* Mobile Actions: Theme Toggle and Menu Button */}
+      <div className="flex items-center gap-2 md:hidden">
+        <ThemeToggle />
+        <button
+          className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
+          aria-expanded={isOpen}
+        >
+          <Menu className="h-6 w-6 text-zinc-900 dark:text-zinc-100" />
+        </button>
+      </div>
 
       {/* Mobile Navigation Overlay (lazy-loaded with framer-motion) */}
       <MobileMenu
