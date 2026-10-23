@@ -1,33 +1,39 @@
 import type { MetadataRoute } from 'next'
+import fs from 'node:fs'
+import path from 'node:path'
 import { getPostsForSitemap } from '@/lib/blog'
 import { productionUrl } from '@/lib/seo/config'
 
 export const revalidate = 604800
 
-const coreRoutes = [
-  { path: '', priority: 1.0, changeFreq: 'monthly' },
-  { path: 'tentang', priority: 0.8, changeFreq: 'monthly' },
-  { path: 'layanan', priority: 0.9, changeFreq: 'monthly' },
-  { path: 'layanan/pembuatan-website', priority: 0.8, changeFreq: 'monthly' },
-  { path: 'layanan/pembuatan-aplikasi', priority: 0.8, changeFreq: 'monthly' },
-  { path: 'layanan/upload-play-store', priority: 0.8, changeFreq: 'monthly' },
-  { path: 'layanan/keamanan-siber', priority: 0.8, changeFreq: 'monthly' },
-  { path: 'layanan/web3-blockchain', priority: 0.8, changeFreq: 'monthly' },
-  { path: 'kontak', priority: 0.8, changeFreq: 'monthly' },
-]
+const staticPageMap: Record<string, string> = {
+  '': 'app/page.tsx',
+  tentang: 'app/tentang/page.tsx',
+  layanan: 'app/layanan/page.tsx',
+  'layanan/pembuatan-website': 'app/layanan/pembuatan-website/page.tsx',
+  'layanan/pembuatan-aplikasi': 'app/layanan/pembuatan-aplikasi/page.tsx',
+  'layanan/upload-play-store': 'app/layanan/upload-play-store/page.tsx',
+  'layanan/keamanan-siber': 'app/layanan/keamanan-siber/page.tsx',
+  'layanan/web3-blockchain': 'app/layanan/web3-blockchain/page.tsx',
+  kontak: 'app/kontak/page.tsx',
+  'kebijakan-privasi': 'app/kebijakan-privasi/page.tsx',
+}
 
-const legalRoutes = [
-  { path: 'kebijakan-privasi', priority: 0.5, changeFreq: 'yearly' },
-]
-
-function createSitemapEntry(baseUrl: string, route: { path: string; priority: number; changeFreq: string }) {
-  return {
-    url: route.path ? `${baseUrl}/${route.path}` : baseUrl,
-    changeFrequency: route.changeFreq as 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never',
-    priority: route.priority,
+function getFileDate(relativePath: string): Date {
+  try {
+    const fullPath = path.join(/*turbopackIgnore: true*/ process.cwd(), relativePath)
+    const stat = fs.statSync(fullPath)
+    return stat.mtime
+  } catch {
+    return new Date('2026-10-23T00:00:00.000Z')
   }
 }
 
+/**
+ * Pembangkit sitemap XML resmi.
+ * Berdasarkan dokumentasi resmi Google Search Central, nilai <priority> dan <changefreq> diabaikan oleh Googlebot.
+ * Oleh karena itu hanya bidang <loc> dan <lastmod> nyata yang disertakan.
+ */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = productionUrl
 
@@ -35,27 +41,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const posts = await getPostsForSitemap()
     const hasPosts = posts.length > 0
 
-    const dynamicMainRoutes = [
-      ...coreRoutes,
-      ...(hasPosts ? [{ path: 'blog', priority: 0.8, changeFreq: 'weekly' }] : []),
-    ]
+    const staticRoutes: MetadataRoute.Sitemap = Object.entries(staticPageMap).map(
+      ([routePath, filePath]) => ({
+        url: routePath ? `${baseUrl}/${routePath}` : baseUrl,
+        lastModified: getFileDate(filePath),
+      })
+    )
 
-    const staticRoutes = [
-      ...dynamicMainRoutes,
-      ...legalRoutes,
-    ].map((route) => createSitemapEntry(baseUrl, route))
+    if (hasPosts) {
+      staticRoutes.push({
+        url: `${baseUrl}/blog`,
+        lastModified: getFileDate('app/blog/page.tsx'),
+      })
+    }
 
-    const postRoutes = posts.map((post) => ({
+    const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
       url: `${baseUrl}/blog/${post.slug}`,
       lastModified: new Date(post.modified),
-      changeFrequency: 'weekly' as const,
-      priority: 0.6,
     }))
 
-    const allRoutes = [...staticRoutes, ...postRoutes]
-    return allRoutes.sort((a, b) => (b.priority || 0) - (a.priority || 0))
+    return [...staticRoutes, ...postRoutes]
   } catch (error) {
-    console.error('Failed to generate sitemap:', error)
-    return [...coreRoutes, ...legalRoutes].map((route) => createSitemapEntry(baseUrl, route))
+    console.error('Gagal membangkitkan sitemap dinamis:', error)
+    return Object.entries(staticPageMap).map(([routePath, filePath]) => ({
+      url: routePath ? `${baseUrl}/${routePath}` : baseUrl,
+      lastModified: getFileDate(filePath),
+    }))
   }
 }

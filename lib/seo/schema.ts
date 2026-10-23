@@ -18,8 +18,9 @@ function cleanText(value: string): string {
 }
 
 /**
- * Entities shared by every page: the person, the business, and the site.
- * Rendered once in the root layout; page graphs point at them by @id.
+ * Entitas bersama yang dibagikan ke seluruh halaman: Person (Wahyu Andika Putra),
+ * ProfessionalService / Organization (Andika Putra Dev), dan WebSite.
+ * Dirender sekali di root layout; grafik halaman merujuknya via @id.
  */
 export function buildSiteGraph() {
   const person: JsonLdNode = {
@@ -35,63 +36,51 @@ export function buildSiteGraph() {
     },
     jobTitle: authorProfile.jobTitle,
     description: `${authorProfile.jobTitle}. Berbasis di ${authorProfile.city}, ${authorProfile.country}.`,
+    telephone: siteConfig.telephone,
     email: `mailto:${siteConfig.email}`,
     worksFor: ref(schemaIds.organization),
     address: {
       '@type': 'PostalAddress',
-      addressLocality: authorProfile.city,
       addressRegion: authorProfile.region,
       addressCountry: authorProfile.countryCode,
     },
     knowsLanguage: [...authorProfile.languages],
     knowsAbout: [...authorProfile.knowsAbout],
-    award: [...authorProfile.roles],
-    memberOf: authorProfile.programs.map((program) => ({
-      '@type': 'ProgramMembership',
-      programName: program.name,
-      url: productionAbsoluteUrl(program.page),
-      hostingOrganization: {
-        '@type': 'Organization',
-        name: program.host,
-        ...('hostUrl' in program ? { url: program.hostUrl } : {}),
-      },
-    })),
-    alumniOf: authorProfile.pastOrganizations.map((org) => ({
-      '@type': 'Organization',
-      name: org.name,
-      ...('url' in org ? { url: org.url } : {}),
-    })),
     sameAs: [...siteConfig.sameAs],
   }
 
   const organization: JsonLdNode = {
-    '@type': 'Organization',
+    '@type': ['ProfessionalService', 'Organization'],
     '@id': schemaIds.organization,
     name: siteConfig.name,
     alternateName: siteConfig.shortName,
     url: productionUrl,
+    image: productionAbsoluteUrl(siteConfig.ogImage),
     logo: {
       '@type': 'ImageObject',
       '@id': schemaIds.logo,
       url: productionAbsoluteUrl(siteConfig.logo),
     },
     description: siteConfig.description,
+    telephone: siteConfig.telephone,
+    email: siteConfig.email,
     founder: ref(schemaIds.person),
-    areaServed: 'Worldwide',
+    areaServed: siteConfig.areaServed,
     address: {
       '@type': 'PostalAddress',
-      addressLocality: authorProfile.city,
       addressRegion: authorProfile.region,
       addressCountry: authorProfile.countryCode,
     },
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'sales',
+      telephone: siteConfig.telephone,
       email: siteConfig.email,
       url: productionAbsoluteUrl('/kontak'),
       availableLanguage: [...authorProfile.languages],
     },
     sameAs: [...siteConfig.sameAs],
+    knowsAbout: [...authorProfile.knowsAbout],
   }
 
   const website: JsonLdNode = {
@@ -102,7 +91,7 @@ export function buildSiteGraph() {
     alternateName: siteConfig.shortName,
     description: siteConfig.description,
     publisher: ref(schemaIds.organization),
-    inLanguage: ['en', 'id'],
+    inLanguage: 'id',
   }
 
   return { '@context': 'https://schema.org', '@graph': [person, organization, website] }
@@ -147,17 +136,17 @@ export interface PageGraphInput {
   description: string
   type?: PageType
   inLanguage?: 'en' | 'id'
-  /** Trail after Home. Home is added automatically. */
+  /** Jejak setelah Beranda. Beranda ditambahkan secara otomatis. */
   breadcrumbs?: BreadcrumbItem[]
   service?: ServiceInput
-  /** Only pass FAQs that are rendered visibly on the page. */
+  /** Hanya berikan FAQ yang terlihat secara nyata pada halaman dengan teks identik. */
   faqs?: FaqItem[]
-  /** Items listed on a collection page, e.g. the posts on a blog index page. */
+  /** Daftar entri pada halaman koleksi, misalnya daftar artikel di indeks blog. */
   items?: Array<{ name: string; path: string }>
 }
 
 function buildBreadcrumbNode(url: string, trail: BreadcrumbItem[]): JsonLdNode {
-  const items = [{ name: 'Home', path: '/' }, ...trail]
+  const items = [{ name: 'Beranda', path: '/' }, ...trail]
   return {
     '@type': 'BreadcrumbList',
     '@id': `${url}#breadcrumb`,
@@ -170,6 +159,11 @@ function buildBreadcrumbNode(url: string, trail: BreadcrumbItem[]): JsonLdNode {
   }
 }
 
+/**
+ * [Inferensi] Tampilan rich result FAQ di Google dibatasi sejak Agustus 2023 untuk situs otoritas tinggi
+ * dan pemerintah, sehingga FAQPage schema berguna untuk konsistensi pemahaman mesin pencari dan AI,
+ * bukan jaminan tampilan cuplikan kaya di SERP (verifikasi dokumentasi resmi Google Search Central).
+ */
 function buildFaqNode(url: string, faqs: FaqItem[]): JsonLdNode {
   return {
     '@type': 'FAQPage',
@@ -183,8 +177,8 @@ function buildFaqNode(url: string, faqs: FaqItem[]): JsonLdNode {
 }
 
 /**
- * Page-level graph: the WebPage plus optional Breadcrumb, Service, and FAQ
- * nodes, all linked to the site entities from `buildSiteGraph`.
+ * Page-level graph: WebPage ditambah simpul Breadcrumb, Service, dan FAQ yang sesuai.
+ * Dilarang menyertakan AggregateRating, Review, atau sertifikasi palsu tanpa data resmi.
  */
 export function buildPageGraph(input: PageGraphInput) {
   const url = productionAbsoluteUrl(input.path)
@@ -198,7 +192,7 @@ export function buildPageGraph(input: PageGraphInput) {
     url,
     name: cleanText(input.name),
     description: cleanText(input.description),
-    inLanguage: input.inLanguage ?? 'en',
+    inLanguage: input.inLanguage ?? 'id',
     isPartOf: ref(schemaIds.website),
     publisher: ref(schemaIds.organization),
     author: ref(schemaIds.person),
@@ -223,7 +217,7 @@ export function buildPageGraph(input: PageGraphInput) {
       url,
       provider: ref(schemaIds.person),
       brand: ref(schemaIds.organization),
-      areaServed: service.areaServed ?? 'Worldwide',
+      areaServed: service.areaServed ?? siteConfig.areaServed,
       ...(service.offers?.length
         ? {
             hasOfferCatalog: {
@@ -302,7 +296,7 @@ export function buildBlogPostGraph(input: {
         url,
         name: headline,
         ...(description ? { description } : {}),
-        inLanguage: input.inLanguage ?? 'en',
+        inLanguage: input.inLanguage ?? 'id',
         isPartOf: ref(schemaIds.website),
         breadcrumb: ref(`${url}#breadcrumb`),
         primaryImageOfPage: { '@type': 'ImageObject', url: image },
@@ -326,7 +320,7 @@ export function buildBlogPostGraph(input: {
         isPartOf: ref(schemaIds.website),
         author: ref(schemaIds.person),
         publisher: ref(schemaIds.organization),
-        inLanguage: input.inLanguage ?? 'en',
+        inLanguage: input.inLanguage ?? 'id',
       },
       buildBreadcrumbNode(url, [
         { name: 'Blog', path: '/blog' },

@@ -1,14 +1,15 @@
-// Validates titles, descriptions, canonicals, headings, and JSON-LD in every
-// prerendered page under .next/server/app. Run after `pnpm build`.
+// Memvalidasi title, meta description, canonical, heading H1, dan JSON-LD
+// pada setiap halaman hasil prerender di .next/server/app setelah pnpm build.
 import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const PROD = 'https://madebyaris.com'
+const PROD = 'https://andikadev.com'
 const appDir = path.resolve('.next/server/app')
 
 const REQUIRED = {
   Person: ['name', 'url'],
-  Organization: ['name', 'url', 'logo'],
+  Organization: ['name', 'url'],
+  ProfessionalService: ['name', 'url'],
   WebSite: ['name', 'url', 'publisher'],
   WebPage: ['name', 'url', 'isPartOf'],
   AboutPage: ['name', 'url', 'mainEntity'],
@@ -43,7 +44,7 @@ async function htmlFiles(dir) {
 }
 
 function routeOf(file) {
-  const rel = path.relative(appDir, file).replace(/\.html$/, '')
+  const rel = path.relative(appDir, file).replace(/\\/g, '/').replace(/\.html$/, '')
   if (rel === 'index') return '/'
   return `/${rel}`
 }
@@ -70,7 +71,7 @@ function collectRefs(value, refs = []) {
 const problems = []
 const report = (route, msg) => problems.push(`${route}: ${msg}`)
 
-const files = (await htmlFiles(appDir)).filter((f) => !/\/_(not-found|global-error)/.test(f))
+const files = (await htmlFiles(appDir)).filter((f) => !/[\\/]_(not-found|global-error)/.test(f))
 
 for (const file of files) {
   const route = routeOf(file)
@@ -81,18 +82,35 @@ for (const file of files) {
   const canonical = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1]
   const h1Count = (html.match(/<h1[\s>]/g) ?? []).length
 
-  if (!title) report(route, 'missing <title>')
-  else if (title.length > 60) report(route, `title ${title.length} chars: "${title}"`)
-  if (!description) report(route, 'missing meta description')
-  else if (description.length < 70 || description.length > 160)
-    report(route, `description ${description.length} chars`)
-  if (!canonical) report(route, 'missing canonical')
-  else if (!canonical.startsWith(PROD)) report(route, `canonical not on production host: ${canonical}`)
-  if (h1Count !== 1) report(route, `${h1Count} <h1> elements`)
-  if (/noindex/i.test(html.match(/<meta name="robots" content="([^"]*)"/)?.[1] ?? ''))
-    report(route, 'noindex')
+  if (!title) {
+    report(route, 'missing <title>')
+  } else if (title.length > 65) {
+    report(route, `title ${title.length} chars (melebihi batas sekitar 60): "${title}"`)
+  }
 
-  const blocks = [...html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((m) => m[1])
+  if (!description) {
+    report(route, 'missing meta description')
+  } else if (description.length < 50 || description.length > 160) {
+    report(route, `description ${description.length} chars (harus antara 50 sampai 160 karakter)`)
+  }
+
+  if (!canonical) {
+    report(route, 'missing canonical')
+  } else if (!canonical.startsWith(PROD)) {
+    report(route, `canonical not on production host: ${canonical}`)
+  }
+
+  if (h1Count !== 1) {
+    report(route, `${h1Count} <h1> elements (wajib tepat satu)`)
+  }
+
+  if (/noindex/i.test(html.match(/<meta name="robots" content="([^"]*)"/)?.[1] ?? '')) {
+    report(route, 'noindex found on production build page')
+  }
+
+  const blocks = [...html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(
+    (m) => m[1]
+  )
   if (!blocks.length) report(route, 'no JSON-LD')
 
   const allNodes = []
@@ -105,31 +123,48 @@ for (const file of files) {
       report(route, `JSON-LD parse error: ${error.message}`)
       continue
     }
-    if (data['@context'] !== 'https://schema.org') report(route, 'JSON-LD block missing https://schema.org @context')
+    if (data['@context'] !== 'https://schema.org') {
+      report(route, 'JSON-LD block missing https://schema.org @context')
+    }
     allNodes.push(...collectNodes(data))
     allRefs.push(...collectRefs(data))
   }
 
   const ids = new Set(allNodes.map((n) => n['@id']).filter(Boolean))
-  for (const ref of allRefs) if (!ids.has(ref)) report(route, `unresolved @id ${ref}`)
+  for (const ref of allRefs) {
+    if (!ids.has(ref)) report(route, `unresolved @id ${ref}`)
+  }
 
   const counts = {}
   for (const node of allNodes) {
     const types = [].concat(node['@type'])
     const isEntity = Boolean(node['@id'])
     if (isEntity) counts[node['@id']] = (counts[node['@id']] ?? 0) + 1
+
+    // Dilarang keras memuat AggregateRating atau Review palsu tanpa data resmi
     for (const type of types) {
-      // Nested items (offer catalog entries, list items) only need to be
-      // well-formed; required-property rules apply to @id entities.
-      for (const prop of isEntity ? REQUIRED[type] ?? [] : []) {
-        if (node[prop] === undefined || node[prop] === '' || (Array.isArray(node[prop]) && !node[prop].length))
-          report(route, `${type} missing ${prop}`)
+      if (type === 'AggregateRating' || type === 'Review') {
+        report(route, `dilarang memuat rating atau review palsu (${type})`)
       }
+
+      for (const prop of isEntity ? REQUIRED[type] ?? [] : []) {
+        if (
+          node[prop] === undefined ||
+          node[prop] === '' ||
+          (Array.isArray(node[prop]) && !node[prop].length)
+        ) {
+          report(route, `${type} missing required property: ${prop}`)
+        }
+      }
+
       if (type === 'BreadcrumbList') {
         node.itemListElement.forEach((item, i) => {
-          if (item.position !== i + 1 || !item.name || !item.item) report(route, `breadcrumb item ${i + 1} incomplete`)
+          if (item.position !== i + 1 || !item.name || !item.item) {
+            report(route, `breadcrumb item ${i + 1} incomplete`)
+          }
         })
       }
+
       if (type === 'FAQPage') {
         const text = decode(html.replace(/<script[\s\S]*?<\/script>/g, ''))
         for (const q of node.mainEntity) {
@@ -138,12 +173,17 @@ for (const file of files) {
         }
       }
     }
+
     for (const [key, value] of Object.entries(node)) {
-      if (typeof value === 'string' && /localhost|127\.0\.0\.1|vercel\.app/.test(value))
+      if (typeof value === 'string' && /localhost|127\.0\.0\.1|vercel\.app/.test(value)) {
         report(route, `${node['@type']}.${key} points at a non-production host: ${value}`)
+      }
     }
   }
-  for (const [id, n] of Object.entries(counts)) if (n > 1) report(route, `@id ${id} is defined ${n} times`)
+
+  for (const [id, n] of Object.entries(counts)) {
+    if (n > 1) report(route, `@id ${id} is defined ${n} times`)
+  }
 }
 
 console.log(`Checked ${files.length} prerendered pages`)

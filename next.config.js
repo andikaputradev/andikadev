@@ -1,8 +1,21 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import withBundleAnalyzer from '@next/bundle-analyzer';
+import withBundleAnalyzer from '@next/bundle-analyzer'
 
 const projectRoot = path.dirname(fileURLToPath(import.meta.url))
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data:",
+  "connect-src 'self' https://vitals.vercel-insights.com https://*.vercel-insights.com https://va.vercel-scripts.com",
+  "frame-ancestors 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "upgrade-insecure-requests",
+].join('; ')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -16,14 +29,14 @@ const nextConfig = {
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  
+
   turbopack: {
     root: projectRoot,
     rules: {
       '*.svg': ['@svgr/webpack'],
     },
   },
-  
+
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', 'framer-motion'],
@@ -33,15 +46,15 @@ const nextConfig = {
     memoryBasedWorkersCount: true,
     turbopackFileSystemCacheForDev: false,
   },
-  
+
   logging: {
     browserToTerminal: 'error',
   },
-  
+
   serverExternalPackages: ['sharp'],
   poweredByHeader: false,
   reactStrictMode: true,
-  
+
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
@@ -53,34 +66,38 @@ const nextConfig = {
       source: '/:path*',
       headers: [
         {
+          key: 'Content-Security-Policy',
+          value: contentSecurityPolicy,
+        },
+        {
           key: 'X-DNS-Prefetch-Control',
-          value: 'on'
+          value: 'on',
         },
         {
           key: 'Strict-Transport-Security',
-          value: 'max-age=31536000; includeSubDomains'
+          value: 'max-age=31536000; includeSubDomains; preload',
         },
         {
           key: 'X-Frame-Options',
-          value: 'SAMEORIGIN'
+          value: 'SAMEORIGIN',
         },
         {
           key: 'X-Content-Type-Options',
-          value: 'nosniff'
+          value: 'nosniff',
         },
         {
           key: 'Referrer-Policy',
-          value: 'strict-origin-when-cross-origin'
+          value: 'strict-origin-when-cross-origin',
         },
         {
           key: 'Permissions-Policy',
-          value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
-        }
-      ]
-    }
+          value: 'camera=(), microphone=(), geolocation=(), browsing-topics=()',
+        },
+      ],
+    },
   ],
 }
 
 export default withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
-})(nextConfig);
+})(nextConfig)

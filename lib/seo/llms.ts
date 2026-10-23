@@ -8,20 +8,54 @@ interface LlmsLink {
 }
 
 const services: LlmsLink[] = [
-  { title: 'Pembuatan Website', path: '/layanan/pembuatan-website', summary: 'Layanan pembuatan website modern berkinerja tinggi.' },
-  { title: 'Pembuatan Aplikasi', path: '/layanan/pembuatan-aplikasi', summary: 'Layanan pembuatan aplikasi mobile dan multi platform.' },
-  { title: 'Jasa Upload Play Store', path: '/layanan/upload-play-store', summary: 'Pendampingan teknis dan rilis resmi aplikasi ke Google Play Store.' },
-  { title: 'Keamanan Siber Defensif', path: '/layanan/keamanan-siber', summary: 'Pengujian dan penguatan keamanan siber secara legal atas izin tertulis.' },
-  { title: 'Web3 dan Blockchain', path: '/layanan/web3-blockchain', summary: 'Pengembangan teknologi Web3 dan integrasi kontrak pintar terdesentralisasi.' },
+  {
+    title: 'Pembuatan Website',
+    path: '/layanan/pembuatan-website',
+    summary: 'Layanan pembuatan website company profile, landing page, dan aplikasi web yang cepat di ponsel serta siap SEO dasar.',
+  },
+  {
+    title: 'Pembuatan Aplikasi',
+    path: '/layanan/pembuatan-aplikasi',
+    summary: 'Layanan pengembangan aplikasi Android dan aplikasi web kustom dari kebutuhan awal hingga rilis.',
+  },
+  {
+    title: 'Jasa Upload Play Store',
+    path: '/layanan/upload-play-store',
+    summary: 'Pendampingan rilis aplikasi Android ke Google Play Store tanpa kendala closed testing 14 hari sesuai panduan Google.',
+  },
+  {
+    title: 'Keamanan Siber Defensif',
+    path: '/layanan/keamanan-siber',
+    summary: 'Evaluasi keamanan web dan API defensif berbasis OWASP atas izin tertulis sah dari pemilik sistem.',
+  },
+  {
+    title: 'Web3 dan Blockchain',
+    path: '/layanan/web3-blockchain',
+    summary: 'Pengembangan kontrak pintar Solidity, pengujian kode, dan integrasi dApp yang aman.',
+  },
 ]
 
-const guides: LlmsLink[] = []
-
 const profilePages: LlmsLink[] = [
-  { title: 'Tentang', path: '/tentang', summary: 'Informasi profil Wahyu Andika Putra dan keahlian teknis.' },
-  { title: 'Layanan', path: '/layanan', summary: 'Daftar layanan pembuatan website, aplikasi, upload Play Store, keamanan siber, dan Web3.' },
-  { title: 'Kontak', path: '/kontak', summary: 'Kontak Wahyu Andika Putra melalui formulir, email, atau WhatsApp.' },
-  { title: 'Kebijakan Privasi', path: '/kebijakan-privasi', summary: 'Kebijakan privasi andikadev.com.' },
+  {
+    title: 'Tentang Wahyu Andika Putra',
+    path: '/tentang',
+    summary: 'Profil Wahyu Andika Putra, pengembang di balik Andika Putra Dev yang berbasis di Wonosobo dan Semarang.',
+  },
+  {
+    title: 'Daftar Layanan',
+    path: '/layanan',
+    summary: 'Daftar lengkap lima fokus layanan teknis pengembangan perangkat lunak.',
+  },
+  {
+    title: 'Kontak Langsung',
+    path: '/kontak',
+    summary: 'Formulir konsultasi proyek, email resmi, dan tautan komunikasi WhatsApp.',
+  },
+  {
+    title: 'Kebijakan Privasi',
+    path: '/kebijakan-privasi',
+    summary: 'Ketentuan perlindungan data pribadi pengunjung dan kepatuhan UU PDP Nomor 27 Tahun 2022.',
+  },
 ]
 
 export interface LlmsPost {
@@ -43,31 +77,23 @@ function postSummary(excerpt?: string): string | undefined {
 export function buildLlmsTxt(posts: LlmsPost[] = []): string {
   const facts = [
     `Nama: ${authorProfile.name}. Merek dan situs: ${siteConfig.name} (${productionUrl}).`,
-    `Fokus: Pembuatan website, pembuatan aplikasi, jasa upload aplikasi ke Play Store, keamanan siber (defensif), Web3 dan blockchain.`,
-    `Lokasi: ${authorProfile.city}, ${authorProfile.region}, ${authorProfile.country}.`,
-    `Kontak: ${productionUrl}/kontak atau ${siteConfig.email}.`,
+    `Fokus layanan: Pembuatan website, pembuatan aplikasi, jasa upload aplikasi ke Play Store, keamanan siber defensif, serta Web3 dan blockchain.`,
+    `Lokasi domisili: ${authorProfile.city}, ${authorProfile.region}, ${authorProfile.country}.`,
+    `Kontak resmi: ${productionUrl}/kontak, email ${siteConfig.email}, atau WhatsApp ${siteConfig.telephone}.`,
   ]
 
   const sections = [
     `# ${siteConfig.name}`,
     `> ${siteConfig.description}`,
-    `Situs ini dibangun menggunakan Next.js dan dideploy di Vercel.`,
+    `Situs ini dibangun menggunakan Next.js 16 (App Router) dan disajikan melalui Vercel Edge Network.`,
     `## Fakta Utama\n\n${facts.map((fact) => `- ${fact}`).join('\n')}`,
+    `## Layanan Teknis\n\n${services.map(link).join('\n')}`,
+    `## Profil dan Informasi\n\n${profilePages.map(link).join('\n')}`,
   ]
-
-  if (services.length) {
-    sections.push(`## Layanan\n\n${services.map(link).join('\n')}`)
-  }
-
-  if (guides.length) {
-    sections.push(`## Panduan\n\n${guides.map(link).join('\n')}`)
-  }
-
-  sections.push(`## Profil dan Halaman\n\n${profilePages.map(link).join('\n')}`)
 
   if (posts.length) {
     sections.push(
-      `## Artikel\n\n${posts
+      `## Artikel Blog Teknis\n\n${posts
         .map((post) =>
           link({
             title: decodeHtmlEntities(stripHtml(post.title)),
@@ -80,7 +106,7 @@ export function buildLlmsTxt(posts: LlmsPost[] = []): string {
   }
 
   sections.push(
-    `## Lainnya\n\n- [Sitemap](${productionUrl}/sitemap.xml)\n- [Blog](${productionUrl}/blog)\n- [RSS feed](${productionUrl}/feed.xml)\n- [Teks Lengkap Artikel](${productionUrl}/llms-full.txt)`,
+    `## Sumber Daya Terkait\n\n- [Sitemap XML](${productionUrl}/sitemap.xml)\n- [Indeks Blog](${productionUrl}/blog)\n- [Umpan RSS](${productionUrl}/feed.xml)\n- [Teks Lengkap Artikel](${productionUrl}/llms-full.txt)`,
   )
 
   return `${sections.join('\n\n')}\n`
@@ -113,7 +139,7 @@ export interface LlmsFullPost extends LlmsPost {
 export function buildLlmsFullTxt(posts: LlmsFullPost[]): string {
   const header = [
     `# ${siteConfig.name}: teks artikel lengkap`,
-    `> Seluruh artikel blog oleh ${authorProfile.name}. Ringkasan singkat tersedia di ${productionUrl}/llms.txt.`,
+    `> Seluruh artikel blog teknis oleh ${authorProfile.name}. Ringkasan singkat tersedia di ${productionUrl}/llms.txt.`,
   ].join('\n\n')
   const articles = posts.map((post) =>
     [

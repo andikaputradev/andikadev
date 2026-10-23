@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     template: `%s${siteConfig.titleSuffix}`
   },
   description: siteConfig.description,
-  authors: [{ name: siteConfig.author, url: `${productionUrl}/about` }],
+  authors: [{ name: siteConfig.author, url: `${productionUrl}/tentang` }],
   creator: siteConfig.author,
   publisher: siteConfig.name,
   icons: {
@@ -73,17 +73,20 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   metadataBase: new URL(productionUrl),
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
+  robots:
+    process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production'
+      ? { index: false, follow: false }
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+          },
+        },
   verification: {
     ...(process.env.GOOGLE_VERIFICATION_CODE ? { google: process.env.GOOGLE_VERIFICATION_CODE } : {}),
     ...(Object.keys(verificationOther).length ? { other: verificationOther } : {}),

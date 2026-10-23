@@ -27,9 +27,8 @@ function cutAtWord(text: string, max: number): string {
 }
 
 /**
- * Titles that fit Google's ~60 character display with one brand suffix.
- * Long titles keep their strongest clause (text before ":", "(", or "|")
- * instead of being cut mid-thought with an ellipsis.
+ * Judul yang pas dengan batas tampilan Google sekitar 60 karakter dengan satu akhiran merek.
+ * Judul panjang mempertahankan klausa terkuat sebelum tanda baca pemisah.
  */
 export function fitTitle(rawTitle: string, options: { brand?: boolean } = {}): string {
   const title = stripBrand(clean(rawTitle))
@@ -49,14 +48,14 @@ export function fitTitle(rawTitle: string, options: { brand?: boolean } = {}): s
 export function fitDescription(rawDescription: string): string {
   const description = clean(rawDescription)
   if (description.length <= DESCRIPTION_MAX) return description
-  return `${cutAtWord(description, DESCRIPTION_MAX - 1)}…`
+  return `${cutAtWord(description, DESCRIPTION_MAX - 1)}...`
 }
 
 export interface PageMetaInput {
   title: string
   description?: string
   path: string
-  /** Set false when the title already names Aris, e.g. "About Aris Setiawan". */
+  /** Set false jika judul sudah memuat nama merek atau pengembang. */
   brand?: boolean
   image?: string
   type?: 'website' | 'article'
@@ -75,6 +74,11 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
   const image = /^https?:\/\//.test(imageSource) ? imageSource : productionAbsoluteUrl(imageSource)
   const ogType = input.type ?? 'website'
   const languages = languageAlternates(input.path)
+
+  // Pada lingkungan non-produksi (misal Vercel preview atau staging), aktifkan noindex untuk mencegah duplikasi SERP
+  const isNonProduction =
+    Boolean(process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production')
+  const shouldNoIndex = Boolean(input.noIndex || isNonProduction)
 
   return {
     title: { absolute: title },
@@ -105,7 +109,7 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
       creator: siteConfig.twitterHandle,
       images: [image],
     },
-    robots: input.noIndex
+    robots: shouldNoIndex
       ? { index: false, follow: false }
       : {
           index: true,

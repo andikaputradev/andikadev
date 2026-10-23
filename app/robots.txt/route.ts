@@ -1,8 +1,6 @@
 import { productionUrl } from '@/lib/seo/config'
 
-// Search engines and AI answer engines that we want crawling and citing the
-// site. A crawler matched by a named group ignores the `*` group, so every
-// group must repeat the full rule set.
+// Crawler mesin pencari dan mesin penjawab AI yang diizinkan mengindeks situs
 const CRAWLERS = [
   'Googlebot',
   'Bingbot',
@@ -29,8 +27,6 @@ const CRAWLERS = [
   '*',
 ]
 
-// `/_next/static` and `/_next/image` stay crawlable: Google and Bing render
-// pages with them, and image search indexes `/_next/image` URLs.
 const RULES = [
   'Allow: /',
   'Allow: /_next/static/',
@@ -41,12 +37,33 @@ const RULES = [
 ]
 
 export function GET() {
+  // Lingkungan non-produksi (preview deployment / staging di Vercel): blokir semua crawler
+  const isNonProduction =
+    Boolean(process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production')
+
+  if (isNonProduction) {
+    const disallowAll = [
+      '# Lingkungan pratinjau/non-produksi: blokir seluruh perayapan mesin pencari',
+      'User-agent: *',
+      'Disallow: /',
+      '',
+    ].join('\n')
+
+    return new Response(disallowAll, {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate',
+      },
+    })
+  }
+
+  // Lingkungan produksi
   const groups = CRAWLERS.map((agent) => [`User-agent: ${agent}`, ...RULES].join('\n'))
 
   const robotsTxt = [
     '# https://www.robotstxt.org/robotstxt.html',
     ...groups,
-    `# AI-readable site summary: ${productionUrl}/llms.txt`,
+    `# Ringkasan situs untuk model bahasa besar (LLM): ${productionUrl}/llms.txt`,
     `Sitemap: ${productionUrl}/sitemap.xml`,
     '',
   ].join('\n\n')

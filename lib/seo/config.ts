@@ -13,6 +13,8 @@ export const siteConfig = {
   ogImage: '/og.png',
   authorImage: '/foto-profil.webp',
   email: 'wahyuandikaputra.co.id@gmail.com',
+  telephone: '+6287730139582',
+  areaServed: 'Indonesia',
   sameAs: [
     'https://github.com/andikaputradev',
     'https://linkedin.com/in/wahyu-andika-putra',
