@@ -1,12 +1,26 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// Next.js 16: Renamed from middleware to proxy for better clarity
-// This function handles network boundary and routing at the edge
 export function proxy(request: NextRequest) {
+  const host = request.headers.get('host') || ''
+  const proto = request.headers.get('x-forwarded-proto')
+
+  // Kanonikalisasi host dan protokol ke https://andikadev.com
+  if (
+    host.startsWith('www.andikadev.com') ||
+    (proto === 'http' && host === 'andikadev.com')
+  ) {
+    const search = request.nextUrl.search
+    const pathname = request.nextUrl.pathname
+    return NextResponse.redirect(
+      new URL(`${pathname}${search}`, 'https://andikadev.com'),
+      308
+    )
+  }
+
   const response = NextResponse.next()
 
-  // Add cache control headers for static assets
+  // Header cache control untuk aset statis
   if (
     request.nextUrl.pathname.match(/\.(jpg|jpeg|gif|png|ico|css|js|woff|woff2|ttf|eot)$/)
   ) {
@@ -22,7 +36,7 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
+     * Berlaku untuk semua path kecuali:
      * - api (API routes)
      * - _next/static (static files)
      * - _next/image (image optimization files)

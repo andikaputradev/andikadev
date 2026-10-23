@@ -45,7 +45,16 @@ const nextConfig = {
 
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', 'framer-motion'],
+    optimizePackageImports: [
+      'lucide-react',
+      '@radix-ui/react-icons',
+      'framer-motion',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-accordion',
+      '@radix-ui/react-slot',
+      'zod',
+    ],
     serverActions: {
       allowedOrigins: ['localhost:3000', 'andikadev.com', 'www.andikadev.com'],
     },
@@ -66,7 +75,19 @@ const nextConfig = {
   },
   compress: true,
   generateEtags: true,
-  redirects: async () => [],
+  redirects: async () => [
+    {
+      source: '/:path*',
+      has: [
+        {
+          type: 'host',
+          value: 'www.andikadev.com',
+        },
+      ],
+      destination: 'https://andikadev.com/:path*',
+      permanent: true,
+    },
+  ],
   headers: async () => [
     {
       source: '/:path*',
@@ -81,7 +102,11 @@ const nextConfig = {
         },
         {
           key: 'Strict-Transport-Security',
-          value: 'max-age=31536000; includeSubDomains; preload',
+          value: 'max-age=31536000; includeSubDomains',
+        },
+        {
+          key: 'Cross-Origin-Opener-Policy',
+          value: 'same-origin',
         },
         {
           key: 'X-Frame-Options',
