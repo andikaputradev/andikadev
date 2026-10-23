@@ -14,6 +14,7 @@
     "seo:check": "node scripts/validate-seo.mjs",
     "copy:check": "node scripts/check-copy.mjs",
     "links:check": "node scripts/check-links.mjs",
+    "dashes:check": "node scripts/check-dashes.mjs",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {

@@ -32,13 +32,25 @@ export function CtaBand({ title, body, primary, secondary }: CtaBandProps) {
         <p className="text-zinc-400 mb-8 max-w-lg font-medium">{body}</p>
 
         <div className="flex flex-wrap justify-center gap-3">
-          <Link
-            href={primary.href}
-            className="group flex items-center gap-3 bg-white hover:bg-zinc-100 transition-all text-zinc-900 text-sm font-medium rounded-full px-6 py-3 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-          >
-            <span>{primary.label}</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          {primary.href.startsWith('http') ? (
+            <a
+              href={primary.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-3 bg-white hover:bg-zinc-100 transition-all text-zinc-900 text-sm font-medium rounded-full px-6 py-3 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+            >
+              <span>{primary.label}</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+          ) : (
+            <Link
+              href={primary.href}
+              className="group flex items-center gap-3 bg-white hover:bg-zinc-100 transition-all text-zinc-900 text-sm font-medium rounded-full px-6 py-3 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+            >
+              <span>{primary.label}</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          )}
           {secondary && (
             <Link
               href={secondary.href}

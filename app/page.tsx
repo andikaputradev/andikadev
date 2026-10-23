@@ -2,14 +2,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Suspense } from 'react'
 import { getPosts } from '@/lib/blog'
-import { ArrowRight, ArrowUpRight, Code2, Globe, ShieldCheck, Smartphone, Award } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Code2, Globe, ShieldCheck, Smartphone, Award, MessagesSquare, FileText, CheckCircle2, Laptop } from 'lucide-react'
 import type { Metadata } from 'next'
 import { buildPageGraph, buildPageMetadata, type FaqItem } from '@/lib/seo'
 import { JsonLd } from '@/components/seo/json-ld'
 import { HomeContent } from '@/components/home-content'
 import { contactHref } from '@/lib/contact-services'
 
-export const revalidate = 86400 // 24 hours
+export const revalidate = 86400
 
 const PostsFallback = () => (
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -19,9 +19,9 @@ const PostsFallback = () => (
   </div>
 )
 
-const pageTitle = 'Pengembang Website dan Aplikasi Mobile'
+const pageTitle = 'Jasa Pembuatan Website dan Aplikasi'
 const pageDescription =
-  'Wahyu Andika Putra menyediakan jasa pembuatan website, pembuatan aplikasi, jasa upload aplikasi ke Play Store, keamanan siber defensif, dan Web3.'
+  'Wahyu Andika Putra menyediakan jasa pembuatan website, aplikasi mobile, upload Google Play Store, keamanan siber defensif, dan Web3 di Wonosobo dan Semarang.'
 
 export const metadata: Metadata = buildPageMetadata({
   title: pageTitle,
@@ -31,19 +31,39 @@ export const metadata: Metadata = buildPageMetadata({
 
 const faqs: (FaqItem & { link?: { href: string; label: string } })[] = [
   {
-    question: 'Bagaimana proses kerja sama proyek?',
+    question: 'Bagaimana cara memulai konsultasi proyek?',
     answer:
-      'Anda dapat mengirimkan ringkasan kebutuhan proyek melalui formulir kontak atau WhatsApp. Saya akan mempelajari cakupan teknisnya dan memberikan gambaran langkah kerja secara transparan.',
+      'Anda dapat menghubungi saya langsung melalui WhatsApp atau mengisi formulir kontak di situs ini. Sampaikan gambaran kebutuhan Anda dan saya akan merespons dengan pertimbangan teknis yang relevan.',
   },
   {
-    question: 'Layanan apa saja yang disediakan?',
+    question: 'Layanan apa saja yang Anda kerjakan?',
     answer:
-      'Fokus layanan mencakup pembuatan website, pembuatan aplikasi mobile, jasa upload aplikasi ke Google Play Store, pengujian keamanan siber defensif atas izin tertulis, serta pengembangan Web3.',
+      'Fokus layanan saya mencakup pembuatan website, pembuatan aplikasi mobile, jasa upload aplikasi ke Google Play Store, pengujian keamanan siber defensif, serta pengembangan Web3.',
   },
   {
-    question: 'Apakah melayani klien secara remote?',
+    question: 'Di mana lokasi kerja Anda?',
     answer:
-      'Ya. Saya berbasis di Wonosobo / Semarang, Jawa Tengah, dan siap bekerja secara remote untuk klien dari berbagai wilayah di Indonesia.',
+      'Saya berbasis di Wonosobo dan Semarang, Jawa Tengah. Komunikasi dan pengerjaan proyek dapat berlangsung secara jarak jauh.',
+  },
+  {
+    question: 'Apakah melayani klien di luar Wonosobo dan Semarang?',
+    answer:
+      'Ya. Koordinasi dapat dilakukan secara daring melalui pertemuan video, pesan teks, dan repositori kode.',
+  },
+  {
+    question: 'Teknologi apa saja yang Anda gunakan dalam pengembangan sistem?',
+    answer:
+      'Teknologi disesuaikan dengan arsitektur sistem, antara lain Next.js, React, TypeScript, Flutter, Kotlin, Express.js, Laravel, Python, serta Solidity untuk kontrak pintar Web3.',
+  },
+  {
+    question: 'Bagaimana batasan pelaksanaan layanan keamanan siber?',
+    answer:
+      'Layanan keamanan siber hanya dilakukan dalam koridor defensif, legal, dan wajib memiliki izin tertulis resmi dari pemilik sistem. Saya tidak menyediakan layanan peretasan atau akses tanpa hak.',
+  },
+  {
+    question: 'Apakah layanan Web3 menyediakan saran atau janji keuntungan finansial?',
+    answer:
+      'Tidak. Layanan Web3 berfokus murni pada rekayasa perangkat lunak, integrasi smart contract, dan arsitektur terdesentralisasi. Saya tidak memberikan nasihat investasi atau janji keuntungan finansial apa pun.',
   },
 ]
 
@@ -70,52 +90,60 @@ async function Posts() {
 const services = [
   {
     icon: Globe,
-    title: "Pembuatan website",
-    description: "Membangun website modern dengan performa cepat, responsif di ponsel, dan struktur kode yang mudah dikembangkan.",
-    href: "/layanan/pembuatan-website",
+    title: 'Pembuatan website',
+    description: 'Website berkecepatan tinggi dengan tampilan rapi di perangkat ponsel dan kemudahan pengelolaan konten.',
+    href: '/layanan/pembuatan-website',
   },
   {
     icon: Smartphone,
-    title: "Pembuatan aplikasi mobile",
-    description: "Pengembangan aplikasi Android dan multi platform yang stabil untuk operasional bisnis Anda.",
-    href: "/layanan/pembuatan-aplikasi",
+    title: 'Pembuatan aplikasi mobile',
+    description: 'Aplikasi Android dan multi platform yang stabil untuk kelancaran operasional usaha Anda.',
+    href: '/layanan/pembuatan-aplikasi',
   },
   {
     icon: ArrowUpRight,
-    title: "Jasa upload ke Play Store",
-    description: "Pendampingan teknis dan proses rilis aplikasi ke Google Play Store hingga tayang secara resmi.",
-    href: "/layanan/upload-play-store",
+    title: 'Upload aplikasi ke Play Store',
+    description: 'Pendampingan rilis aplikasi ke Google Play Store secara tertata agar memenuhi seluruh standar Google.',
+    href: '/layanan/upload-play-store',
   },
   {
     icon: ShieldCheck,
-    title: "Keamanan siber defensif",
-    description: "Audit keamanan sistem dan pengujian kerentanan legal berbasis izin tertulis pemilik sistem.",
-    href: "/layanan/keamanan-siber",
+    title: 'Keamanan siber defensif',
+    description: 'Evaluasi dan penguatan pertahanan sistem digital secara etis atas izin tertulis untuk mencegah gangguan.',
+    href: '/layanan/keamanan-siber',
   },
   {
     icon: Code2,
-    title: "Web3 dan blockchain",
-    description: "Pengembangan aplikasi terdesentralisasi dan integrasi kontrak pintar yang aman.",
-    href: "/layanan/web3-blockchain",
+    title: 'Web3 dan blockchain',
+    description: 'Pengembangan kontrak pintar dan integrasi aplikasi terdesentralisasi yang aman tanpa janji spekulasi finansial.',
+    href: '/layanan/web3-blockchain',
   },
 ]
 
-const features = [
+const workflowSteps = [
   {
-    icon: Globe,
-    text: "Pembuatan website dan aplikasi dengan performa cepat, arsitektur rapi, dan teknologi modern.",
+    number: '01',
+    icon: MessagesSquare,
+    title: 'Konsultasi kebutuhan',
+    description: 'Kita mendiskusikan masalah, alur kerja yang diinginkan, dan hasil yang ingin dicapai melalui sistem baru.',
   },
   {
-    icon: ArrowUpRight,
-    text: "Bantuan teknis upload aplikasi ke Google Play Store sesuai regulasi Google.",
+    number: '02',
+    icon: FileText,
+    title: 'Penawaran dan ruang lingkup',
+    description: 'Saya menyusun batasan teknis yang realistis, daftar modul yang akan dikerjakan, serta kesepakatan bersama.',
   },
   {
-    icon: ShieldCheck,
-    text: "Layanan keamanan siber hanya dalam koridor defensif, legal, dan atas izin tertulis pemilik sistem.",
+    number: '03',
+    icon: Laptop,
+    title: 'Pengerjaan bertahap dengan tinjauan',
+    description: 'Implementasi kode dikerjakan bertahap dengan pelaporan berkala agar Anda dapat menguji fungsi aplikasi secara langsung.',
   },
   {
-    icon: Code2,
-    text: "Penerapan teknologi Web3 dan blockchain yang aman tanpa janji spekulasi finansial.",
+    number: '04',
+    icon: CheckCircle2,
+    title: 'Serah terima dan dukungan',
+    description: 'Pemasangan sistem ke server produksi, penyerahan akses serta dokumentasi, dan pendampingan awal penggunaan.',
   },
 ]
 
@@ -123,53 +151,55 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={structuredData} />
-      
+
       {/* Hero Section */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 pb-8 lg:pb-0 pt-4">
         {/* Left Column: Text Content */}
         <div className="lg:col-span-7 flex flex-col pt-4 relative justify-center">
           {/* Status Pill */}
-          <div 
+          <div
             className="inline-flex bg-white/60 max-w-full rounded-2xl sm:rounded-full mb-8 py-1.5 pr-5 pl-1.5 shadow-sm backdrop-blur-sm items-center"
             style={{
               position: 'relative',
               // @ts-expect-error CSS custom properties
               '--border-gradient': 'linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0))',
-              '--border-radius-before': '9999px'
+              '--border-radius-before': '9999px',
             }}
           >
             <div className="w-6 h-6 shrink-0 rounded-full bg-zinc-900 text-white flex items-center justify-center mr-3">
               <Award className="w-3.5 h-3.5" />
             </div>
             <span className="text-xs font-medium text-zinc-600 tracking-wide">
-              <span className="text-zinc-900">Wahyu Andika Putra · Terbuka untuk proyek baru</span>
+              <span className="text-zinc-900">Wahyu Andika Putra · Terbuka untuk diskusi proyek</span>
             </span>
           </div>
 
-          {/* Headline */}
-          <h1 className="leading-[0.95] lg:text-[4.5rem] text-4xl font-medium text-zinc-900 tracking-tighter mb-8">
-            Pengembang
-            {' '}<span className="block gradient-text font-light">Website dan Aplikasi</span>
-            {' '}<span className="block">Mobile</span>
+          {/* Headline with outcome for the reader */}
+          <h1 className="leading-[0.95] lg:text-[4.25rem] text-4xl font-medium text-zinc-900 tracking-tighter mb-8">
+            Website dan aplikasi andal
+            {' '}<span className="block gradient-text font-light">yang siap memajukan</span>
+            {' '}<span className="block">bisnis Anda</span>
           </h1>
 
-          {/* Subheadline */}
-          <p className="text-sm text-zinc-500 font-medium max-w-md mb-10 leading-relaxed tracking-wide border-l-2 border-zinc-200 pl-6">
-            Halo, saya <span className="text-zinc-900 font-semibold">Wahyu Andika Putra</span>. Saya membantu pembuatan website, pembuatan aplikasi mobile, jasa upload aplikasi ke Play Store, keamanan siber defensif, dan Web3. Bekerja langsung secara transparan dari Jawa Tengah, Indonesia.
+          {/* Subheadline (one single clear sentence) */}
+          <p className="text-sm text-zinc-600 font-medium max-w-xl mb-10 leading-relaxed tracking-wide border-l-2 border-zinc-200 pl-6">
+            Saya Wahyu Andika Putra, pengembang yang merancang website, mengembangkan aplikasi mobile, membantu rilis Play Store, serta memperkuat keamanan sistem untuk klien di Wonosobo, Semarang, dan sekitarnya.
           </p>
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 mb-4">
-            <Link 
-              href={contactHref('other')}
+            <a
+              href="https://wa.me/6287730139582?text=Halo%20Wahyu%20Andika%20Putra%2C%20saya%20ingin%20berkonsultasi%20mengenai%20kebutuhan%20proyek."
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary hover:scale-[1.02] transition-all flex group shadow-zinc-900/10 hover:shadow-2xl hover:shadow-zinc-900/20 hover:-translate-y-0.5 text-sm font-medium text-zinc-900 rounded-full py-3 px-6 gap-3 items-center justify-between"
             >
-              <span className="text-sm font-medium tracking-tight">Kirimkan rencana proyek Anda</span>
+              <span className="text-sm font-medium tracking-tight">Konsultasi lewat WhatsApp</span>
               <span className="flex items-center justify-center rounded-full bg-black/10 px-3 py-1">
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </span>
-            </Link>
-            <Link 
+            </a>
+            <Link
               href="/layanan"
               className="btn-secondary hover:bg-zinc-50 transition-all flex text-sm font-medium rounded-full py-3 px-6 gap-2 items-center"
               style={{
@@ -177,15 +207,15 @@ export default function HomePage() {
                 position: 'relative',
                 // @ts-expect-error CSS custom properties
                 '--border-gradient': 'linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.8))',
-                '--border-radius-before': '9999px'
+                '--border-radius-before': '9999px',
               }}
             >
-              <span className="text-sm font-medium text-black/60 tracking-tight">Lihat daftar layanan</span>
+              <span className="text-sm font-medium text-black/60 tracking-tight">Lihat layanan</span>
               <ArrowRight className="w-4 h-4 text-zinc-500" />
             </Link>
           </div>
           <p className="text-xs text-zinc-500 font-medium lg:mb-14 mb-10">
-            Saya membaca setiap pesan secara langsung dan merespons dalam waktu 24 jam.
+            Pesan Anda dibaca langsung oleh pengembang tanpa perantara.
           </p>
 
           {/* Footer Stats with Curved Lines */}
@@ -222,13 +252,13 @@ export default function HomePage() {
         </div>
 
         {/* Right Column: Visual Card */}
-        <div className="lg:col-span-5 h-full min-h-[400px] lg:min-h-0 relative group perspective-midrange">
-          <div className="absolute inset-0 rounded-[2rem] overflow-hidden shadow-2xl shadow-zinc-900/20 transition-all duration-700 ease-out border border-white/20">
+        <div className="lg:col-span-5 h-full min-h-[420px] lg:min-h-0 relative group perspective-midrange">
+          <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden shadow-2xl shadow-zinc-900/20 transition-all duration-700 ease-out border border-white/20">
             <Image
               src="/foto-profil.webp"
-              alt="Wahyu Andika Putra, pengembang web dan aplikasi mobile"
+              alt="Foto Wahyu Andika Putra"
               fill
-              className="transition-transform duration-[2s] ease-in-out group-hover:scale-110 object-cover"
+              className="transition-transform duration-[2s] ease-in-out group-hover:scale-105 object-cover"
               priority
               sizes="(max-width: 768px) 100vw, 40vw"
             />
@@ -237,13 +267,13 @@ export default function HomePage() {
 
             <div className="flex flex-col p-8 absolute inset-0 justify-between">
               <div className="flex items-start justify-between">
-                <div 
+                <div
                   className="flex gap-2 bg-gradient-to-b from-white/10 to-white/0 rounded-full py-1.5 px-3 items-center"
                   style={{
                     position: 'relative',
                     // @ts-expect-error CSS custom properties
                     '--border-gradient': 'linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))',
-                    '--border-radius-before': '9999px'
+                    '--border-radius-before': '9999px',
                   }}
                 >
                   <span className="relative flex h-2 w-2">
@@ -254,13 +284,13 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div 
+              <div
                 className="self-end transform group-hover:translate-y-0 transition-transform duration-700 ease-out bg-gradient-to-b from-white/10 to-white/0 w-full max-w-[240px] rounded-xl p-4 backdrop-blur translate-y-4"
                 style={{
                   position: 'relative',
                   // @ts-expect-error CSS custom properties
                   '--border-gradient': 'linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))',
-                  '--border-radius-before': '12px'
+                  '--border-radius-before': '12px',
                 }}
               >
                 <div className="flex items-center justify-between mb-3">
@@ -270,10 +300,10 @@ export default function HomePage() {
                     </div>
                     <span className="text-xs text-white font-medium">Wahyu Andika Putra</span>
                   </div>
-                  <span className="text-[10px] text-emerald-400 font-mono">Remote</span>
+                  <span className="text-[10px] text-emerald-400 font-mono">Tersedia</span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-[9px] text-white/60 uppercase">Keahlian</span>
+                  <span className="text-[9px] text-white/60 uppercase">Fokus</span>
                   <span className="text-sm text-white font-medium">Web, Mobile dan Security</span>
                 </div>
               </div>
@@ -294,20 +324,20 @@ export default function HomePage() {
               <span className="gradient-text"> yang disediakan</span>
             </h2>
             <p className="leading-relaxed text-base font-normal text-zinc-500">
-              Solusi pengembangan perangkat lunak dengan pendekatan jujur dan spesifik sesuai kebutuhan Anda.
+              Solusi pengembangan perangkat lunak yang disesuaikan dengan kebutuhan nyata sistem Anda.
             </p>
           </div>
-          <Link 
-            href="/kontak" 
+          <Link
+            href="/layanan"
             className="group flex items-center gap-2 hover:text-orange-500 transition-colors text-sm font-normal text-zinc-900 pb-1"
           >
-            Konsultasikan proyek Anda
+            Lihat semua layanan
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
         {/* Bento Grid */}
-        <div className="bento-grid grid-cols-1 md:grid-cols-2">
+        <div className="bento-grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
             <Link
               key={service.title}
@@ -325,7 +355,7 @@ export default function HomePage() {
                   {service.description}
                 </p>
               </div>
-              
+
               <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
                 <ArrowUpRight className="w-5 h-5 text-orange-500" />
               </div>
@@ -337,33 +367,40 @@ export default function HomePage() {
       {/* Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-zinc-200 to-transparent my-12 lg:my-16 opacity-60" />
 
-      {/* Features Row */}
-      <section className="flex flex-col gap-16 w-full relative">
-        <div className="max-w-2xl px-1 -mb-6">
+      {/* Workflow Section (Cara Kerja) */}
+      <section className="flex flex-col gap-12 w-full relative">
+        <div className="max-w-2xl px-1">
           <h2 className="md:text-5xl text-3xl font-medium text-zinc-900 tracking-tighter mb-4">
-            Prinsip kerja
-            <span className="gradient-text"> dan komitmen</span>
+            Alur kerja sama
+            <span className="gradient-text"> proyek</span>
           </h2>
           <p className="leading-relaxed text-base font-normal text-zinc-500">
-            Bekerja langsung dengan pengembang yang merancang, menulis kode, dan bertanggung jawab penuh.
+            Empat langkah terstruktur dari perumusan kebutuhan teknis sampai sistem siap digunakan.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {features.map((feature, index) => (
-            <div key={index} className="flex flex-col gap-4">
-              <div className="text-zinc-900">
-                <feature.icon className="w-7 h-7" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {workflowSteps.map((step) => (
+            <div
+              key={step.number}
+              className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-zinc-200/60 shadow-sm flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center">
+                    <step.icon className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-mono font-semibold text-zinc-400">{step.number}</span>
+                </div>
+                <h3 className="text-base font-semibold text-zinc-900 mb-2">{step.title}</h3>
+                <p className="text-sm text-zinc-600 leading-relaxed">{step.description}</p>
               </div>
-              <p className="leading-relaxed text-base font-medium text-zinc-900">
-                {feature.text}
-              </p>
             </div>
           ))}
         </div>
 
         {/* FAQ */}
-        <div className="max-w-3xl w-full" aria-labelledby="home-faq">
+        <div className="max-w-3xl w-full mt-6" aria-labelledby="home-faq">
           <h2 id="home-faq" className="text-2xl md:text-3xl font-medium text-zinc-900 tracking-tighter mb-6">
             Pertanyaan seputar kerja sama
           </h2>
@@ -381,29 +418,38 @@ export default function HomePage() {
         </div>
 
         {/* Main CTA Card */}
-        <div className="overflow-hidden min-h-[400px] shadow-zinc-900/30 bg-zinc-900 rounded-[2rem] relative shadow-2xl">
-          <div 
-            className="absolute inset-0 opacity-10" 
+        <div className="overflow-hidden min-h-[380px] shadow-zinc-900/30 bg-zinc-900 rounded-[2rem] relative shadow-2xl mt-4">
+          <div
+            className="absolute inset-0 opacity-10"
             style={{
               backgroundImage: 'linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)',
-              backgroundSize: '40px 40px'
+              backgroundSize: '40px 40px',
             }}
           />
 
-          <div className="flex flex-col p-8 md:p-12 lg:p-16 justify-center min-h-[400px] relative">
+          <div className="flex flex-col p-8 md:p-12 lg:p-16 justify-center min-h-[380px] relative">
             <h2 className="md:text-4xl lg:text-5xl leading-tight text-3xl font-normal text-white tracking-tight mb-6 max-w-3xl">
-              Sampaikan rencana proyek yang ingin Anda bangun
+              Siap mendiskusikan kebutuhan sistem Anda?
             </h2>
-            <p className="text-zinc-400 mb-8 max-w-xl font-medium">
-              Sampaikan gambaran produk digital Anda. Saya membaca setiap pesan dan memberikan arahan teknis yang jelas.
+            <p className="text-zinc-400 mb-8 max-w-xl font-medium leading-relaxed">
+              Sampaikan rencana proyek website atau aplikasi Anda untuk mendapatkan evaluasi teknis yang terarah.
             </p>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-              <Link 
-                href={contactHref('other')}
+              <a
+                href="https://wa.me/6287730139582?text=Halo%20Wahyu%20Andika%20Putra%2C%20saya%20ingin%20berkonsultasi%20mengenai%20kebutuhan%20proyek."
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center gap-3 bg-white hover:bg-zinc-100 transition-all text-zinc-900 text-sm font-medium rounded-full px-6 py-3 w-fit shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
-                <span>Mulai diskusi proyek</span>
+                <span>Konsultasi lewat WhatsApp</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+              <Link
+                href={contactHref('other')}
+                className="group flex items-center gap-3 bg-white/10 hover:bg-white/20 transition-all text-white text-sm font-medium rounded-full px-6 py-3 w-fit"
+              >
+                <span>Isi formulir kontak</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -426,15 +472,15 @@ export default function HomePage() {
               Wawasan seputar pengembangan aplikasi, arsitektur website, dan keamanan teknologi.
             </p>
           </div>
-          <Link 
-            href="/blog" 
+          <Link
+            href="/blog"
             className="group flex items-center gap-2 hover:text-orange-500 transition-colors text-sm font-normal text-zinc-900 pb-1"
           >
             Lihat semua artikel
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
-        
+
         <Suspense fallback={<PostsFallback />}>
           <Posts />
         </Suspense>

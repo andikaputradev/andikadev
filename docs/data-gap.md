@@ -1,14 +1,23 @@
 # Data Gap
 
-Berkas ini mencatat kebutuhan data atau informasi yang belum tersedia di `docs/fakta-resmi.md` saat sebuah komponen atau halaman situs memerlukannya. Sesuai aturan proyek andikadev.com, dilarang keras mengarang atau mengasumsikan fakta, klien, testimoni, angka statistik, tahun pengalaman, sertifikasi, penghargaan, harga, maupun studi kasus. Jika ada bagian situs yang membutuhkan data yang belum tercantum, bagian tersebut dihapus dari halaman dan kebutuhannya didokumentasikan di sini agar dapat dilengkapi atau diverifikasi oleh pemilik.
+Berkas ini mencatat kebutuhan data, asumsi operasional, atau informasi yang belum tersedia secara lengkap di `docs/fakta-resmi.md`. Sesuai aturan proyek andikadev.com, dilarang keras mengarang atau mengasumsikan klien, testimoni, angka statistik, tahun pengalaman, sertifikasi, penghargaan, daftar harga, durasi pengerjaan, atau jaminan hasil. Jika ada bagian situs yang membutuhkan data yang belum tercantum, bagian tersebut disederhanakan atau ditiadakan, dan kebutuhannya didokumentasikan di sini untuk diverifikasi oleh pemilik.
 
-## Status Konfirmasi Merek
+## Status Konfirmasi Data Resmi
 
 - Nama merek: "Andika Putra Dev" telah dikonfirmasi langsung oleh pemilik.
+- Proyek resmi: 13 proyek (Akademi Crypto, Atlas Super Club, Tub Daniswara, PLD Learn, Fake GPS, Media Pembelajaran Jarkom, Modern Javanese Digital Wedding Platform, ChainSec Auditor, Atlas Library, FlowVault, PhantomDrop, AXA Social House, Wedding Invitation Platform) telah diberikan oleh pemilik dan dicatat di `docs/fakta-resmi.md`.
+- Stack teknologi: 6 rumpun teknologi (Protocol dan sistem, Smart contract dan Web3, Rekayasa keamanan, Infrastruktur, Lapisan aplikasi, Riset dan analitik) telah dicatat di `docs/fakta-resmi.md`.
 
-## Catatan Kebutuhan Data Saat Ini
+## Asumsi Operasional Saat Ini
 
-- Verifikasi URL profil media sosial: URL profil sosial selain yang tertulis penuh dibentuk dari handle (misalnya https://www.instagram.com/andikaputradev). Pemilik perlu memverifikasi tiap URL sebelum dimasukkan ke dalam JSON-LD sameAs atau tautan eksternal situs.
-- Proyek dan portofolio: Rute `/proyek` tidak dibuat pada Tahap 4 karena tidak ada data proyek atau portofolio nyata pada `docs/fakta-resmi.md`. Seluruh data proyek klien pemilik lama telah dihapus dari repositori. Dibutuhkan daftar proyek atau portofolio resmi dari Wahyu Andika Putra (nama proyek, deskripsi, teknologi, logo atau gambar jika ada, dan tautan publik) jika rute `/proyek` akan dibuat di kemudian hari.
-- Linimasa karier (Timeline): Bagian linimasa karier pemilik lama telah dihapus dari halaman `/tentang`. Dibutuhkan riwayat pencapaian, peran, atau pengalaman resmi jika ingin menampilkan linimasa di masa mendatang.
-- Testimoni dan ulasan klien: Belum ada data testimoni resmi di `docs/fakta-resmi.md`. Bagian testimoni ditiadakan dari seluruh halaman situs.
+- **[Asumsi] Cakupan pelanggan seluruh Indonesia**: Posisi geografis resmi pengembang adalah Wonosobo dan Semarang, Jawa Tengah. Penyebutan kemampuan melayani klien dari seluruh wilayah Indonesia berstatus `[Asumsi]` sampai dikonfirmasi langsung oleh pemilik secara tertulis.
+- **[Asumsi] Empat langkah cara kerja**: Empat tahapan kerja yang ditampilkan di beranda (1. Konsultasi kebutuhan, 2. Penawaran dan ruang lingkup, 3. Pengerjaan bertahap dengan tinjauan, 4. Serah terima dan dukungan) dirumuskan berdasarkan praktik rekayasa perangkat lunak umum. Pemilik perlu meninjau dan mengonfirmasi apakah alur ini sudah mencerminkan alur kerja operasional yang sebenarnya.
+
+## Catatan Kebutuhan Data Tambahan
+
+1. **Pengalaman kerja dan riwayat karier formal**: Belum ada data riwayat perusahaan, posisi formal, atau tahun pengalaman di `docs/fakta-resmi.md`. Bagian pengalaman di halaman `/tentang` disajikan berbasis keahlian teknologi dan proyek nyata tanpa mengarang riwayat karier formal.
+2. **Riwayat pendidikan formal**: Belum ada data pendidikan formal (sekolah atau perguruan tinggi) di fakta resmi. Dilarang mencantumkan gelar sarjana atau sertifikasi apa pun.
+3. **Nilai kerja dan metodologi spesifik**: Dibutuhkan arahan prinsip atau etos kerja personal dari pemilik jika ingin menampilkan kutipan nilai kerja khusus.
+4. **Tautan repositori dan live demo proyek**: Perlu verifikasi tautan publik GitHub (apakah repositori bersifat publik atau privat) serta URL aplikasi live untuk masing-masing dari 13 proyek sebelum ditampilkan sebagai tautan yang dapat diklik pengunjung.
+5. **Daftar harga dan estimasi durasi**: Situs tidak menampilkan angka tarif, paket harga, atau estimasi waktu pengerjaan karena belum ada ketentuan baku dari pemilik. Semua penawaran diarahkan melalui konsultasi langsung.
+6. **Verifikasi tautan profil media sosial**: URL media sosial selain yang ditulis lengkap dibentuk dari handle (misalnya https://instagram.com/andikaputradev). Pemilik perlu memverifikasi tiap URL sebelum dimasukkan ke dalam properti sameAs JSON-LD.
