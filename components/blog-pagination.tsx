@@ -84,7 +84,7 @@ export function BlogPagination({ currentPage, totalPages }: BlogPaginationProps)
               <span
                 key={page}
                 aria-current="page"
-                className="inline-flex min-w-10 items-center justify-center rounded-full bg-orange-500 px-3 py-2 text-sm font-semibold text-white shadow-sm"
+                className="inline-flex min-w-10 items-center justify-center rounded-full bg-orange-500 px-3 py-2 text-sm font-bold text-zinc-950 shadow-sm"
               >
                 {page}
               </span>
