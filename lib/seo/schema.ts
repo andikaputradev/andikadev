@@ -26,7 +26,7 @@ export function buildSiteGraph() {
     '@type': 'Person',
     '@id': schemaIds.person,
     name: authorProfile.name,
-    url: productionAbsoluteUrl('/about'),
+    url: productionAbsoluteUrl('/tentang'),
     image: {
       '@type': 'ImageObject',
       '@id': schemaIds.personImage,
@@ -88,7 +88,7 @@ export function buildSiteGraph() {
       '@type': 'ContactPoint',
       contactType: 'sales',
       email: siteConfig.email,
-      url: productionAbsoluteUrl('/contact'),
+      url: productionAbsoluteUrl('/kontak'),
       availableLanguage: [...authorProfile.languages],
     },
     sameAs: [...siteConfig.sameAs],

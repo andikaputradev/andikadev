@@ -72,25 +72,31 @@ const services = [
     icon: Globe,
     title: "Pembuatan website",
     description: "Membangun website modern dengan performa cepat, responsif di ponsel, dan struktur kode yang mudah dikembangkan.",
-    href: "/contact",
+    href: "/layanan/pembuatan-website",
   },
   {
     icon: Smartphone,
     title: "Pembuatan aplikasi mobile",
-    description: "Pengembangan aplikasi Android dan multi-platform yang stabil untuk operasional bisnis Anda.",
-    href: "/contact",
+    description: "Pengembangan aplikasi Android dan multi platform yang stabil untuk operasional bisnis Anda.",
+    href: "/layanan/pembuatan-aplikasi",
   },
   {
     icon: ArrowUpRight,
     title: "Jasa upload ke Play Store",
     description: "Pendampingan teknis dan proses rilis aplikasi ke Google Play Store hingga tayang secara resmi.",
-    href: "/contact",
+    href: "/layanan/upload-play-store",
   },
   {
     icon: ShieldCheck,
-    title: "Keamanan siber defensif dan Web3",
-    description: "Audit keamanan sistem berbasis izin tertulis serta integrasi kontrak pintar blockchain yang aman.",
-    href: "/contact",
+    title: "Keamanan siber defensif",
+    description: "Audit keamanan sistem dan pengujian kerentanan legal berbasis izin tertulis pemilik sistem.",
+    href: "/layanan/keamanan-siber",
+  },
+  {
+    icon: Code2,
+    title: "Web3 dan blockchain",
+    description: "Pengembangan aplikasi terdesentralisasi dan integrasi kontrak pintar yang aman.",
+    href: "/layanan/web3-blockchain",
   },
 ]
 
@@ -164,7 +170,7 @@ export default function HomePage() {
               </span>
             </Link>
             <Link 
-              href="/projects"
+              href="/layanan"
               className="btn-secondary hover:bg-zinc-50 transition-all flex text-sm font-medium rounded-full py-3 px-6 gap-2 items-center"
               style={{
                 boxShadow: '0 18px 35px rgba(31, 41, 55, 0.25), 0 0 0 1px rgba(209, 213, 219, 0.3)',
@@ -174,7 +180,7 @@ export default function HomePage() {
                 '--border-radius-before': '9999px'
               }}
             >
-              <span className="text-sm font-medium text-black/60 tracking-tight">Lihat portofolio</span>
+              <span className="text-sm font-medium text-black/60 tracking-tight">Lihat daftar layanan</span>
               <ArrowRight className="w-4 h-4 text-zinc-500" />
             </Link>
           </div>
@@ -292,7 +298,7 @@ export default function HomePage() {
             </p>
           </div>
           <Link 
-            href="/contact" 
+            href="/kontak" 
             className="group flex items-center gap-2 hover:text-orange-500 transition-colors text-sm font-normal text-zinc-900 pb-1"
           >
             Konsultasikan proyek Anda

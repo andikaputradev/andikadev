@@ -7,14 +7,21 @@ interface LlmsLink {
   summary: string
 }
 
-const services: LlmsLink[] = []
+const services: LlmsLink[] = [
+  { title: 'Pembuatan Website', path: '/layanan/pembuatan-website', summary: 'Layanan pembuatan website modern berkinerja tinggi.' },
+  { title: 'Pembuatan Aplikasi', path: '/layanan/pembuatan-aplikasi', summary: 'Layanan pembuatan aplikasi mobile dan multi platform.' },
+  { title: 'Jasa Upload Play Store', path: '/layanan/upload-play-store', summary: 'Pendampingan teknis dan rilis resmi aplikasi ke Google Play Store.' },
+  { title: 'Keamanan Siber Defensif', path: '/layanan/keamanan-siber', summary: 'Pengujian dan penguatan keamanan siber secara legal atas izin tertulis.' },
+  { title: 'Web3 dan Blockchain', path: '/layanan/web3-blockchain', summary: 'Pengembangan teknologi Web3 dan integrasi kontrak pintar terdesentralisasi.' },
+]
 
 const guides: LlmsLink[] = []
 
 const profilePages: LlmsLink[] = [
-  { title: 'About', path: '/about', summary: 'Informasi profil Wahyu Andika Putra dan keahlian teknis.' },
-  { title: 'Projects', path: '/projects', summary: 'Daftar proyek dan portofolio.' },
-  { title: 'Contact', path: '/contact', summary: 'Kontak Wahyu Andika Putra melalui email atau WhatsApp.' },
+  { title: 'Tentang', path: '/tentang', summary: 'Informasi profil Wahyu Andika Putra dan keahlian teknis.' },
+  { title: 'Layanan', path: '/layanan', summary: 'Daftar layanan pembuatan website, aplikasi, upload Play Store, keamanan siber, dan Web3.' },
+  { title: 'Kontak', path: '/kontak', summary: 'Kontak Wahyu Andika Putra melalui formulir, email, atau WhatsApp.' },
+  { title: 'Kebijakan Privasi', path: '/kebijakan-privasi', summary: 'Kebijakan privasi andikadev.com.' },
 ]
 
 export interface LlmsPost {
@@ -38,7 +45,7 @@ export function buildLlmsTxt(posts: LlmsPost[] = []): string {
     `Nama: ${authorProfile.name}. Merek dan situs: ${siteConfig.name} (${productionUrl}).`,
     `Fokus: Pembuatan website, pembuatan aplikasi, jasa upload aplikasi ke Play Store, keamanan siber (defensif), Web3 dan blockchain.`,
     `Lokasi: ${authorProfile.city}, ${authorProfile.region}, ${authorProfile.country}.`,
-    `Kontak: ${productionUrl}/contact atau ${siteConfig.email}.`,
+    `Kontak: ${productionUrl}/kontak atau ${siteConfig.email}.`,
   ]
 
   const sections = [

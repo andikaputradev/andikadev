@@ -1,4 +1,4 @@
-// Pilihan kebutuhan layanan pada formulir kontak di /contact.
+// Pilihan kebutuhan layanan pada formulir kontak di /kontak.
 export const contactServices = [
   { id: 'website', label: 'Pembuatan website' },
   { id: 'aplikasi', label: 'Pembuatan aplikasi' },
@@ -11,7 +11,7 @@ export const contactServices = [
 export type ContactServiceId = (typeof contactServices)[number]['id']
 
 export function contactHref(service: ContactServiceId): string {
-  return `/contact?service=${service}#contact-form`
+  return `/kontak?service=${service}#contact-form`
 }
 
 export function contactServiceLabel(id: string | null | undefined): string | undefined {

@@ -4,7 +4,6 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
-import { contactHref } from "@/lib/contact-services"
 import { Menu, ChevronDown, ArrowRight, Layers } from "lucide-react"
 import dynamic from "next/dynamic"
 
@@ -30,10 +29,21 @@ export function Header({ hasBlog = false }: HeaderProps) {
   const hoverTimeout = useRef<NodeJS.Timeout | null>(null)
 
   const navigationItems: NavigationItem[] = [
-    { href: '/about', label: 'About' },
-    { href: '/projects', label: 'Projects' },
+    { href: '/', label: 'Beranda' },
+    { href: '/tentang', label: 'Tentang' },
+    {
+      href: '/layanan',
+      label: 'Layanan',
+      children: [
+        { href: '/layanan/pembuatan-website', label: 'Pembuatan website' },
+        { href: '/layanan/pembuatan-aplikasi', label: 'Pembuatan aplikasi' },
+        { href: '/layanan/upload-play-store', label: 'Upload Play Store' },
+        { href: '/layanan/keamanan-siber', label: 'Keamanan siber' },
+        { href: '/layanan/web3-blockchain', label: 'Web3 dan blockchain' },
+      ],
+    },
     ...(hasBlog ? [{ href: '/blog', label: 'Blog' }] : []),
-    { href: '/contact', label: 'Contact' },
+    { href: '/kontak', label: 'Kontak' },
   ]
 
   const handleDropdownEnter = (href: string | null) => {
@@ -169,19 +179,22 @@ export function Header({ hasBlog = false }: HeaderProps) {
         ))}
       </nav>
 
-      <Link 
-        href={contactHref('website')}
+      <a 
+        href="https://wa.me/6287730139582?text=Halo%20Wahyu%20Andika%20Putra%2C%20saya%20ingin%20berkonsultasi%20mengenai%20kebutuhan%20proyek."
+        target="_blank"
+        rel="noopener noreferrer"
         className="hidden md:flex btn-primary items-center gap-2 group text-sm font-medium text-zinc-900 tracking-tight rounded-full py-3 px-6 transition-all hover:-translate-y-0.5"
       >
-        <span className="text-sm font-medium tracking-tight">Mulai diskusi proyek</span>
+        <span className="text-sm font-medium tracking-tight">Konsultasi lewat WhatsApp</span>
         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-      </Link>
+      </a>
 
       {/* Mobile Menu Button */}
       <button
-        className="md:hidden p-2 hover:bg-zinc-100 rounded-lg transition-colors"
+        className="md:hidden p-2 hover:bg-zinc-100 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toggle menu"
+        aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
+        aria-expanded={isOpen}
       >
         <Menu className="h-6 w-6 text-zinc-900" />
       </button>

@@ -15,7 +15,7 @@ const pageDescription =
 export const metadata: Metadata = buildPageMetadata({
   title: pageTitle,
   description: pageDescription,
-  path: '/contact',
+  path: '/kontak',
   keywords: [
     'Kontak Pengembang',
     'Jasa Pembuatan Website',
@@ -27,11 +27,11 @@ export const metadata: Metadata = buildPageMetadata({
 })
 
 const structuredData = buildPageGraph({
-  path: '/contact',
+  path: '/kontak',
   name: pageTitle,
   description: pageDescription,
   type: 'ContactPage',
-  breadcrumbs: [{ name: 'Contact', path: '/contact' }],
+  breadcrumbs: [{ name: 'Kontak', path: '/kontak' }],
 })
 
 export default function ContactPage() {

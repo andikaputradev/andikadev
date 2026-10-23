@@ -188,9 +188,11 @@ export function getCriticalCSSForRoute(route: string): string {
   switch (route) {
     case '/':
       return baseCritical + criticalComponents.header + criticalComponents.hero
-    case '/about':
+    case '/tentang':
       return baseCritical + criticalComponents.header
-    case '/contact':
+    case '/kontak':
+      return baseCritical + criticalComponents.header
+    case '/layanan':
       return baseCritical + criticalComponents.header
     default:
       return baseCritical + criticalComponents.header

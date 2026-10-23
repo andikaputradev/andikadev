@@ -39,16 +39,15 @@ export default function NotFound() {
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-wp-gold/10 dark:bg-wp-gold/20 text-wp-gold rounded-full text-sm font-medium mb-6 backdrop-blur-sm border border-wp-gold/20">
             <AlertCircle className="w-4 h-4" />
-            <span>Page Not Found</span>
+            <span>Halaman Tidak Ditemukan</span>
           </div>
           
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-wp-navy dark:text-foreground">
-            Oops! This page seems to have wandered off
+            Halaman yang Anda cari tidak tersedia
           </h2>
           
           <p className="text-wp-navy/70 dark:text-muted-foreground text-lg leading-relaxed mb-8">
-            The page you are looking for might have been removed, had its name changed, 
-            or is temporarily unavailable. Let&apos;s get you back on track!
+            Halaman ini mungkin telah dipindahkan, diubah namanya, atau sedang tidak tersedia. Silakan kembali ke beranda atau hubungi saya jika Anda membutuhkan informasi lebih lanjut.
           </p>
         </div>
         
@@ -56,21 +55,21 @@ export default function NotFound() {
           <Button asChild variant="wp-primary" size="lg">
             <Link href="/">
               <Home className="h-4 w-4 mr-2" />
-              Back to Home
+              Kembali ke Beranda
             </Link>
           </Button>
           
           <Button asChild variant="wp-secondary" size="lg">
-            <Link href="/blog">
+            <Link href="/layanan">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Visit Blog
+              Lihat Layanan
             </Link>
           </Button>
           
           <Button asChild variant="outline" size="lg" className="border-wp-navy/20 hover:bg-wp-navy/5 dark:border-wp-blue/20 dark:hover:bg-wp-blue/10">
-            <Link href="/contact">
+            <Link href="/kontak">
               <Search className="h-4 w-4 mr-2" />
-              Contact Support
+              Kirim pesan lewat formulir
             </Link>
           </Button>
         </div>
@@ -151,19 +150,19 @@ export default function NotFound() {
 
         {/* Helpful links section */}
         <div className="mt-16 text-center">
-          <h3 className="text-lg font-semibold mb-4 text-wp-navy dark:text-foreground">Popular Pages</h3>
+          <h3 className="text-lg font-semibold mb-4 text-wp-navy dark:text-foreground">Navigasi Penting</h3>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/projects" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
-              Projects
+            <Link href="/" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
+              Beranda
             </Link>
-            <Link href="/about" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
-              About
+            <Link href="/tentang" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
+              Tentang
             </Link>
-            <Link href="/blog" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
-              Blog
+            <Link href="/layanan" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
+              Layanan
             </Link>
-            <Link href="/contact" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
-              Contact
+            <Link href="/kontak" className="text-wp-blue hover:text-wp-blue/80 transition-colors text-sm">
+              Kontak
             </Link>
           </div>
         </div>

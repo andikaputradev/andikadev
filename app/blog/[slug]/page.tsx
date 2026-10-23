@@ -232,7 +232,7 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-zinc-500">
               <span>
                 Oleh{' '}
-                <Link href="/about" className="font-medium text-zinc-900 hover:text-orange-500 transition-colors">
+                <Link href="/tentang" className="font-medium text-zinc-900 hover:text-orange-500 transition-colors">
                   {authorProfile.name}
                 </Link>
               </span>
@@ -269,7 +269,7 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
                 {authorProfile.jobTitle}, berbasis di {authorProfile.city}, {authorProfile.country}.
               </p>
               <div className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-2 text-sm">
-                <Link href="/about" className="font-medium text-zinc-900 hover:text-orange-500 transition-colors">
+                <Link href="/tentang" className="font-medium text-zinc-900 hover:text-orange-500 transition-colors">
                   Tentang saya
                 </Link>
                 {authorLinks.map((link) => (

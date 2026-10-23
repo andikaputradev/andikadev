@@ -6,14 +6,18 @@ export const revalidate = 604800
 
 const coreRoutes = [
   { path: '', priority: 1.0, changeFreq: 'monthly' },
-  { path: 'about', priority: 0.8, changeFreq: 'monthly' },
-  { path: 'projects', priority: 0.8, changeFreq: 'weekly' },
-  { path: 'contact', priority: 0.8, changeFreq: 'monthly' },
+  { path: 'tentang', priority: 0.8, changeFreq: 'monthly' },
+  { path: 'layanan', priority: 0.9, changeFreq: 'monthly' },
+  { path: 'layanan/pembuatan-website', priority: 0.8, changeFreq: 'monthly' },
+  { path: 'layanan/pembuatan-aplikasi', priority: 0.8, changeFreq: 'monthly' },
+  { path: 'layanan/upload-play-store', priority: 0.8, changeFreq: 'monthly' },
+  { path: 'layanan/keamanan-siber', priority: 0.8, changeFreq: 'monthly' },
+  { path: 'layanan/web3-blockchain', priority: 0.8, changeFreq: 'monthly' },
+  { path: 'kontak', priority: 0.8, changeFreq: 'monthly' },
 ]
 
 const legalRoutes = [
-  { path: 'privacy-policy', priority: 0.5, changeFreq: 'yearly' },
-  { path: 'terms-of-service', priority: 0.5, changeFreq: 'yearly' },
+  { path: 'kebijakan-privasi', priority: 0.5, changeFreq: 'yearly' },
 ]
 
 function createSitemapEntry(baseUrl: string, route: { path: string; priority: number; changeFreq: string }) {

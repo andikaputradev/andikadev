@@ -19,7 +19,7 @@ import { JsonLd } from '@/components/seo/json-ld'
 import { buildPageGraph, buildPageMetadata } from '@/lib/seo'
 import { contactHref } from '@/lib/contact-services'
 
-const path = '/about'
+const path = '/tentang'
 const pageTitle = 'Tentang Wahyu Andika Putra'
 const pageDescription =
   'Profil Wahyu Andika Putra, pengembang website, aplikasi mobile, praktisi keamanan siber defensif, dan Web3.'
@@ -28,7 +28,7 @@ const structuredData = buildPageGraph({
   path,
   name: pageTitle,
   description: pageDescription,
-  breadcrumbs: [{ name: 'About', path }],
+  breadcrumbs: [{ name: 'Tentang', path }],
 })
 
 export const metadata: Metadata = buildPageMetadata({
@@ -197,7 +197,7 @@ export default function AboutPage() {
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </Link>
             <Link 
-              href="/projects"
+              href="/layanan"
               className="btn-secondary hover:bg-zinc-50 transition-all flex text-sm font-medium rounded-full py-3 px-6 gap-2 items-center"
               style={{
                 boxShadow: '0 18px 35px rgba(31, 41, 55, 0.15), 0 0 0 1px rgba(209, 213, 219, 0.3)',
@@ -207,7 +207,7 @@ export default function AboutPage() {
                 '--border-radius-before': '9999px'
               }}
             >
-              <span className="text-sm font-medium text-black/60 tracking-tight">Lihat portofolio</span>
+              <span className="text-sm font-medium text-black/60 tracking-tight">Lihat daftar layanan</span>
               <ArrowRight className="w-4 h-4 text-zinc-500" />
             </Link>
           </div>

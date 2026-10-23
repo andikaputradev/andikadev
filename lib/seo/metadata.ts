@@ -95,7 +95,7 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
       type: ogType,
       ...(input.publishedTime ? { publishedTime: input.publishedTime } : {}),
       ...(input.modifiedTime ? { modifiedTime: input.modifiedTime } : {}),
-      ...(ogType === 'article' ? { authors: [productionAbsoluteUrl('/about')] } : {}),
+      ...(ogType === 'article' ? { authors: [productionAbsoluteUrl('/tentang')] } : {}),
       images: [{ url: image, alt: title }],
     },
     twitter: {

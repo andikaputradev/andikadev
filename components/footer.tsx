@@ -1,38 +1,51 @@
 import Link from 'next/link'
-import { contactHref } from '@/lib/contact-services'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Mail } from 'lucide-react'
 import { LiveClock } from './live-clock'
+import { WhatsAppIcon } from '@/components/icons/whatsapp'
+import { TelegramIcon } from '@/components/icons/telegram'
+import { InstagramIcon } from '@/components/icons/instagram'
+import { TikTokIcon } from '@/components/icons/tiktok'
+import { FacebookIcon } from '@/components/icons/facebook'
+import { XIcon } from '@/components/icons/x'
+import { GithubIcon } from '@/components/icons/github'
+import { LinkedinIcon } from '@/components/icons/linkedin'
 
 interface FooterProps {
   hasBlog?: boolean
 }
 
 const servicesList = [
-  { name: 'Pembuatan Website', href: '/contact' },
-  { name: 'Pembuatan Aplikasi Mobile', href: '/contact' },
-  { name: 'Jasa Upload Play Store', href: '/contact' },
-  { name: 'Keamanan Siber Defensif', href: '/contact' },
-  { name: 'Web3 dan Blockchain', href: '/contact' },
+  { name: 'Pembuatan website', href: '/layanan/pembuatan-website' },
+  { name: 'Pembuatan aplikasi mobile', href: '/layanan/pembuatan-aplikasi' },
+  { name: 'Jasa upload Play Store', href: '/layanan/upload-play-store' },
+  { name: 'Keamanan siber defensif', href: '/layanan/keamanan-siber' },
+  { name: 'Web3 dan blockchain', href: '/layanan/web3-blockchain' },
 ]
 
 const socialLinks = [
-  { name: 'LinkedIn', href: 'https://linkedin.com/in/wahyu-andika-putra' },
-  { name: 'GitHub', href: 'https://github.com/andikaputradev' },
-  { name: 'WhatsApp', href: 'https://wa.me/6287730139582' },
+  { name: 'WhatsApp', href: 'https://wa.me/6287730139582', icon: WhatsAppIcon },
+  { name: 'Email', href: 'mailto:wahyuandikaputra.co.id@gmail.com', icon: Mail },
+  { name: 'LinkedIn', href: 'https://linkedin.com/in/wahyu-andika-putra', icon: LinkedinIcon },
+  { name: 'GitHub', href: 'https://github.com/andikaputradev', icon: GithubIcon },
+  { name: 'Telegram', href: 'https://t.me/andikaputradev', icon: TelegramIcon },
+  { name: 'Instagram', href: 'https://instagram.com/andikaputradev', icon: InstagramIcon },
+  { name: 'TikTok', href: 'https://tiktok.com/@andikaputradev', icon: TikTokIcon },
+  { name: 'Facebook', href: 'https://facebook.com/andikaputradev', icon: FacebookIcon },
+  { name: 'X', href: 'https://x.com/andikaputradev', icon: XIcon },
 ]
 
 const legalLinks = [
-  { name: 'Privacy Policy', href: '/privacy-policy' },
-  { name: 'Terms of Service', href: '/terms-of-service' },
+  { name: 'Kebijakan Privasi', href: '/kebijakan-privasi' },
 ]
 
 export function Footer({ hasBlog = false }: FooterProps) {
   const navigationLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Projects', href: '/projects' },
+    { name: 'Beranda', href: '/' },
+    { name: 'Tentang', href: '/tentang' },
+    { name: 'Layanan', href: '/layanan' },
     ...(hasBlog ? [{ name: 'Blog', href: '/blog' }] : []),
-    { name: 'Contact', href: '/contact' },
+    { name: 'Kontak', href: '/kontak' },
+    { name: 'Kebijakan Privasi', href: '/kebijakan-privasi' },
   ]
 
   return (
@@ -59,7 +72,7 @@ export function Footer({ hasBlog = false }: FooterProps) {
           <div className="flex items-start gap-2 lg:flex-row-reverse lg:text-right">
             <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 animate-pulse" />
             <p className="leading-snug md:text-xl text-zinc-700 text-base font-light tracking-tight max-w-md">
-              Menerima proyek baru pembuatan aplikasi dan website. Berbasis di Jawa Tengah, Indonesia.
+              Menerima proyek baru pembuatan aplikasi dan website. Berbasis di Wonosobo / Semarang, Jawa Tengah, Indonesia.
             </p>
           </div>
           <div className="flex items-center gap-2 text-zinc-500 lg:flex-row-reverse">
@@ -103,36 +116,41 @@ export function Footer({ hasBlog = false }: FooterProps) {
           ))}
         </div>
 
-        {/* Column 3: Social */}
-        <div className="flex flex-col gap-3">
-          <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-1">Terhubung</h3>
-          {socialLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm md:text-base text-zinc-700 hover:text-orange-500 transition-colors font-normal flex items-center gap-2 group"
-            >
-              {link.name}
-              <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-            </a>
-          ))}
+        {/* Column 3: Social & Contact */}
+        <div className="flex flex-col gap-2.5">
+          <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-1">Kontak dan Profil</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-2">
+            {socialLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-zinc-700 hover:text-orange-500 transition-colors font-normal flex items-center gap-2 group py-0.5"
+              >
+                <link.icon className="w-4 h-4 text-zinc-500 group-hover:text-orange-500 transition-colors shrink-0" />
+                <span>{link.name}</span>
+                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all ml-auto" />
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* Column 4: Contact CTA */}
         <div className="col-span-2 lg:col-span-1 flex flex-col gap-3">
-          <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-1">Mulai proyek</h3>
-          <p className="text-sm text-zinc-500 mb-4">
-            Kirimkan detail kebutuhan proyek Anda. Saya akan merespons dalam waktu 24 jam.
+          <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-1">Konsultasi proyek</h3>
+          <p className="text-sm text-zinc-500 mb-4 leading-relaxed">
+            Kirimkan pesan kebutuhan sistem Anda. Saya membaca dan merespons secara langsung.
           </p>
-          <Link
-            href={contactHref('other')}
-            className="btn-primary rounded-full py-3 px-6 text-sm font-medium text-center inline-flex items-center justify-center gap-2 w-fit"
+          <a
+            href="https://wa.me/6287730139582?text=Halo%20Wahyu%20Andika%20Putra%2C%20saya%20ingin%20berkonsultasi%20mengenai%20kebutuhan%20proyek."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary rounded-full py-3 px-6 text-sm font-medium text-center inline-flex items-center justify-center gap-2 w-fit shadow-sm hover:shadow-md"
           >
-            Hubungi saya untuk diskusi proyek
+            <span>Konsultasi lewat WhatsApp</span>
             <ArrowUpRight className="w-4 h-4" />
-          </Link>
+          </a>
         </div>
       </div>
 
