@@ -58,11 +58,11 @@ export function Footer({ hasBlog = false }: FooterProps) {
         {/* Left: Brand */}
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-1">
-            <h2 className="leading-none md:text-6xl lg:text-7xl text-5xl font-semibold text-neutral-800 tracking-tighter">
+            <h2 className="leading-none md:text-6xl lg:text-7xl text-5xl font-semibold text-neutral-800 dark:text-zinc-100 tracking-tighter">
               Andika Putra Dev
             </h2>
           </div>
-          <p className="md:text-2xl text-xl font-light italic text-zinc-500">
+          <p className="md:text-2xl text-xl font-light italic text-zinc-500 dark:text-zinc-400">
             Website, aplikasi mobile, keamanan siber dan Web3
           </p>
         </div>
@@ -71,11 +71,11 @@ export function Footer({ hasBlog = false }: FooterProps) {
         <div className="flex flex-col gap-4 lg:items-end lg:text-right">
           <div className="flex items-start gap-2 lg:flex-row-reverse lg:text-right">
             <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 animate-pulse" />
-            <p className="leading-snug md:text-xl text-zinc-700 text-base font-light tracking-tight max-w-md">
+            <p className="leading-snug md:text-xl text-zinc-700 dark:text-zinc-300 text-base font-light tracking-tight max-w-md">
               Menerima proyek baru pembuatan aplikasi dan website. Berbasis di Wonosobo / Semarang, Jawa Tengah, Indonesia.
             </p>
           </div>
-          <div className="flex items-center gap-2 text-zinc-500 lg:flex-row-reverse">
+          <div className="flex items-center gap-2 text-zinc-500 dark:text-zinc-400 lg:flex-row-reverse">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="opacity-50">
               <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2" opacity="0.5" />
               <path d="M12 6a1 1 0 0 1 1 1v4.586l2.707 2.707a1 1 0 0 1-1.414 1.414l-3-3A1 1 0 0 1 11 12V7a1 1 0 0 1 1-1" />
@@ -95,7 +95,7 @@ export function Footer({ hasBlog = false }: FooterProps) {
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm md:text-base text-zinc-700 hover:text-orange-500 transition-colors font-normal"
+              className="text-sm md:text-base text-zinc-700 dark:text-zinc-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors font-normal"
             >
               {link.name}
             </Link>
@@ -109,7 +109,7 @@ export function Footer({ hasBlog = false }: FooterProps) {
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm md:text-base text-zinc-700 hover:text-orange-500 transition-colors font-normal"
+              className="text-sm md:text-base text-zinc-700 dark:text-zinc-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors font-normal"
             >
               {link.name}
             </Link>
@@ -126,7 +126,7 @@ export function Footer({ hasBlog = false }: FooterProps) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-zinc-700 hover:text-orange-500 transition-colors font-normal flex items-center gap-2 group py-0.5"
+                className="text-sm text-zinc-700 dark:text-zinc-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors font-normal flex items-center gap-2 group py-0.5"
               >
                 <link.icon className="w-4 h-4 text-zinc-500 group-hover:text-orange-500 transition-colors shrink-0" />
                 <span>{link.name}</span>
@@ -155,9 +155,9 @@ export function Footer({ hasBlog = false }: FooterProps) {
       </div>
 
       {/* Copyright & Legal */}
-      <div className="mt-12 pt-8 border-t border-zinc-200/60">
+      <div className="mt-12 pt-8 border-t border-zinc-200/60 dark:border-zinc-800">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             &copy; {new Date().getFullYear()} Andika Putra Dev. Seluruh hak cipta dilindungi.
           </p>
           <nav className="flex items-center gap-6">
@@ -165,7 +165,7 @@ export function Footer({ hasBlog = false }: FooterProps) {
               <Link 
                 key={link.name} 
                 href={link.href} 
-                className="text-sm text-zinc-500 hover:text-orange-500 transition-colors"
+                className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors"
               >
                 {link.name}
               </Link>

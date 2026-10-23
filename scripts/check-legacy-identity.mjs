@@ -45,7 +45,7 @@ console.log('Memeriksa sisa identitas lama pada repositori...');
 for (const pattern of bannedKeywords) {
   try {
     const output = execSync(
-      `git grep -i -E "${pattern}" -- ":!node_modules" ":!pnpm-lock.yaml" ":!.next"`,
+      `git grep -i -E "${pattern}" -- ":!node_modules" ":!pnpm-lock.yaml" ":!.next" ":!scripts/check-legacy-identity.mjs"`,
       { encoding: 'utf-8' }
     );
     if (output.trim()) {

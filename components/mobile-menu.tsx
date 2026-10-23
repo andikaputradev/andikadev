@@ -53,7 +53,7 @@ export default function MobileMenu({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-0 bg-white/30 backdrop-blur-[20px]"
+            className="absolute inset-0 bg-white/30 dark:bg-black/50 backdrop-blur-[20px]"
             onClick={onClose}
           />
 
@@ -68,9 +68,9 @@ export default function MobileMenu({
               <button
                 onClick={onClose}
                 aria-label="Tutup menu navigasi"
-                className="p-2 hover:bg-zinc-100 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+                className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
               >
-                <X className="h-6 w-6 text-zinc-900" />
+                <X className="h-6 w-6 text-zinc-900 dark:text-zinc-100" />
               </button>
             </div>
 
@@ -87,7 +87,7 @@ export default function MobileMenu({
                             "text-3xl font-light tracking-tight transition-colors hover:text-orange-500 inline-flex items-center gap-2 p-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500",
                             pathname?.startsWith(item.href)
                               ? "text-orange-500"
-                              : "text-zinc-900"
+                              : "text-zinc-900 dark:text-zinc-100"
                           )}
                         >
                           {item.label}
@@ -117,7 +117,7 @@ export default function MobileMenu({
                                     "block text-xl font-light transition-colors hover:text-orange-500 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500",
                                     pathname === child.href
                                       ? "text-orange-500"
-                                      : "text-zinc-500"
+                                      : "text-zinc-500 dark:text-zinc-400"
                                   )}
                                 >
                                   {child.label}
@@ -135,7 +135,7 @@ export default function MobileMenu({
                           "text-3xl font-light tracking-tight transition-colors hover:text-orange-500 block py-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500",
                           pathname === item.href
                             ? "text-orange-500"
-                            : "text-zinc-900"
+                            : "text-zinc-900 dark:text-zinc-100"
                         )}
                       >
                         {item.label}

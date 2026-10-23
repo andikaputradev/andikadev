@@ -1,10 +1,11 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useState, useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
-import { Menu, ChevronDown, ArrowRight, Layers } from "lucide-react"
+import { Menu, ChevronDown, ArrowRight } from "lucide-react"
 import dynamic from "next/dynamic"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { buildWhatsAppUrl } from "@/lib/contact-services"
@@ -88,9 +89,16 @@ export function Header({ hasBlog = false }: HeaderProps) {
       "flex md:mb-16 md:gap-0 z-50 mb-10 relative gap-x-6 gap-y-6 items-center justify-between pt-6 md:pt-10 xl:pt-12 px-6 md:px-10 xl:px-12"
     return (
       <header className={headerClass}>
-        <div className="flex items-center gap-2 text-zinc-900">
-          <div className="flex text-white bg-linear-to-b from-black/60 to-black/20 w-8 h-8 rounded-full items-center justify-center">
-            <Layers className="w-4 h-4" />
+        <div className="flex items-center gap-2.5 text-zinc-900 dark:text-zinc-100">
+          <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-zinc-200/60 dark:border-zinc-700 shadow-xs">
+            <Image
+              src="/logo.png"
+              alt="Logo Andika Putra Dev"
+              width={32}
+              height={32}
+              priority
+              className="w-full h-full object-cover"
+            />
           </div>
           <span className="text-lg font-medium tracking-tight">ANDIKA<span className="text-zinc-400">DEV</span></span>
         </div>
@@ -104,23 +112,22 @@ export function Header({ hasBlog = false }: HeaderProps) {
   return (
     <header className={headerClass}>
       {/* Logo */}
-      <Link href="/" className="flex items-center gap-2 text-zinc-900 hover:opacity-80 transition-opacity">
-        <div 
-          className="flex text-white bg-linear-to-b from-black/60 to-black/20 w-8 h-8 rounded-full items-center justify-center relative"
-          style={{
-            position: 'relative',
-            // @ts-expect-error CSS custom properties
-            '--border-gradient': 'linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1))',
-            '--border-radius-before': '9999px'
-          }}
-        >
-          <Layers className="w-4 h-4" />
+      <Link href="/" className="flex items-center gap-2.5 text-zinc-900 dark:text-zinc-100 hover:opacity-80 transition-opacity">
+        <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-zinc-200/60 dark:border-zinc-700 shadow-xs">
+          <Image
+            src="/logo.png"
+            alt="Logo Andika Putra Dev"
+            width={32}
+            height={32}
+            priority
+            className="w-full h-full object-cover"
+          />
         </div>
         <span className="text-lg font-medium tracking-tight">ANDIKA<span className="text-zinc-400">DEV</span></span>
       </Link>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex uppercase text-xs font-medium text-zinc-500 tracking-widest glass-nav rounded-full py-2 px-6 gap-x-8 items-center">
+      <nav className="hidden md:flex uppercase text-xs font-medium text-zinc-500 dark:text-zinc-400 tracking-widest glass-nav rounded-full py-2 px-6 gap-x-8 items-center">
         {navigationItems.map((item) => (
           <div 
             key={item.href} 
@@ -131,9 +138,9 @@ export function Header({ hasBlog = false }: HeaderProps) {
             <Link
               href={item.href}
               className={cn(
-                "hover:text-zinc-900 transition-colors duration-300 flex items-center gap-1 py-2",
+                "hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 flex items-center gap-1 py-2",
                 pathname === item.href || pathname?.startsWith(item.href + '/')
-                  ? "text-zinc-900"
+                  ? "text-zinc-900 dark:text-zinc-100 font-semibold"
                   : ""
               )}
             >
@@ -157,16 +164,16 @@ export function Header({ hasBlog = false }: HeaderProps) {
                     onMouseEnter={() => handleDropdownEnter(item.href)}
                     onMouseLeave={handleDropdownLeave}
                   >
-                    <div className="rounded-xl shadow-xl py-2 bg-white border border-zinc-200">
+                    <div className="rounded-xl shadow-xl py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
                       {item.children.map((child) => (
                         <Link
                           key={child.href}
                           href={child.href}
                           className={cn(
-                            "block px-5 py-3 text-sm font-medium tracking-wide transition-colors hover:bg-zinc-50 hover:text-orange-500 normal-case",
+                            "block px-5 py-3 text-sm font-medium tracking-wide transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-orange-500 normal-case",
                             pathname === child.href
-                              ? "text-orange-500 bg-zinc-50"
-                              : "text-zinc-600"
+                              ? "text-orange-500 bg-zinc-50 dark:bg-zinc-800 font-semibold"
+                              : "text-zinc-600 dark:text-zinc-300"
                           )}
                         >
                           {child.label}

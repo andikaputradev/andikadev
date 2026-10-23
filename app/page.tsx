@@ -155,7 +155,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 pb-8 lg:pb-0 pt-4">
         {/* Left Column: Text Content */}
-        <div className="lg:col-span-7 flex flex-col pt-4 relative justify-center">
+        <div className="lg:col-span-7 flex flex-col pt-4 relative justify-center animate-fade-in">
           {/* Status Pill */}
           <div
             className="inline-flex bg-white/60 max-w-full rounded-2xl sm:rounded-full mb-8 py-1.5 pr-5 pl-1.5 shadow-sm backdrop-blur-sm items-center"
@@ -166,23 +166,23 @@ export default function HomePage() {
               '--border-radius-before': '9999px',
             }}
           >
-            <div className="w-6 h-6 shrink-0 rounded-full bg-zinc-900 text-white flex items-center justify-center mr-3">
+            <div className="w-6 h-6 shrink-0 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 flex items-center justify-center mr-3">
               <Award className="w-3.5 h-3.5" />
             </div>
-            <span className="text-xs font-medium text-zinc-600 tracking-wide">
-              <span className="text-zinc-900">Wahyu Andika Putra · Terbuka untuk diskusi proyek</span>
+            <span className="text-xs font-medium text-zinc-600 dark:text-zinc-300 tracking-wide">
+              <span className="text-zinc-900 dark:text-zinc-100">Wahyu Andika Putra · Terbuka untuk diskusi proyek</span>
             </span>
           </div>
 
           {/* Headline with outcome for the reader */}
-          <h1 className="leading-[0.95] lg:text-[4.25rem] text-4xl font-medium text-zinc-900 tracking-tighter mb-8">
+          <h1 className="leading-[0.95] lg:text-[4.25rem] text-4xl font-medium text-zinc-900 dark:text-zinc-100 tracking-tighter mb-8">
             Website dan aplikasi andal
             {' '}<span className="block gradient-text font-light">yang siap memajukan</span>
             {' '}<span className="block">bisnis Anda</span>
           </h1>
 
           {/* Subheadline (one single clear sentence) */}
-          <p className="text-sm text-zinc-600 font-medium max-w-xl mb-10 leading-relaxed tracking-wide border-l-2 border-zinc-200 pl-6">
+          <p className="text-sm text-zinc-600 dark:text-zinc-300 font-medium max-w-xl mb-10 leading-relaxed tracking-wide border-l-2 border-zinc-200 dark:border-zinc-700 pl-6">
             Saya Wahyu Andika Putra, pengembang yang merancang website, mengembangkan aplikasi mobile, membantu rilis Play Store, serta memperkuat keamanan sistem untuk klien di Wonosobo, Semarang, dan sekitarnya.
           </p>
 
@@ -201,7 +201,7 @@ export default function HomePage() {
             </a>
             <Link
               href="/layanan"
-              className="btn-secondary hover:bg-zinc-50 transition-all flex text-sm font-medium rounded-full py-3 px-6 gap-2 items-center"
+              className="btn-secondary hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all flex text-sm font-medium rounded-full py-3 px-6 gap-2 items-center text-zinc-700 dark:text-zinc-100"
               style={{
                 boxShadow: '0 18px 35px rgba(31, 41, 55, 0.25), 0 0 0 1px rgba(209, 213, 219, 0.3)',
                 position: 'relative',
@@ -210,11 +210,11 @@ export default function HomePage() {
                 '--border-radius-before': '9999px',
               }}
             >
-              <span className="text-sm font-medium text-black/60 tracking-tight">Lihat layanan</span>
-              <ArrowRight className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm font-medium text-zinc-700 dark:text-zinc-100 tracking-tight">Lihat layanan</span>
+              <ArrowRight className="w-4 h-4 text-zinc-500 dark:text-zinc-300" />
             </Link>
           </div>
-          <p className="text-xs text-zinc-500 font-medium lg:mb-14 mb-10">
+          <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium lg:mb-14 mb-10">
             Pesan Anda dibaca langsung oleh pengembang tanpa perantara.
           </p>
 
@@ -222,37 +222,37 @@ export default function HomePage() {
           <div className="flex flex-wrap gap-2 md:gap-6 mt-auto items-center">
             <div className="flex items-center group cursor-default">
               <div className="px-1 text-center">
-                <p className="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest mb-1 group-hover:text-zinc-600 transition-colors">
+                <p className="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest mb-1 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
                   Fokus
                 </p>
-                <p className="text-sm text-zinc-900 font-medium">Web dan Mobile</p>
+                <p className="text-sm text-zinc-900 dark:text-zinc-100 font-medium">Web dan Mobile</p>
               </div>
               <div className="curve-separator opacity-60 ml-4 md:ml-8" />
             </div>
 
             <div className="flex items-center group cursor-default">
               <div className="px-1 text-center">
-                <p className="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest mb-1 group-hover:text-zinc-600 transition-colors">
+                <p className="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest mb-1 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
                   Layanan Khusus
                 </p>
-                <p className="text-sm text-zinc-900 font-medium">Upload Play Store</p>
+                <p className="text-sm text-zinc-900 dark:text-zinc-100 font-medium">Upload Play Store</p>
               </div>
               <div className="curve-separator md:ml-8 opacity-60 ml-4" />
             </div>
 
             <div className="flex items-center group cursor-default">
               <div className="px-1 text-center">
-                <p className="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest mb-1 group-hover:text-zinc-600 transition-colors">
+                <p className="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest mb-1 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
                   Lokasi
                 </p>
-                <p className="text-sm text-zinc-900 font-medium">Wonosobo / Semarang</p>
+                <p className="text-sm text-zinc-900 dark:text-zinc-100 font-medium">Wonosobo / Semarang</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Right Column: Visual Card */}
-        <div className="lg:col-span-5 h-full min-h-[420px] lg:min-h-0 relative group perspective-midrange">
+        <div className="lg:col-span-5 h-full min-h-[420px] lg:min-h-0 relative group perspective-midrange animate-slide-up">
           <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden shadow-2xl shadow-zinc-900/20 transition-all duration-700 ease-out border border-white/20">
             <Image
               src="/foto-profil.webp"
@@ -329,7 +329,7 @@ export default function HomePage() {
           </div>
           <Link
             href="/layanan"
-            className="group flex items-center gap-2 hover:text-orange-500 transition-colors text-sm font-normal text-zinc-900 pb-1"
+            className="group flex items-center gap-2 hover:text-orange-500 dark:hover:text-orange-400 transition-colors text-sm font-normal text-zinc-900 dark:text-zinc-100 pb-1"
           >
             Lihat semua layanan
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -401,17 +401,17 @@ export default function HomePage() {
 
         {/* FAQ */}
         <section className="max-w-3xl w-full mt-6" aria-labelledby="home-faq">
-          <h2 id="home-faq" className="text-2xl md:text-3xl font-medium text-zinc-900 tracking-tighter mb-6">
+          <h2 id="home-faq" className="text-2xl md:text-3xl font-medium text-zinc-900 dark:text-zinc-100 tracking-tighter mb-6">
             Pertanyaan seputar kerja sama
           </h2>
           <div className="space-y-3">
             {faqs.map((faq) => (
-              <details key={faq.question} className="group bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-sm open:shadow-md">
-                <summary className="cursor-pointer list-none font-semibold text-zinc-900 flex items-center justify-between gap-4">
+              <details key={faq.question} className="group bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl p-5 shadow-sm open:shadow-md border border-zinc-200/60 dark:border-zinc-800">
+                <summary className="cursor-pointer list-none font-semibold text-zinc-900 dark:text-zinc-100 flex items-center justify-between gap-4">
                   {faq.question}
                   <span className="text-orange-500 transition-transform group-open:rotate-45 text-xl leading-none">+</span>
                 </summary>
-                <p className="mt-3 text-sm text-zinc-600 leading-relaxed">{faq.answer}</p>
+                <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">{faq.answer}</p>
               </details>
             ))}
           </div>

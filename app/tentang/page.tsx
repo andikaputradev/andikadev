@@ -245,7 +245,7 @@ export default function AboutPage() {
             </a>
             <Link
               href="/layanan"
-              className="btn-secondary hover:bg-zinc-50 transition-all flex text-sm font-medium rounded-full py-3 px-6 gap-2 items-center"
+              className="btn-secondary hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all flex text-sm font-medium rounded-full py-3 px-6 gap-2 items-center text-zinc-700 dark:text-zinc-100"
               style={{
                 boxShadow: '0 18px 35px rgba(31, 41, 55, 0.15), 0 0 0 1px rgba(209, 213, 219, 0.3)',
                 position: 'relative',
@@ -254,8 +254,8 @@ export default function AboutPage() {
                 '--border-radius-before': '9999px',
               }}
             >
-              <span className="text-sm font-medium text-black/60 tracking-tight">Lihat daftar layanan</span>
-              <ArrowRight className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm font-medium text-zinc-700 dark:text-zinc-100 tracking-tight">Lihat daftar layanan</span>
+              <ArrowRight className="w-4 h-4 text-zinc-500 dark:text-zinc-300" />
             </Link>
           </div>
 

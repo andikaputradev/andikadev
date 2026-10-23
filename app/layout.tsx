@@ -41,16 +41,36 @@ export const metadata: Metadata = {
     template: `%s${siteConfig.titleSuffix}`
   },
   description: siteConfig.description,
+  keywords: [
+    'jasa pembuatan website',
+    'jasa pembuatan aplikasi',
+    'jasa upload play store',
+    'jasa upload aplikasi tanpa closed testing',
+    'keamanan siber defensif',
+    'pengembang web3 blockchain',
+    'Wahyu Andika Putra',
+    'Andika Putra Dev',
+    'jasa website wonosobo',
+    'jasa website semarang',
+    'developer website indonesia',
+    'jasa landing page cepat',
+    'aplikasi android profesional'
+  ],
   authors: [{ name: siteConfig.author, url: `${productionUrl}/tentang` }],
   creator: siteConfig.author,
   publisher: siteConfig.name,
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/icon.png', sizes: '192x192', type: 'image/png' },
+    ],
     shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
     other: {
       rel: 'apple-touch-icon-precomposed',
-      url: '/favicon.ico',
+      url: '/apple-icon.png',
     },
   },
   openGraph: {

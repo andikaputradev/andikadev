@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Mail, MapPin, Send, MessageSquare, ArrowUpRight, Phone, SendHorizontal } from 'lucide-react'
+import { Mail, MapPin, Send, MessageSquare, ArrowUpRight, ArrowRight, Phone, SendHorizontal } from 'lucide-react'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { ContactForm } from '@/components/contact-form'
@@ -122,9 +122,10 @@ export default function ContactPage() {
           </a>
           <Link
             href="#contact-form"
-            className="btn-secondary hover:bg-zinc-50 transition-all inline-flex text-sm font-medium rounded-full py-3 px-6 gap-2 items-center text-zinc-700"
+            className="btn-secondary hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all inline-flex text-sm font-medium rounded-full py-3 px-6 gap-2 items-center text-zinc-700 dark:text-zinc-100"
           >
             <span className="text-sm font-medium tracking-tight">Buka formulir konsultasi</span>
+            <ArrowRight className="w-4 h-4 text-zinc-500 dark:text-zinc-300" />
           </Link>
         </div>
       </section>

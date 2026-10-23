@@ -12,13 +12,13 @@ export function PageHero({ eyebrow, title, accent, children, actions }: PageHero
   return (
     <section className="text-center pt-4 pb-16">
       {eyebrow && (
-        <div className="inline-flex bg-white/60 rounded-full mb-8 py-1.5 pr-4 pl-3 shadow-sm backdrop-blur-sm items-center gap-2">
+        <div className="inline-flex bg-white/60 dark:bg-zinc-800/60 rounded-full mb-8 py-1.5 pr-4 pl-3 shadow-sm backdrop-blur-sm items-center gap-2 border border-zinc-200/40 dark:border-zinc-700/60">
           {eyebrow.icon}
-          <span className="text-xs font-semibold tracking-wider uppercase text-zinc-600">{eyebrow.label}</span>
+          <span className="text-xs font-semibold tracking-wider uppercase text-zinc-600 dark:text-zinc-300">{eyebrow.label}</span>
         </div>
       )}
 
-      <h1 className="leading-[0.95] lg:text-[4rem] text-4xl font-medium text-zinc-900 tracking-tighter mb-6">
+      <h1 className="leading-[0.95] lg:text-[4rem] text-4xl font-medium text-zinc-900 dark:text-zinc-100 tracking-tighter mb-6">
         {title}
         {accent && (
           <>
@@ -29,7 +29,7 @@ export function PageHero({ eyebrow, title, accent, children, actions }: PageHero
       </h1>
 
       {children && (
-        <div className="text-base md:text-lg text-zinc-600 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+        <div className="text-base md:text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
           {children}
         </div>
       )}

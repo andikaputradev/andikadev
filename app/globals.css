@@ -680,12 +680,29 @@ body {
 .dark .btn-secondary {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.06));
   box-shadow: 0 18px 35px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .dark .btn-secondary:hover {
   background-color: rgb(39, 39, 42);
   color: rgb(255, 255, 255);
+}
+
+.dark .btn-secondary span,
+.dark .btn-secondary p {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .btn-secondary svg {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark .text-black\/60 {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dark .text-neutral-800 {
+  color: rgb(244, 244, 245);
 }
 
 .dark .gradient-text {
@@ -753,6 +770,17 @@ body {
 
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
+}
+
+details[open] > p {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+@media (hover: hover) {
+  .bento-card {
+    will-change: transform;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 }
 
 @keyframes fadeIn {

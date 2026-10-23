@@ -7,7 +7,7 @@ export function BlogPostContent({ content, estimatedReadTime = 5 }: BlogPostCont
   return (
     <div
       style={{ minHeight: `${estimatedReadTime * 100}px` }}
-      className="prose prose-lg dark:prose-invert max-w-none text-zinc-800 leading-relaxed"
+      className="prose prose-lg dark:prose-invert max-w-none text-zinc-800 dark:text-zinc-200 leading-relaxed"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   )
