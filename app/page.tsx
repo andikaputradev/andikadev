@@ -153,9 +153,9 @@ export default function HomePage() {
       <JsonLd data={structuredData} />
 
       {/* Hero Section */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 pb-8 lg:pb-0 pt-4">
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 pb-8 lg:pb-0 pt-4 items-start">
         {/* Left Column: Text Content */}
-        <div className="lg:col-span-7 flex flex-col pt-4 relative justify-center animate-fade-in">
+        <div className="lg:col-span-7 flex flex-col pt-4 relative justify-center">
           {/* Status Pill */}
           <div
             className="inline-flex bg-white/60 max-w-full rounded-2xl sm:rounded-full mb-8 py-1.5 pr-5 pl-1.5 shadow-sm backdrop-blur-sm items-center"
@@ -252,8 +252,8 @@ export default function HomePage() {
         </div>
 
         {/* Right Column: Visual Card */}
-        <div className="lg:col-span-5 h-full min-h-[420px] lg:min-h-0 relative group perspective-midrange animate-slide-up">
-          <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden shadow-2xl shadow-zinc-900/20 transition-all duration-700 ease-out border border-white/20">
+        <div className="lg:col-span-5 relative group perspective-midrange">
+          <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden shadow-2xl shadow-zinc-900/20 border border-white/20">
             <Image
               src="/foto-profil.webp"
               alt="Foto Wahyu Andika Putra"

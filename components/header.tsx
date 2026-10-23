@@ -26,8 +26,8 @@ interface HeaderProps {
 export function Header({ hasBlog = false }: HeaderProps) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
+  const [hasBeenOpened, setHasBeenOpened] = useState(false)
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
-  const [mounted, setMounted] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const hoverTimeout = useRef<NodeJS.Timeout | null>(null)
 
@@ -59,17 +59,17 @@ export function Header({ hasBlog = false }: HeaderProps) {
     hoverTimeout.current = setTimeout(() => setActiveDropdown(null), 200)
   }
 
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setMounted(true))
-    return () => cancelAnimationFrame(id)
-  }, [])
-
   // Toggle submenu expansion
   const toggleSubmenu = (href: string) => {
     setExpandedItems(prev => ({
       ...prev,
       [href]: !prev[href]
     }))
+  }
+
+  const handleToggleMenu = () => {
+    setHasBeenOpened(true)
+    setIsOpen(prev => !prev)
   }
 
   // Prevent scrolling when menu is open
@@ -83,28 +83,6 @@ export function Header({ hasBlog = false }: HeaderProps) {
       document.body.style.overflow = 'unset'
     }
   }, [isOpen])
-
-  if (!mounted) {
-    const headerClass =
-      "flex md:mb-16 md:gap-0 z-50 mb-10 relative gap-x-6 gap-y-6 items-center justify-between pt-6 md:pt-10 xl:pt-12 px-6 md:px-10 xl:px-12"
-    return (
-      <header className={headerClass}>
-        <div className="flex items-center gap-2.5 text-zinc-900 dark:text-zinc-100">
-          <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-zinc-200/60 dark:border-zinc-700 shadow-xs">
-            <Image
-              src="/logo.png"
-              alt="Logo Andika Putra Dev"
-              width={32}
-              height={32}
-              priority
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <span className="text-lg font-medium tracking-tight">ANDIKA<span className="text-zinc-400">DEV</span></span>
-        </div>
-      </header>
-    )
-  }
 
   const headerClass =
     "flex md:mb-16 md:gap-0 z-50 mb-10 relative gap-x-6 gap-y-6 items-center justify-between pt-6 md:pt-10 xl:pt-12 px-6 md:px-10 xl:px-12"
@@ -206,7 +184,9 @@ export function Header({ hasBlog = false }: HeaderProps) {
         <ThemeToggle />
         <button
           className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={handleToggleMenu}
+          onMouseEnter={() => import("./mobile-menu")}
+          onTouchStart={() => import("./mobile-menu")}
           aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
           aria-expanded={isOpen}
         >
@@ -215,14 +195,16 @@ export function Header({ hasBlog = false }: HeaderProps) {
       </div>
 
       {/* Mobile Navigation Overlay (lazy-loaded with framer-motion) */}
-      <MobileMenu
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        pathname={pathname}
-        navigationItems={navigationItems}
-        expandedItems={expandedItems}
-        toggleSubmenu={toggleSubmenu}
-      />
+      {hasBeenOpened && (
+        <MobileMenu
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          pathname={pathname}
+          navigationItems={navigationItems}
+          expandedItems={expandedItems}
+          toggleSubmenu={toggleSubmenu}
+        />
+      )}
     </header>
   )
 }
