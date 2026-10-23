@@ -114,6 +114,39 @@ const techStackGroups = [
   },
 ]
 
+const featuredProjects = [
+  {
+    title: 'Media Pembelajaran Jarkom',
+    category: 'Aplikasi Android',
+    description:
+      'Platform pembelajaran jaringan komputer dan internet di Android dengan materi interaktif, visualisasi perangkat 3D, simulasi topologi, dan evaluasi belajar terstruktur.',
+    image:
+      'https://res.cloudinary.com/aochqjqi/image/upload/f_auto,q_auto,c_fill,w_1020/portfolio/projects/mvvh3x2012tr2zsgz2zk',
+    href: 'https://wahyuandikaputra.my.id/work/media-pembelajaran-jarkom/',
+    tech: ['Flutter', 'Dart', 'Firebase Auth'],
+  },
+  {
+    title: 'Fake GPS',
+    category: 'Aplikasi Android',
+    description:
+      'Aplikasi Android untuk pengujian dan pengembangan GPS dengan clean architecture dan native Kotlin, dilengkapi simulasi rute, pengujian geofence, dan keamanan biometrik.',
+    image:
+      'https://res.cloudinary.com/aochqjqi/image/upload/f_auto,q_auto,c_fill,w_1020/portfolio/projects/akdvfpkohdrt8hny7g0n',
+    href: 'https://wahyuandikaputra.my.id/work/fakegps/',
+    tech: ['Flutter', 'Dart', 'Kotlin'],
+  },
+  {
+    title: 'Akademi Crypto',
+    category: 'Platform Web dan Blockchain',
+    description:
+      'Platform edukasi cryptocurrency dan blockchain dengan modul kursus terstruktur, video materi, pelacak progres belajar, sertifikat kelulusan, dan administrasi terpusat.',
+    image:
+      'https://wahyuandikaputra.my.id/_image?href=%2F_astro%2Fcover.DRPDG_dA.jpg&w=1020&h=498&f=webp',
+    href: 'https://wahyuandikaputra.my.id/work/akademi-crypto/',
+    tech: ['Express.js', 'MongoDB', 'Blockchain'],
+  },
+]
+
 export default function AboutPage() {
   return (
     <>
@@ -375,6 +408,71 @@ export default function AboutPage() {
                 <ArrowRight className="w-3.5 h-3.5 ml-1" />
               </div>
             </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Separator */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-zinc-200 to-transparent my-12 lg:my-16 opacity-60" />
+
+      {/* Featured Projects Section */}
+      <section className="mb-12 lg:mb-16">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-medium text-zinc-900 tracking-tighter mb-4">
+            Proyek dan <span className="gradient-text">portofolio pilihan</span>
+          </h2>
+          <p className="text-base text-zinc-500 max-w-xl mx-auto font-medium">
+            Implementasi nyata dalam pembuatan aplikasi mobile, website, dan platform digital terstruktur.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredProjects.map((project) => (
+            <div
+              key={project.title}
+              className="bg-zinc-50 rounded-2xl p-6 text-left border border-zinc-200/60 transition-all hover:border-zinc-300 flex flex-col justify-between group"
+            >
+              <div>
+                <div className="relative aspect-video w-full rounded-xl overflow-hidden mb-5 bg-zinc-200 border border-zinc-200/80">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <span className="text-xs font-semibold text-orange-500 uppercase tracking-wider mb-2 block">
+                  {project.category}
+                </span>
+                <h3 className="text-xl font-semibold text-zinc-900 mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-zinc-600 leading-relaxed mb-4">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2.5 py-1 bg-white rounded-lg text-xs font-medium text-zinc-700 border border-zinc-200/80 shadow-2xs"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <a
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 hover:text-orange-500 transition-colors pt-2 border-t border-zinc-200/60"
+              >
+                <span>Lihat studi kasus proyek</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-orange-500" />
+              </a>
+            </div>
           ))}
         </div>
       </section>
