@@ -20,7 +20,13 @@ const contentSecurityPolicy = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 2678400,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
