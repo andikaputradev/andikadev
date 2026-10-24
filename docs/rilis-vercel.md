@@ -55,7 +55,26 @@ Agar email dari formulir kontak tidak masuk ke folder spam:
    - Rekaman DMARC (tipe TXT): Nama `_dmarc.andikadev.com`, Isi `v=DMARC1; p=none; rua=mailto:dmarc-reports@andikadev.com`.
 4. Klik tombol "Verify DNS Records" di dasbor Resend sampai status domain terverifikasi.
 
-## 5. Langkah Verifikasi Pasca Rilis
+## 5. Konfigurasi Vercel Web Analytics dan Speed Insights
+
+Untuk mulai menghitung pengunjung dan tayangan halaman (page views) di dasbor Vercel:
+
+1. **Pemasangan Paket (Install our package)**:
+   Paket resmi `@vercel/analytics` sudah terpasang di dependensi proyek via pnpm (`pnpm add @vercel/analytics`).
+
+2. **Penyematan Komponen React (Add the React component)**:
+   Komponen `<Analytics />` diimpor dari `@vercel/analytics/next` dan dipasang ke dalam tata letak utama (`app/layout.tsx` via pembungkus `AnalyticsWrapper` dan `AnalyticsProvider`). Komponen ini aktif secara otomatis di lingkungan produksi Vercel:
+   ```tsx
+   import { Analytics } from "@vercel/analytics/next"
+   ```
+
+3. **Deploy dan Kunjungi Situs (Deploy & Visit your Site)**:
+   - Deploy perubahan terbaru Anda ke Vercel.
+   - Kunjungi deployment produksi di `https://andikadev.com` dan buka beberapa halaman untuk mengumpulkan data tayangan halaman (page views).
+   - Buka tab "Analytics" pada dasbor proyek Vercel Anda.
+   - Jika data analitik belum tampil setelah 30 detik, pastikan ekstensi pemblokir konten (content blocker atau ad blocker) pada peramban dimatikan, lalu lakukan navigasi berpindah-pindah antarhalaman situs.
+
+## 6. Langkah Verifikasi Pasca Rilis
 
 Lakukan daftar periksa berikut segera setelah deployment produksi aktif:
 1. Akses Domain Produksi: Buka `https://andikadev.com` dan periksa status sertifikat HTTPS.
@@ -75,7 +94,7 @@ Lakukan daftar periksa berikut segera setelah deployment produksi aktif:
    - Periksa kode sumber halaman: pastikan terdapat `<meta name="robots" content="noindex, nofollow">`.
    - Buka `https://<preview-domain>/robots.txt`: pastikan memuat aturan `Disallow: /`.
 
-## 6. Prosedur Rollback Cepat
+## 7. Prosedur Rollback Cepat
 
 Jika ditemukan kendala kritis pada versi produksi baru:
 1. Buka menu Deployments pada dasbor proyek di Vercel.

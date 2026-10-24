@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from 'react'
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/next"
 
 const emptySubscribe = () => () => {}
 
