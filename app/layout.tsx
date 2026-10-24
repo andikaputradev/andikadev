@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Inter } from "next/font/google";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -186,6 +187,18 @@ export default async function RootLayout({
 
           <AnalyticsWrapper />
           <ServiceWorkerRegistration />
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-KPW9PV8X3X"
+            strategy="afterInteractive"
+          />
+          <Script id="google-tag-init" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-KPW9PV8X3X');
+            `}
+          </Script>
         </ThemeProvider>
       </body>
     </html>

@@ -62,7 +62,7 @@ export default function PrivacyPolicyPage() {
               </Link>
             </Button>
             <p className="text-wp-navy/70 dark:text-muted-foreground text-sm">
-              Terakhir diperbarui: 23 Oktober 2026
+              Terakhir diperbarui: 24 Oktober 2026
             </p>
           </div>
 
@@ -82,6 +82,9 @@ export default function PrivacyPolicyPage() {
                 <li>
                   <strong>Analitik performa tanpa data pribadi (Vercel Analytics dan Speed Insights):</strong> Situs ini menggunakan modul analitik dari Vercel untuk memantau metrik performa teknis (Core Web Vitals, waktu respons server, jenis peramban, dan sistem operasi). Pengukuran ini berjalan tanpa melacak profil individu, tanpa kuki pelacak lintas situs, dan tanpa menyimpan alamat IP pribadi pengunjung.
                 </li>
+                <li>
+                  <strong>Analitik kunjungan situs (Google Analytics 4 / Google tag):</strong> Situs ini menggunakan Google Analytics untuk mengukur volume kunjungan halaman, rujukan lalu lintas, serta interaksi umum secara agregat guna meningkatkan kegunaan konten dan keandalan sistem. Pemrosesan ini menggunakan data agregat tanpa mengidentifikasi data sensitif atau identitas pribadi Anda secara langsung.
+                </li>
               </ul>
 
               <h2>Pemroses data pihak ketiga</h2>
@@ -94,6 +97,9 @@ export default function PrivacyPolicyPage() {
                 </li>
                 <li>
                   <strong>Vercel Inc.:</strong> Penyedia infrastruktur serverless hosting yang menyajikan aset situs web dan menjalankan server actions dengan standar keamanan modern.
+                </li>
+                <li>
+                  <strong>Google LLC (Google Analytics):</strong> Penyedia layanan analitik lalu lintas web yang memproses data agregat interaksi pengunjung untuk pemantauan performa dan optimalisasi situs.
                 </li>
               </ul>
 

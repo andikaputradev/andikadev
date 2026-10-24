@@ -6,6 +6,7 @@ const envSchema = z.object({
     .string()
     .url('NEXT_PUBLIC_SITE_URL harus berupa URL yang valid (misalnya https://andikadev.com)')
     .default('https://andikadev.com'),
+  NEXT_PUBLIC_GA_ID: z.string().optional().default('G-KPW9PV8X3X'),
   RESEND_API_KEY: z.string().optional(),
   EMAIL_TO: z.string().optional(),
   EMAIL_FROM: z.string().optional(),
@@ -20,6 +21,7 @@ function validateEnv(): Env {
   const result = envSchema.safeParse({
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     EMAIL_TO: process.env.EMAIL_TO,
     EMAIL_FROM: process.env.EMAIL_FROM,
